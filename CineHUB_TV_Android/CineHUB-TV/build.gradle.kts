@@ -12,7 +12,7 @@ android {
         targetSdk = 35
         versionCode = 40
         versionName = "1.5.0"
-        buildConfigField("String", "CINEHUB_REMOTE_URL", """")
+        buildConfigField("String", "CINEHUB_REMOTE_URL", "\"\"")
     }
 
     buildTypes {
