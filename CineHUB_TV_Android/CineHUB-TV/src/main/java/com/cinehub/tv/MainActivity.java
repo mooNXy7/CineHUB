@@ -3,11 +3,8 @@ package com.cinehub.tv;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
-import androidx.core.content.FileProvider;
 import org.json.JSONObject;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -71,40 +68,25 @@ public class MainActivity extends AppCompatActivity {
         registerReceiver(downloadReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
         checkForUpdate();
     }
-
     private String resolveStartUrl() {
         String remote = BuildConfig.CINEHUB_REMOTE_URL;
-        if (remote != null && !remote.trim().isEmpty())
-            return remote + (remote.contains("?") ? "&" : "?") + "tv=1";
+        if (remote != null && !remote.trim().isEmpty()) return remote + (remote.contains("?") ? "&" : "?") + "tv=1";
         return LOCAL_URL;
     }
-
     private void configureWebView() {
         WebSettings s = webView.getSettings();
-        s.setJavaScriptEnabled(true);
-        s.setDomStorageEnabled(true);
-        s.setDatabaseEnabled(true);
-        s.setMediaPlaybackRequiresUserGesture(false);
-        s.setAllowFileAccess(true);
-        s.setAllowContentAccess(true);
-        s.setSupportZoom(false);
-        s.setBuiltInZoomControls(false);
-        s.setDisplayZoomControls(false);
+        s.setJavaScriptEnabled(true); s.setDomStorageEnabled(true); s.setDatabaseEnabled(true);
+        s.setMediaPlaybackRequiresUserGesture(false); s.setAllowFileAccess(true); s.setAllowContentAccess(true);
+        s.setSupportZoom(false); s.setBuiltInZoomControls(false); s.setDisplayZoomControls(false);
         s.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.5.0");
-        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK))
-            WebSettingsCompat.setForceDark(s, WebSettingsCompat.FORCE_DARK_OFF);
-        webView.setBackgroundColor(Color.BLACK);
-        webView.setFocusable(true);
-        webView.requestFocus();
-
+        s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.5.0-buildfix");
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) WebSettingsCompat.setForceDark(s, WebSettingsCompat.FORCE_DARK_OFF);
+        webView.setBackgroundColor(Color.BLACK); webView.setFocusable(true); webView.requestFocus();
         webView.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                Uri uri=request.getUrl();
-                String scheme=uri.getScheme();
+                Uri uri=request.getUrl(); String scheme=uri.getScheme();
                 if ("http".equalsIgnoreCase(scheme)||"https".equalsIgnoreCase(scheme)) {
-                    String host=uri.getHost();
-                    String current=Uri.parse(resolveStartUrl()).getHost();
+                    String host=uri.getHost(); String current=Uri.parse(resolveStartUrl()).getHost();
                     if(current==null||current.equalsIgnoreCase(host)) return false;
                     try { startActivity(new Intent(Intent.ACTION_VIEW,uri)); } catch(ActivityNotFoundException ignored){}
                     return true;
@@ -119,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
         webView.setDownloadListener((url,userAgent,contentDisposition,mimeType,contentLength)->enqueueDownload(url,userAgent,mimeType));
         webView.setOnLongClickListener(v->true);
     }
-
     private void checkForUpdate(){
         updateExecutor.execute(() -> {
             HttpURLConnection connection = null;
@@ -130,89 +111,39 @@ public class MainActivity extends AppCompatActivity {
                 try (InputStream in = connection.getInputStream()) {
                     byte[] data = in.readAllBytes();
                     JSONObject json = new JSONObject(new String(data, java.nio.charset.StandardCharsets.UTF_8));
-                    int remoteCode = json.optInt("versionCode", CURRENT_VERSION_CODE);
-                    String apkUrl = json.optString("apkUrl", "");
-                    if (remoteCode > CURRENT_VERSION_CODE && !apkUrl.isEmpty()) {
-                        mainHandler.post(() -> enqueueUpdate(apkUrl, json.optString("version", "nova versão")));
-                    }
+                    int remoteCode = json.optInt("versionCode", CURRENT_VERSION_CODE); String apkUrl = json.optString("apkUrl", "");
+                    if (remoteCode > CURRENT_VERSION_CODE && !apkUrl.isEmpty()) mainHandler.post(() -> enqueueUpdate(apkUrl, json.optString("version", "nova versão")));
                 }
-            } catch (Exception ignored) { }
-            finally { if (connection != null) connection.disconnect(); }
+            } catch (Exception ignored) { } finally { if (connection != null) connection.disconnect(); }
+        });
     }
-
     private void enqueueUpdate(String url, String version){
         try {
             DownloadManager.Request r = new DownloadManager.Request(Uri.parse(url));
-            r.setTitle("CineHUB TV "+version);
-            r.setDescription("Baixando atualização");
-            r.setMimeType("application/vnd.android.package-archive");
+            r.setTitle("CineHUB TV "+version); r.setDescription("Baixando atualização"); r.setMimeType("application/vnd.android.package-archive");
             r.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             r.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, "CineHUB-TV-update.apk");
             pendingDownloadId = ((DownloadManager)getSystemService(DOWNLOAD_SERVICE)).enqueue(r);
             Toast.makeText(this, "Nova versão encontrada. Download iniciado.", Toast.LENGTH_LONG).show();
         } catch (Exception ignored) { }
     }
-
     private void installApk(Uri uri){
-        try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(uri, "application/vnd.android.package-archive");
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        } catch (Exception e) {
-            Toast.makeText(this, "Atualização baixada. Abra o APK em Downloads para instalar.", Toast.LENGTH_LONG).show();
-        }
+        try { Intent intent = new Intent(Intent.ACTION_VIEW); intent.setDataAndType(uri, "application/vnd.android.package-archive"); intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK); startActivity(intent); }
+        catch (Exception e) { Toast.makeText(this, "Atualização baixada. Abra o APK em Downloads para instalar.", Toast.LENGTH_LONG).show(); }
     }
-
-    @Override protected void onDestroy(){
-        try { unregisterReceiver(downloadReceiver); } catch (Exception ignored) { }
-        updateExecutor.shutdownNow();
-        super.onDestroy();
-    }
-
+    @Override protected void onDestroy(){ try { unregisterReceiver(downloadReceiver); } catch (Exception ignored) { } updateExecutor.shutdownNow(); super.onDestroy(); }
     private void enqueueDownload(String url,String userAgent,String mimeType){
-        try{
-            DownloadManager.Request r=new DownloadManager.Request(Uri.parse(url));
-            r.setTitle("CineHUB TV");
-            r.setDescription("Download iniciado");
-            if(mimeType!=null) r.setMimeType(mimeType);
-            if(userAgent!=null) r.addRequestHeader("User-Agent",userAgent);
-            r.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-            r.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"CineHUB-"+System.currentTimeMillis());
-            ((DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE)).enqueue(r);
-            Toast.makeText(this,"Download iniciado",Toast.LENGTH_SHORT).show();
+        try{ DownloadManager.Request r=new DownloadManager.Request(Uri.parse(url)); r.setTitle("CineHUB TV"); r.setDescription("Download iniciado");
+            if(mimeType!=null) r.setMimeType(mimeType); if(userAgent!=null) r.addRequestHeader("User-Agent",userAgent);
+            r.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED); r.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"CineHUB-"+System.currentTimeMillis());
+            ((DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE)).enqueue(r); Toast.makeText(this,"Download iniciado",Toast.LENGTH_SHORT).show();
         }catch(Exception e){ Toast.makeText(this,"Não foi possível iniciar o download",Toast.LENGTH_SHORT).show(); }
     }
-
-    private void enterFullscreen(View view,WebChromeClient.CustomViewCallback callback){
-        if(fullscreenView!=null){callback.onCustomViewHidden();return;}
-        fullscreenView=view; fullscreenCallback=callback; webView.setVisibility(View.GONE);
-        ((android.view.ViewGroup)findViewById(R.id.root)).addView(view,new android.view.ViewGroup.LayoutParams(-1,-1));
-        hideSystemUi();
-    }
-    private void exitFullscreen(){
-        if(fullscreenView==null)return;
-        ((android.view.ViewGroup)findViewById(R.id.root)).removeView(fullscreenView);
-        fullscreenView=null;
-        if(fullscreenCallback!=null){fullscreenCallback.onCustomViewHidden();fullscreenCallback=null;}
-        webView.setVisibility(View.VISIBLE); webView.requestFocus(); showSystemUi();
-    }
+    private void enterFullscreen(View view,WebChromeClient.CustomViewCallback callback){ if(fullscreenView!=null){callback.onCustomViewHidden();return;} fullscreenView=view; fullscreenCallback=callback; webView.setVisibility(View.GONE); ((android.view.ViewGroup)findViewById(R.id.root)).addView(view,new android.view.ViewGroup.LayoutParams(-1,-1)); hideSystemUi(); }
+    private void exitFullscreen(){ if(fullscreenView==null)return; ((android.view.ViewGroup)findViewById(R.id.root)).removeView(fullscreenView); fullscreenView=null; if(fullscreenCallback!=null){fullscreenCallback.onCustomViewHidden();fullscreenCallback=null;} webView.setVisibility(View.VISIBLE); webView.requestFocus(); showSystemUi(); }
     private void hideSystemUi(){getWindow().getDecorView().setSystemUiVisibility(5894);}
     private void showSystemUi(){getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE);}
-
-    @Override public boolean dispatchKeyEvent(KeyEvent e){
-        if(e.getAction()==KeyEvent.ACTION_DOWN){
-            if(e.getKeyCode()==KeyEvent.KEYCODE_BACK){handleBack();return true;}
-            if(e.getKeyCode()==KeyEvent.KEYCODE_HOME&&webView!=null){
-                webView.evaluateJavascript("window.CineHUBTV&&window.CineHUBTV.goHome&&window.CineHUBTV.goHome();",null);return true;
-            }
-        }
-        return super.dispatchKeyEvent(e);
-    }
+    @Override public boolean dispatchKeyEvent(KeyEvent e){ if(e.getAction()==KeyEvent.ACTION_DOWN){ if(e.getKeyCode()==KeyEvent.KEYCODE_BACK){handleBack();return true;} if(e.getKeyCode()==KeyEvent.KEYCODE_HOME&&webView!=null){ webView.evaluateJavascript("window.CineHUBTV&&window.CineHUBTV.goHome&&window.CineHUBTV.goHome();",null);return true; } } return super.dispatchKeyEvent(e); }
     @Override public void onBackPressed(){handleBack();}
-    private void handleBack(){
-        if(fullscreenView!=null){exitFullscreen();return;}
-        if(webView==null){super.onBackPressed();return;}
-        webView.evaluateJavascript("(function(){try{return !!(window.CineHUBTV&&window.CineHUBTV.back&&window.CineHUBTV.back());}catch(e){return false;}})();",value->{if("false".equals(value))MainActivity.super.onBackPressed();});
-    }
+    private void handleBack(){ if(fullscreenView!=null){exitFullscreen();return;} if(webView==null){super.onBackPressed();return;} webView.evaluateJavascript("(function(){try{return !!(window.CineHUBTV&&window.CineHUBTV.back&&window.CineHUBTV.back());}catch(e){return false;}})();",value->{if("false".equals(value))MainActivity.super.onBackPressed();}); }
 }
