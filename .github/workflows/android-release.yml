@@ -35,12 +35,12 @@ jobs:
       - name: Prepare release asset
         run: |
           mkdir -p release
-          cp "$APK" release/CineHUB-TV-v1.5.0.apk
+          cp "$APK" release/CineHUB-TV-v1.5.1.apk
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.5.0
+          tag_name: v1.5.1
           target_commitish: main
-          name: CineHUB TV v1.5.0
-          files: release/CineHUB-TV-v1.5.0.apk
+          name: CineHUB TV v1.5.1
+          files: release/CineHUB-TV-v1.5.1.apk
           generate_release_notes: true
