@@ -1,6 +1,19 @@
 package com.cinehub.tv;
 
 import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import androidx.core.content.FileProvider;
+import org.json.JSONObject;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -26,6 +39,20 @@ import androidx.webkit.WebViewFeature;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOCAL_URL = "file:///android_asset/cinehub/index.html?tv=1";
+    private static final String UPDATE_URL = "https://cinehub-tv-5fy.pages.dev/update.json";
+    private static final int CURRENT_VERSION_CODE = 40;
+    private final ExecutorService updateExecutor = Executors.newSingleThreadExecutor();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private long pendingDownloadId = -1;
+    private final BroadcastReceiver downloadReceiver = new BroadcastReceiver() {
+        @Override public void onReceive(Context context, Intent intent) {
+            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            if (id != pendingDownloadId) return;
+            DownloadManager dm = (DownloadManager)getSystemService(DOWNLOAD_SERVICE);
+            Uri uri = dm.getUriForDownloadedFile(id);
+            if (uri != null) installApk(uri);
+        }
+    };
     private WebView webView;
     private View fullscreenView;
     private WebChromeClient.CustomViewCallback fullscreenCallback;
@@ -41,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
         webView = findViewById(R.id.webview);
         configureWebView();
         webView.loadUrl(resolveStartUrl());
+        registerReceiver(downloadReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+        checkForUpdate();
     }
 
     private String resolveStartUrl() {
@@ -89,6 +118,56 @@ public class MainActivity extends AppCompatActivity {
         });
         webView.setDownloadListener((url,userAgent,contentDisposition,mimeType,contentLength)->enqueueDownload(url,userAgent,mimeType));
         webView.setOnLongClickListener(v->true);
+    }
+
+    private void checkForUpdate(){
+        updateExecutor.execute(() -> {
+            HttpURLConnection connection = null;
+            try {
+                connection = (HttpURLConnection)new URL(UPDATE_URL).openConnection();
+                connection.setConnectTimeout(5000); connection.setReadTimeout(5000);
+                connection.setRequestProperty("User-Agent","CineHUB-TV/"+CURRENT_VERSION_CODE);
+                try (InputStream in = connection.getInputStream()) {
+                    byte[] data = in.readAllBytes();
+                    JSONObject json = new JSONObject(new String(data, java.nio.charset.StandardCharsets.UTF_8));
+                    int remoteCode = json.optInt("versionCode", CURRENT_VERSION_CODE);
+                    String apkUrl = json.optString("apkUrl", "");
+                    if (remoteCode > CURRENT_VERSION_CODE && !apkUrl.isEmpty()) {
+                        mainHandler.post(() -> enqueueUpdate(apkUrl, json.optString("version", "nova versão")));
+                    }
+                }
+            } catch (Exception ignored) { }
+            finally { if (connection != null) connection.disconnect(); }
+    }
+
+    private void enqueueUpdate(String url, String version){
+        try {
+            DownloadManager.Request r = new DownloadManager.Request(Uri.parse(url));
+            r.setTitle("CineHUB TV "+version);
+            r.setDescription("Baixando atualização");
+            r.setMimeType("application/vnd.android.package-archive");
+            r.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            r.setDestinationInExternalFilesDir(this, Environment.DIRECTORY_DOWNLOADS, "CineHUB-TV-update.apk");
+            pendingDownloadId = ((DownloadManager)getSystemService(DOWNLOAD_SERVICE)).enqueue(r);
+            Toast.makeText(this, "Nova versão encontrada. Download iniciado.", Toast.LENGTH_LONG).show();
+        } catch (Exception ignored) { }
+    }
+
+    private void installApk(Uri uri){
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri, "application/vnd.android.package-archive");
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (Exception e) {
+            Toast.makeText(this, "Atualização baixada. Abra o APK em Downloads para instalar.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override protected void onDestroy(){
+        try { unregisterReceiver(downloadReceiver); } catch (Exception ignored) { }
+        updateExecutor.shutdownNow();
+        super.onDestroy();
     }
 
     private void enqueueDownload(String url,String userAgent,String mimeType){
