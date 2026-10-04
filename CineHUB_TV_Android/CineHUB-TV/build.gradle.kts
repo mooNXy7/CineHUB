@@ -12,16 +12,13 @@ android {
         targetSdk = 35
         versionCode = 41
         versionName = "1.5.1"
-        buildConfigField("String", "CINEHUB_REMOTE_URL", "\"\"\"")
+        buildConfigField("String", "CINEHUB_REMOTE_URL", "\"\"")
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
