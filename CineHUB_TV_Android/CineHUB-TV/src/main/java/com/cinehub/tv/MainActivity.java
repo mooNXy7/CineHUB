@@ -13,7 +13,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.webkit.DownloadManager.Request;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
@@ -94,12 +93,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void enqueueDownload(String url,String userAgent,String mimeType){
         try{
-            Request r=new Request(Uri.parse(url));
+            DownloadManager.Request r=new DownloadManager.Request(Uri.parse(url));
             r.setTitle("CineHUB TV");
             r.setDescription("Download iniciado");
             if(mimeType!=null) r.setMimeType(mimeType);
             if(userAgent!=null) r.addRequestHeader("User-Agent",userAgent);
-            r.setNotificationVisibility(Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+            r.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
             r.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,"CineHUB-"+System.currentTimeMillis());
             ((DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE)).enqueue(r);
             Toast.makeText(this,"Download iniciado",Toast.LENGTH_SHORT).show();
