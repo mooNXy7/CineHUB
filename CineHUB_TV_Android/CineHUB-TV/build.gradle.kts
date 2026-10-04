@@ -10,9 +10,9 @@ android {
         applicationId = "com.cinehub.tv"
         minSdk = 23
         targetSdk = 35
-        versionCode = 40
-        versionName = "1.5.0"
-        buildConfigField("String", "CINEHUB_REMOTE_URL", "\"\"")
+        versionCode = 41
+        versionName = "1.5.1"
+        buildConfigField("String", "CINEHUB_REMOTE_URL", "\"\"\"")
     }
 
     buildTypes {
@@ -25,16 +25,12 @@ android {
         }
     }
 
-    buildFeatures {
-        buildConfig = true
-    }
+    buildFeatures { buildConfig = true }
 }
 
 configurations.all {
     resolutionStrategy.eachDependency {
-        if (requested.group == "org.jetbrains.kotlin") {
-            useVersion("1.8.22")
-        }
+        if (requested.group == "org.jetbrains.kotlin") useVersion("1.8.22")
     }
 }
 
