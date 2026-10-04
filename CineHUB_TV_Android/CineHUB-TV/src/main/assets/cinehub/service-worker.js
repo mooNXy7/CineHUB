@@ -1,5 +1,5 @@
-const CACHE='cinehub-tv-1.3.0';
-const CORE=['./','./index.html','./manifest.json','./src/css/main.css','./src/css/tv.css','./src/js/cinehub.js','./src/js/epg.js','./src/js/largecatalog.js','./src/js/integracoes.js','./src/js/webdata.js','./src/js/motion.js','./src/js/performance.js','./src/js/tv-navigation.js','./dados/canais-m3u8.js','./dados/conteudo/manifest.js','./dados/listas.json'];
+const CACHE='cinehub-tv-1.5.0';
+const CORE=['./','./index.html','./manifest.json','./src/css/main.css','./src/css/tv.css','./src/js/cinehub.js','./src/js/epg.js','./src/js/largecatalog.js','./src/js/integracoes.js','./src/js/webdata.js','./src/js/motion.js','./src/js/performance.js','./src/js/tv-navigation.js','./dados/canais-m3u8.js','./dados/conteudo/manifest.js','./dados/listas.json','./update.json','./dados/listas-status.json'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
 self.addEventListener('fetch',e=>{
