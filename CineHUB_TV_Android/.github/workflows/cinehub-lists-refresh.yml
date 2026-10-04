@@ -1,6 +1,11 @@
 name: CineHUB TV - Atualização de listas
 
 on:
+  push:
+    branches: ["main"]
+    paths:
+      - "CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/dados/listas.json"
+      - "CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/tools/**"
   schedule:
     - cron: "17 3 */3 * *"
   workflow_dispatch:
