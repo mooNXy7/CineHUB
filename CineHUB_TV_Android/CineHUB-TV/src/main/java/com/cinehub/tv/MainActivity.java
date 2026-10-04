@@ -37,7 +37,7 @@ import androidx.webkit.WebViewFeature;
 public class MainActivity extends AppCompatActivity {
     private static final String LOCAL_URL = "file:///android_asset/cinehub/index.html?tv=1";
     private static final String UPDATE_URL = "https://cinehub-tv-5fy.pages.dev/update.json";
-    private static final int CURRENT_VERSION_CODE = 40;
+    private static final int CURRENT_VERSION_CODE = 41;
     private final ExecutorService updateExecutor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private long pendingDownloadId = -1;
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         s.setMediaPlaybackRequiresUserGesture(false); s.setAllowFileAccess(true); s.setAllowContentAccess(true);
         s.setSupportZoom(false); s.setBuiltInZoomControls(false); s.setDisplayZoomControls(false);
         s.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.5.0-buildfix");
+        s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.5.1");
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) WebSettingsCompat.setForceDark(s, WebSettingsCompat.FORCE_DARK_OFF);
         webView.setBackgroundColor(Color.BLACK); webView.setFocusable(true); webView.requestFocus();
         webView.setWebViewClient(new WebViewClient() {
