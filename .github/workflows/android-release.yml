@@ -2,8 +2,7 @@ name: CineHUB-TV Android Release
 
 on:
   push:
-    tags:
-      - "v*"
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -11,6 +10,7 @@ permissions:
 
 jobs:
   release:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'RELEASE_CINEHUB_TV')
     runs-on: ubuntu-latest
     env:
       GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8
@@ -26,14 +26,21 @@ jobs:
       - name: Build release APK
         working-directory: CineHUB_TV_Android
         run: gradle :CineHUB-TV:assembleRelease --no-daemon --stacktrace
-      - name: Verify APK
-        run: test -s CineHUB_TV_Android/CineHUB-TV/build/outputs/apk/release/CineHUB-TV-release.apk
+      - name: Locate APK
+        run: |
+          APK="$(find CineHUB_TV_Android/CineHUB-TV/build/outputs/apk/release -maxdepth 1 -type f -name '*.apk' | head -n 1)"
+          test -n "$APK"
+          test -s "$APK"
+          echo "APK=$APK" >> "$GITHUB_ENV"
       - name: Prepare release asset
         run: |
           mkdir -p release
-          cp CineHUB_TV_Android/CineHUB-TV/build/outputs/apk/release/CineHUB-TV-release.apk "release/CineHUB-TV-$GITHUB_REF_NAME.apk"
+          cp "$APK" release/CineHUB-TV-v1.5.0.apk
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: release/CineHUB-TV-${{ github.ref_name }}.apk
+          tag_name: v1.5.0
+          target_commitish: main
+          name: CineHUB TV v1.5.0
+          files: release/CineHUB-TV-v1.5.0.apk
           generate_release_notes: true
