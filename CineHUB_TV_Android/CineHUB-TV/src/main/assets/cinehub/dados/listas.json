@@ -1,5 +1,5 @@
 {
-  "version": "2.3.1",
+  "version": "2.3.2",
   "refresh_interval_days": 3,
   "description": "CineHUB external list registry. Main catalog remains unchanged; external sources are lazy-loaded.",
   "sources": {
