@@ -1,3 +1,4 @@
 CineHUB-TV 1.5.0 — GitHub Actions + Cloudflare deployment
 CineHUB TV online deployment: Cloudflare Pages
 Pages watch paths: enabled
+RELEASE_CINEHUB_TV
