@@ -50,8 +50,12 @@ jobs:
           import shutil
 
           def normalize(src, dst):
-              entries=[p for p in src.iterdir()]
-              root=entries[0] if len(entries)==1 and entries[0].is_dir() else src
+              forced=src/'CineHUB_1.1'
+              if forced.is_dir():
+                  root=forced
+              else:
+                  entries=[p for p in src.iterdir()]
+                  root=entries[0] if len(entries)==1 and entries[0].is_dir() else src
               dst.mkdir(parents=True, exist_ok=True)
               for p in root.iterdir():
                   out=dst/p.name
@@ -67,6 +71,7 @@ jobs:
       - name: Compare and integrate without silent overwrite
         run: |
           set -euo pipefail
+          rm -rf CineHUB_WEB
           mkdir -p CineHUB_WEB
           python3 - <<'PY'
           from pathlib import Path
@@ -130,6 +135,10 @@ jobs:
             echo "=== MERGED ==="
             find CineHUB_WEB -maxdepth 4 -type f | sort
           } > CineHUB_WEB/WEB_SOURCE_INVENTORY.txt
+
+      - name: Remove temporary integration reports
+        run: |
+          rm -f CineHUB_WEB/WEB_INTEGRATION_REPORT.json CineHUB_WEB/WEB_SOURCE_INVENTORY.txt
 
       - name: Commit integration snapshot for validation
         run: |
