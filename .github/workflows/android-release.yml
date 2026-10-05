@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   release:
-    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'RELEASE_CINEHUB_TV_1.0.1') || contains(github.event.head_commit.message, 'fix(tv): register download receiver safely')
+    if: ${{ github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'RELEASE_CINEHUB_TV_1.0.1') || contains(github.event.head_commit.message, 'fix(tv): register download receiver safely') }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
