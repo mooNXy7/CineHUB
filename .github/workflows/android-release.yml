@@ -1,4 +1,4 @@
-name: CineHUB-TV Android Release
+name: CineHUB TV 1.0.0 Release
 
 on:
   push:
@@ -12,32 +12,73 @@ jobs:
   release:
     if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'RELEASE_CINEHUB_TV_1.0.0')
     runs-on: ubuntu-latest
-    env:
-      GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-java@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: "17"
-      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: "8.11.1"
-      - name: Build release APK
+
+      - name: Integrate CineHUB TV data
+        shell: bash
+        run: |
+          set -euo pipefail
+          TV="CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/dados"
+          mkdir -p "$TV"
+          rm -rf "$TV/conteudo"
+          cp -a CineHUB_WEB/dados/conteudo "$TV/conteudo"
+          cp CineHUB_WEB/dados/listas.json "$TV/listas.json"
+          cp CineHUB_WEB/dados/canais.js "$TV/canais.js"
+          cp CineHUB_WEB/dados/canais-m3u8.js "$TV/canais-m3u8.js"
+          test -f "$TV/conteudo/manifest.js"
+          test -f "$TV/conteudo/indices/filmes.json"
+          test -f "$TV/conteudo/indices/series.json"
+          test -s "$TV/canais.js"
+          test -s "$TV/canais-m3u8.js"
+
+      - name: Verify CineHUB TV branding
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q 'CineHUB TV' CineHUB_TV_Android/CineHUB-TV/src/main/res/values/strings.xml
+          grep -q 'android:icon="@drawable/adaptive_icon"' CineHUB_TV_Android/CineHUB-TV/src/main/AndroidManifest.xml
+
+      - name: Build CineHUB TV APK
         working-directory: CineHUB_TV_Android
         run: gradle :CineHUB-TV:assembleRelease --no-daemon --stacktrace
-      - name: Locate APK
+
+      - name: Prepare release
+        shell: bash
         run: |
-          APK="$(find CineHUB_TV_Android/CineHUB-TV/build/outputs/apk/release -maxdepth 1 -type f -name "*.apk" | head -n 1)"
-          test -n "$APK"
+          set -euo pipefail
+          APK="$(find CineHUB_TV_Android/CineHUB-TV/build/outputs/apk/release -maxdepth 1 -type f -name '*.apk' | head -n 1)"
           test -s "$APK"
-          echo "APK=$APK" >> "$GITHUB_ENV"
-      - name: Prepare release asset
-        run: |
           mkdir -p release
           cp "$APK" release/CineHUB-TV-v1.0.0.apk
           sha256sum release/CineHUB-TV-v1.0.0.apk > release/SHA256SUMS.txt
-      - name: Publish GitHub Release
+          SHA="$(sha256sum release/CineHUB-TV-v1.0.0.apk | awk '{print $1}')"
+          python3 - <<PY
+          import json
+          p="CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json"
+          d=json.load(open(p,encoding="utf-8"))
+          d["version"]="1.0.0"
+          d["versionCode"]=100
+          d["releaseUrl"]="https://github.com/mooNXy7/CineHUB/releases/tag/v1.0.0"
+          d["apkUrl"]="https://github.com/mooNXy7/CineHUB/releases/download/v1.0.0/CineHUB-TV-v1.0.0.apk"
+          d["sha256"]="$SHA"
+          d["channel"]="stable"
+          open(p,"w",encoding="utf-8").write(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+
+      - name: Publish CineHUB TV v1.0.0
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.0.0
@@ -47,3 +88,4 @@ jobs:
             release/CineHUB-TV-v1.0.0.apk
             release/SHA256SUMS.txt
           generate_release_notes: true
+          overwrite_files: true
