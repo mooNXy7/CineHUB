@@ -76,8 +76,8 @@ jobs:
           APK="$(find CineHUB_TV_Android/CineHUB-TV/build/outputs/apk/release -maxdepth 1 -type f -name '*.apk' | head -n 1)"
           mkdir -p release
           cp "$APK" release/CineHUB-TV-v1.0.4.apk
-          sha256sum release/CineHUB-TV-v1.0.3.apk > release/SHA256SUMS.txt
-          SHA="$(sha256sum release/CineHUB-TV-v1.0.3.apk | awk '{print $1}')"
+          sha256sum release/CineHUB-TV-v1.0.4.apk > release/SHA256SUMS.txt
+          SHA="$(sha256sum release/CineHUB-TV-v1.0.4.apk | awk '{print $1}')"
           python3 - <<PY
           import json
           p="CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json"
@@ -85,14 +85,14 @@ jobs:
           d.update({"version":"1.0.4","versionCode":104,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.0.4","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.0.4/CineHUB-TV-v1.0.4.apk","sha256":"$SHA","channel":"stable"})
           open(p,"w",encoding="utf-8").write(json.dumps(d,indent=2,ensure_ascii=False)+"\\n")
           PY
-      - name: Publish CineHUB TV v1.0.3
+      - name: Publish CineHUB TV v1.0.4
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v1.0.4
           target_commitish: main
           name: CineHUB TV v1.0.4 — Correção TV/TV Box
           files: |
-            release/CineHUB-TV-v1.0.3.apk
+            release/CineHUB-TV-v1.0.4.apk
             release/SHA256SUMS.txt
           generate_release_notes: true
           overwrite_files: true
