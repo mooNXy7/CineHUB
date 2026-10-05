@@ -131,6 +131,15 @@ jobs:
             find CineHUB_WEB -maxdepth 4 -type f | sort
           } > CineHUB_WEB/WEB_SOURCE_INVENTORY.txt
 
+      - name: Commit integration snapshot for validation
+        run: |
+          set -euo pipefail
+          git config user.name "CineHUB Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CineHUB_WEB
+          git commit -m "web: snapshot PT1 + PT2 integration"
+          git push
+
       - name: Validate WEB
         run: |
           set -euo pipefail
