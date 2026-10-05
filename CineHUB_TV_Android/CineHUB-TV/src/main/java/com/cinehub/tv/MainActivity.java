@@ -138,7 +138,14 @@ public class MainActivity extends AppCompatActivity {
         webView.setOnLongClickListener(v->true);
     }
 
-    private byte[] readAll(InputStream in) throws java.io.IOException {\n        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();\n        byte[] buf = new byte[4096]; int n;\n        while ((n = in.read(buf)) != -1) out.write(buf, 0, n);\n        return out.toByteArray();\n    }\n\n    private void checkForUpdate(){
+    private byte[] readAll(InputStream in) throws java.io.IOException {
+        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+        byte[] buf = new byte[4096]; int n;
+        while ((n = in.read(buf)) != -1) out.write(buf, 0, n);
+        return out.toByteArray();
+    }
+
+    private void checkForUpdate(){
         updateExecutor.execute(() -> {
             HttpURLConnection connection = null;
             try {
