@@ -6,5 +6,12 @@
         <item name="android:navigationBarColor">#050609</item>
         <item name="android:statusBarColor">#050609</item>
         <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowActionModeOverlay">true</item>
+    </style>
+
+    <style name="Theme.CineHUBMobile.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">#050609</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/cinehub_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.CineHUBMobile</item>
     </style>
 </resources>
