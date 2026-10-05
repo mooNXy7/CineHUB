@@ -1,0 +1,87 @@
+name: Finalize CineHUB WEB
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.cinehub_web_start'
+      - 'CineHUB_WEB/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'web:')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Flatten WEB root
+        run: |
+          set -euo pipefail
+          test -d CineHUB_WEB/CineHUB_1.1
+          cp -a CineHUB_WEB/CineHUB_1.1/. CineHUB_WEB/
+          rm -rf CineHUB_WEB/CineHUB_1.1
+
+      - name: Validate WEB structure and source integrity
+        run: |
+          set -euo pipefail
+          test -f CineHUB_WEB/index.html
+          test -f CineHUB_WEB/manifest.json
+          test -f CineHUB_WEB/service-worker.js
+          test -d CineHUB_WEB/src/css
+          test -d CineHUB_WEB/src/js
+          test -d CineHUB_WEB/dados
+          test -d CineHUB_WEB/dados/conteudo
+          test -d CineHUB_WEB/dados/listas
+          test -f CineHUB_WEB/dados/conteudo/indices/filmes.json
+          test -f CineHUB_WEB/dados/conteudo/indices/series.json
+          test ! -d CineHUB_WEB/CineHUB_1.1
+          python3 - <<'PY'
+          import json, pathlib, subprocess, sys
+          root=pathlib.Path('CineHUB_WEB')
+          for p in root.rglob('*.json'):
+              json.loads(p.read_text(encoding='utf-8'))
+          js=list(root.rglob('*.js'))
+          for p in js:
+              subprocess.run(['node','--check',str(p)],check=True,stdout=subprocess.DEVNULL)
+          py=list(root.rglob('*.py'))
+          for p in py:
+              subprocess.run([sys.executable,'-m','py_compile',str(p)],check=True)
+          files=[p for p in root.rglob('*') if p.is_file()]
+          print('WEB files:',len(files))
+          print('HTML:',sum(p.suffix.lower()=='.html' for p in files))
+          print('CSS:',sum(p.suffix.lower()=='.css' for p in files))
+          print('JS:',len(js))
+          print('JSON:',sum(p.suffix.lower()=='.json' for p in files))
+          print('M3U:',sum(p.suffix.lower()=='.m3u' for p in files))
+          print('M3U8:',sum(p.suffix.lower()=='.m3u8' for p in files))
+          PY
+
+      - name: Verify Android TV isolation
+        run: |
+          set -euo pipefail
+          test -f CineHUB_TV_Android/settings.gradle.kts
+          echo "Android TV untouched."
+
+      - name: Commit finalized WEB
+        run: |
+          set -euo pipefail
+          git config user.name "CineHUB Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CineHUB_WEB
+          git commit -m "web: finalize CineHUB WEB root structure"
+          git push
+
+      - name: Remove source ZIPs after final validation
+        run: |
+          set -euo pipefail
+          git rm CineHUB_OFC-PT1.zip CineHUB_OFC-PT2.zip
+          git commit -m "chore: remove WEB source ZIPs after final validation"
+          git push
