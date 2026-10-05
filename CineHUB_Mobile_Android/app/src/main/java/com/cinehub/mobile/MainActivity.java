@@ -24,6 +24,9 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
@@ -45,6 +48,10 @@ public class MainActivity extends AppCompatActivity {
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private long pendingDownloadId = -1L;
+    private AlertDialog downloadDialog;
+    private ProgressBar downloadProgress;
+    private TextView downloadProgressText;
+    private final Handler downloadHandler = new Handler(Looper.getMainLooper());
     private WebView webView;
     private View fullscreenView;
     private WebChromeClient.CustomViewCallback fullscreenCallback;
@@ -55,7 +62,17 @@ public class MainActivity extends AppCompatActivity {
             if (id != pendingDownloadId) return;
             DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             Uri uri = dm.getUriForDownloadedFile(id);
-            if (uri != null) installApk(uri);
+            stopDownloadProgress();
+
+            if (uri != null) {
+                installApk(uri);
+            } else {
+                Toast.makeText(
+                        MainActivity.this,
+                        "Não foi possível concluir a atualização.",
+                        Toast.LENGTH_LONG
+                ).show();
+            }
         }
     };
 
@@ -202,22 +219,165 @@ public class MainActivity extends AppCompatActivity {
 
     private void showUpdateDialog(String version, String releaseNotes, String apkUrl) {
         String message =
-                "Uma nova versão do CineHUB está disponível.\n\n"
-                + "Versão: " + version + "\n\n"
-                + releaseNotes
-                + "\n\nDeseja atualizar agora?";
+                "Versão " + version + "\n\n"
+                + "Novidades:\n"
+                + releaseNotes;
 
         new AlertDialog.Builder(this)
-                .setTitle("Atualização do CineHUB")
+                .setTitle("Nova atualização disponível!")
                 .setMessage(message)
                 .setCancelable(true)
-                .setNegativeButton("Depois", null)
-                .setPositiveButton("Atualizar agora", (dialog, which) ->
+                .setNegativeButton("Mais tarde", null)
+                .setPositiveButton("Instalar", (dialog, which) ->
                         enqueueUpdate(apkUrl, version))
                 .show();
     }
 
     private void enqueueUpdate(String url, String version) {
+        try {
+            DownloadManager.Request request =
+                    new DownloadManager.Request(Uri.parse(url));
+
+            request.setTitle("CineHUB " + version);
+            request.setDescription("Baixando atualização do CineHUB");
+            request.setMimeType("application/vnd.android.package-archive");
+            request.setNotificationVisibility(
+                    DownloadManager.Request.VISIBILITY_VISIBLE
+            );
+            request.setDestinationInExternalFilesDir(
+                    this,
+                    Environment.DIRECTORY_DOWNLOADS,
+                    "CineHUB-Mobile-update.apk"
+            );
+
+            pendingDownloadId =
+                    ((DownloadManager) getSystemService(DOWNLOAD_SERVICE))
+                            .enqueue(request);
+
+            showDownloadProgress();
+            monitorDownloadProgress();
+
+        } catch (Exception ignored) {
+            Toast.makeText(
+                    this,
+                    "Não foi possível iniciar a atualização.",
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+    }
+
+    private void showDownloadProgress() {
+        LinearLayout layout = new LinearLayout(this);
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(48, 12, 48, 12);
+
+        downloadProgressText = new TextView(this);
+        downloadProgressText.setText("Preparando atualização...");
+        downloadProgressText.setTextSize(15);
+        layout.addView(downloadProgressText);
+
+        downloadProgress = new ProgressBar(
+                this,
+                null,
+                android.R.attr.progressBarStyleHorizontal
+        );
+        downloadProgress.setMax(100);
+        downloadProgress.setProgress(0);
+
+        LinearLayout.LayoutParams progressParams =
+                new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+        progressParams.topMargin = 24;
+        layout.addView(downloadProgress, progressParams);
+
+        downloadDialog = new AlertDialog.Builder(this)
+                .setTitle("Atualizando CineHUB")
+                .setView(layout)
+                .setCancelable(false)
+                .show();
+    }
+
+    private void monitorDownloadProgress() {
+        downloadHandler.post(new Runnable() {
+            @Override public void run() {
+                if (pendingDownloadId == -1L || downloadDialog == null) {
+                    return;
+                }
+
+                DownloadManager dm =
+                        (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
+
+                DownloadManager.Query query =
+                        new DownloadManager.Query().setFilterById(pendingDownloadId);
+
+                try (android.database.Cursor cursor = dm.query(query)) {
+                    if (cursor != null && cursor.moveToFirst()) {
+                        int status = cursor.getInt(
+                                cursor.getColumnIndexOrThrow(
+                                        DownloadManager.COLUMN_STATUS
+                                )
+                        );
+
+                        if (status == DownloadManager.STATUS_FAILED) {
+                            stopDownloadProgress();
+                            Toast.makeText(
+                                    MainActivity.this,
+                                    "Falha ao baixar a atualização.",
+                                    Toast.LENGTH_LONG
+                            ).show();
+                            return;
+                        }
+
+                        long total = cursor.getLong(
+                                cursor.getColumnIndexOrThrow(
+                                        DownloadManager.COLUMN_TOTAL_SIZE_BYTES
+                                )
+                        );
+                        long downloaded = cursor.getLong(
+                                cursor.getColumnIndexOrThrow(
+                                        DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR
+                                )
+                        );
+
+                        if (total > 0) {
+                            int percent = (int) ((downloaded * 100L) / total);
+                            if (downloadProgress != null) {
+                                downloadProgress.setProgress(percent);
+                            }
+                            if (downloadProgressText != null) {
+                                downloadProgressText.setText(
+                                        "Baixando atualização... " + percent + "%"
+                                );
+                            }
+                        } else if (downloadProgressText != null) {
+                            downloadProgressText.setText(
+                                    "Baixando atualização..."
+                            );
+                        }
+                    }
+                } catch (Exception ignored) {
+                    // Continue polling until DownloadManager reports completion.
+                }
+
+                downloadHandler.postDelayed(this, 350);
+            }
+        });
+    }
+
+    private void stopDownloadProgress() {
+        pendingDownloadId = -1L;
+        downloadHandler.removeCallbacksAndMessages(null);
+
+        if (downloadDialog != null && downloadDialog.isShowing()) {
+            downloadDialog.dismiss();
+        }
+
+        downloadDialog = null;
+        downloadProgress = null;
+        downloadProgressText = null;
+    }
         try {
             DownloadManager.Request request =
                     new DownloadManager.Request(Uri.parse(url));
@@ -422,6 +582,7 @@ public class MainActivity extends AppCompatActivity {
             unregisterReceiver(downloadReceiver);
         } catch (Exception ignored) { }
 
+        downloadHandler.removeCallbacksAndMessages(null);
         executor.shutdownNow();
 
         if (webView != null) {
