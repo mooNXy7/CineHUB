@@ -11,6 +11,8 @@ Deployment pipeline: Cloudflare Pages `cinehub-web`.
 
 Source connection refreshed.
 
-Cloudflare Pages: repository root `/`, output directory `CineHUB_WEB`, production branch `main`, watched path `CineHUB_WEB/**`.
+Cloudflare Pages: repository root `/`, output directory `CineHUB_WEB`, production branch `main`.
 
 Deployment trigger validation: 2026-10-05.
+
+Production trigger mode: repository-wide push, with Cloudflare publishing only `CineHUB_WEB` as the Pages output. Android TV remains in its own directory/project.
