@@ -1,12 +1,12 @@
 package com.cinehub.mobile;
 
+import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ActivityNotFoundException;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -177,8 +177,17 @@ public class MainActivity extends AppCompatActivity {
                             "nova versão"
                     );
 
+                    String releaseNotes = json.optString(
+                            "releaseNotes",
+                            "Melhorias e correções de estabilidade."
+                    );
+
                     if (remoteCode > BuildConfig.VERSION_CODE && !apkUrl.isEmpty()) {
-                        mainHandler.post(() -> enqueueUpdate(apkUrl, version));
+                        mainHandler.post(() -> showUpdateDialog(
+                                version,
+                                releaseNotes,
+                                apkUrl
+                        ));
                     }
                 }
             } catch (Exception ignored) {
@@ -189,6 +198,23 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void showUpdateDialog(String version, String releaseNotes, String apkUrl) {
+        String message =
+                "Uma nova versão do CineHUB está disponível.\n\n"
+                + "Versão: " + version + "\n\n"
+                + releaseNotes
+                + "\n\nDeseja atualizar agora?";
+
+        new AlertDialog.Builder(this)
+                .setTitle("Atualização do CineHUB")
+                .setMessage(message)
+                .setCancelable(true)
+                .setNegativeButton("Depois", null)
+                .setPositiveButton("Atualizar agora", (dialog, which) ->
+                        enqueueUpdate(apkUrl, version))
+                .show();
     }
 
     private void enqueueUpdate(String url, String version) {
