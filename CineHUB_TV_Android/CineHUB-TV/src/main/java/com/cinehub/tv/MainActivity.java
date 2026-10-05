@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.webkit.WebChromeClient;
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);
         webView = findViewById(R.id.webview);
+        // HQ/low-cost Android TV firmware can have unstable GPU/WebView renderers.
+        webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         configureWebView();
         webView.loadUrl(resolveStartUrl());
         registerDownloadReceiver();
@@ -94,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.0.2");
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) WebSettingsCompat.setForceDark(s, WebSettingsCompat.FORCE_DARK_OFF);
         webView.setBackgroundColor(Color.BLACK); webView.setFocusable(true); webView.requestFocus();
+        if (android.os.Build.VERSION.SDK_INT >= 26) webView.setRendererPriorityPolicy(WebView.RENDERER_PRIORITY_IMPORTANT, true);
         webView.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri=request.getUrl(); String scheme=uri.getScheme();
@@ -106,13 +110,23 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
             @Override public boolean onRenderProcessGone(WebView view, android.webkit.RenderProcessGoneDetail detail) {
-                // Some Android TV/TV Box WebView builds can kill the renderer under memory/GPU pressure.
-                // Keep the native activity alive and recreate the page instead of closing CineHUB.
+                // Never call loadUrl() on a WebView whose Chromium renderer has died.
+                // Recreate the WebView instead; this keeps the native TV activity alive.
                 try {
-                    view.post(() -> {
-                        try { view.loadUrl(resolveStartUrl()); } catch (Exception ignored) { }
-                    });
-                } catch (Exception ignored) { }
+                    ViewGroup root = findViewById(R.id.root);
+                    root.removeView(view);
+                    WebView replacement = new WebView(MainActivity.this);
+                    replacement.setId(R.id.webview);
+                    replacement.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
+                    replacement.setBackgroundColor(Color.BLACK);
+                    replacement.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
+                    root.addView(replacement);
+                    webView = replacement;
+                    configureWebView();
+                    replacement.loadUrl(resolveStartUrl());
+                } catch (Exception ignored) {
+                    finish();
+                }
                 return true;
             }
         });
