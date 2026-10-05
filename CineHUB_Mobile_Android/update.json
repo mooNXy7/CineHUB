@@ -7,5 +7,6 @@
   "sha256": "",
   "channel": "stable",
   "title": "Fix Logo + OTA",
-  "releaseNotes": "• Logo oficial do CineHUB também no splash de abertura.\\n• Novo pop-up de atualização com versão e novidades.\\n• Botões “Instalar” e “Mais tarde”.\\n• Barra de progresso durante o download da atualização.\\n• Instalação iniciada automaticamente após o download."
+  "releaseNotes": "• Logo oficial do CineHUB também no splash de abertura.\\n• Novo pop-up de atualização com versão e novidades.\\n• Botões “Instalar” e “Mais tarde”.\\n• Barra de progresso durante o download da atualização.\\n• Instalação iniciada automaticamente após o download.",
+  "buildTrigger": "mobile-1.0.2-final"
 }
