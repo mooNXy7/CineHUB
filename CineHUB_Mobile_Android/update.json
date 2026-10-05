@@ -1,11 +1,11 @@
 {
   "app": "CineHUB Mobile",
-  "version": "1.0.1",
-  "versionCode": 101,
-  "releaseUrl": "https://github.com/mooNXy7/CineHUB/releases/tag/mobile-v1.0.1",
-  "apkUrl": "https://github.com/mooNXy7/CineHUB/releases/download/mobile-v1.0.1/CineHUB-Mobile-v1.0.1.apk",
-  "sha256": "fc0893160d70e28900f659aa9d99f8bd0ed3466e9771dea057189cfe5bf522e7",
+  "version": "1.0.2",
+  "versionCode": 102,
+  "releaseUrl": "https://github.com/mooNXy7/CineHUB/releases/tag/mobile-v1.0.2",
+  "apkUrl": "https://github.com/mooNXy7/CineHUB/releases/download/mobile-v1.0.2/CineHUB-Mobile-v1.0.2.apk",
+  "sha256": "",
   "channel": "stable",
-  "title": "Fix Logo",
-  "releaseNotes": "• Correção da logo oficial do CineHUB no aplicativo.\n• Splash e identidade visual alinhadas à versão Web.\n• Ajustes de estabilidade e preparação do fluxo de atualização OTA."
+  "title": "Fix Logo + OTA",
+  "releaseNotes": "• Logo oficial do CineHUB também no splash de abertura.\\n• Novo pop-up de atualização com versão e novidades.\\n• Botões “Instalar” e “Mais tarde”.\\n• Barra de progresso durante o download da atualização.\\n• Instalação iniciada automaticamente após o download."
 }
