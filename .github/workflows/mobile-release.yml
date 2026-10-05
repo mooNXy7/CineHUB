@@ -28,7 +28,7 @@ jobs:
         with:
           gradle-version: '8.11.1'
 
-      - name: Prepare signing key
+      - name: Check mobile signing configuration
         env:
           KEYSTORE_BASE64: ${{ secrets.CINEHUB_MOBILE_KEYSTORE_BASE64 }}
           STORE_PASSWORD: ${{ secrets.CINEHUB_MOBILE_STORE_PASSWORD }}
@@ -37,11 +37,24 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [[ -z "${KEYSTORE_BASE64:-}" || -z "${STORE_PASSWORD:-}" || -z "${KEY_ALIAS:-}" || -z "${KEY_PASSWORD:-}" ]]; then
-            echo 'Missing stable mobile signing secrets.'
-            echo 'Required: CINEHUB_MOBILE_KEYSTORE_BASE64, CINEHUB_MOBILE_STORE_PASSWORD, CINEHUB_MOBILE_KEY_ALIAS, CINEHUB_MOBILE_KEY_PASSWORD.'
-            exit 1
+          if [[ -n "${KEYSTORE_BASE64:-}" && -n "${STORE_PASSWORD:-}" && -n "${KEY_ALIAS:-}" && -n "${KEY_PASSWORD:-}" ]]; then
+            echo 'SIGNING_READY=true' >> "$GITHUB_ENV"
+            echo 'Stable signing is configured.'
+          else
+            echo 'SIGNING_READY=false' >> "$GITHUB_ENV"
+            echo 'Stable signing is not configured yet. Build/release steps will be skipped.'
           fi
+
+      - name: Prepare signing key
+        if: env.SIGNING_READY == 'true'
+        env:
+          KEYSTORE_BASE64: ${{ secrets.CINEHUB_MOBILE_KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.CINEHUB_MOBILE_STORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.CINEHUB_MOBILE_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.CINEHUB_MOBILE_KEY_PASSWORD }}
+        shell: bash
+        run: |
+          set -euo pipefail
           echo "$KEYSTORE_BASE64" | base64 --decode > CineHUB_Mobile_Android/cinehub-mobile-release.jks
           cat > CineHUB_Mobile_Android/keystore.properties <<EOF2
           storeFile=cinehub-mobile-release.jks
@@ -51,6 +64,7 @@ jobs:
           EOF2
 
       - name: Read version
+        if: env.SIGNING_READY == 'true'
         id: version
         working-directory: CineHUB_Mobile_Android
         shell: bash
@@ -62,10 +76,12 @@ jobs:
           echo "code=$CODE" >> "$GITHUB_OUTPUT"
 
       - name: Build CineHUB Mobile APK
+        if: env.SIGNING_READY == 'true'
         working-directory: CineHUB_Mobile_Android
         run: gradle :app:assembleRelease --no-daemon --stacktrace
 
       - name: Verify APK
+        if: env.SIGNING_READY == 'true'
         shell: bash
         run: |
           set -euo pipefail
@@ -78,6 +94,7 @@ jobs:
           "$APKSIGNER" verify --print-certs "$APK"
 
       - name: Prepare release files
+        if: env.SIGNING_READY == 'true'
         env:
           VERSION: ${{ steps.version.outputs.version }}
           CODE: ${{ steps.version.outputs.code }}
@@ -107,6 +124,7 @@ jobs:
           PY
 
       - name: Publish GitHub release
+        if: env.SIGNING_READY == 'true'
         uses: softprops/action-gh-release@v2
         with:
           tag_name: mobile-v${{ steps.version.outputs.version }}
@@ -117,3 +135,7 @@ jobs:
             release/SHA256SUMS.txt
           generate_release_notes: true
           overwrite_files: true
+
+      - name: Signing setup reminder
+        if: env.SIGNING_READY != 'true'
+        run: echo 'Add the four CINEHUB_MOBILE_* signing secrets once; the next Mobile change can then publish automatically.'
