@@ -1,0 +1,45 @@
+name: Integrate CineHUB WEB Part 1
+on:
+  push:
+    paths:
+      - ".cinehub_web_part1.tar.gz.b64"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  integrate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract WEB Part 1
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/chub-part1
+          base64 -d .cinehub_web_part1.tar.gz.b64 > /tmp/chub-part1/core.tar.gz
+          tar -xzf /tmp/chub-part1/core.tar.gz -C /tmp/chub-part1
+          mkdir -p CineHUB_WEB
+          cp -a /tmp/chub-part1/index.html /tmp/chub-part1/manifest.json /tmp/chub-part1/service-worker.js /tmp/chub-part1/CINEHUB_VERSION.txt /tmp/chub-part1/filme.html CineHUB_WEB/
+          mkdir -p CineHUB_WEB/src
+          cp -a /tmp/chub-part1/src/. CineHUB_WEB/src/
+      - name: Validate extracted files
+        run: |
+          test -f CineHUB_WEB/index.html
+          test -f CineHUB_WEB/src/js/cinehub.js
+          test -f CineHUB_WEB/src/css/main.css
+          test -f CineHUB_WEB/service-worker.js
+          node --check CineHUB_WEB/src/js/cinehub.js
+          node --check CineHUB_WEB/src/js/epg.js
+          node --check CineHUB_WEB/src/js/integracoes.js
+      - name: Commit WEB Part 1 and clean payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .cinehub_web_part1.tar.gz.b64
+          git add CineHUB_WEB
+          git add -u .cinehub_web_part1.tar.gz.b64 || true
+          git add -A
+          git commit -m "integrate: CineHUB WEB Parte 1"
+          git push
