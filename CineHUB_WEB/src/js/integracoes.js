@@ -24,9 +24,9 @@ const CFG={
     ['CineHUB · Lista 3','dados/listas/3.m3u'],
     ['CineHUB · Lista 4','dados/listas/4.m3u'],
     ['CineHUB · Lista 610','dados/listas/610.M3U8'],
-    ['CineHUB · Europa','dados/listas/CanaisEuropa.m3u8'],
+    ['CineHUB · Europa','https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisEuropa.m3u8'],
     ['CineHUB · Itália','dados/listas/CanaisItalia.m3u8'],
-    ['CineHUB · Itália (alternativa)','dados/listas/CanaisItália.m3u']
+    ['CineHUB · Itália (alternativa)','https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisItalia.m3u8']
   ],
   saimo:'https://raw.githubusercontent.com/gabrielsaimo/SaimoPlayer/main/catalogo.txt',
   catalog:'https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/Filmes-Series.m3u8'
