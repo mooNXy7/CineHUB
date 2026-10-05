@@ -8,3 +8,5 @@ A versão WEB oficial do CineHUB está neste diretório.
 - Deploy: Cloudflare Pages — `cinehub-web`
 
 Deployment pipeline: Cloudflare Pages `cinehub-web`.
+
+Source connection refreshed.
