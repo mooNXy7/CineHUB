@@ -378,12 +378,14 @@ public class MainActivity extends AppCompatActivity {
         downloadProgress = null;
         downloadProgressText = null;
     }
+
+    private void enqueueUpdate(String url, String version) {
         try {
             DownloadManager.Request request =
                     new DownloadManager.Request(Uri.parse(url));
 
             request.setTitle("CineHUB " + version);
-            request.setDescription("Baixando atualização");
+            request.setDescription("Baixando atualização do CineHUB");
             request.setMimeType("application/vnd.android.package-archive");
             request.setNotificationVisibility(
                     DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
@@ -398,16 +400,13 @@ public class MainActivity extends AppCompatActivity {
                     ((DownloadManager) getSystemService(DOWNLOAD_SERVICE))
                             .enqueue(request);
 
-            Toast.makeText(
-                    this,
-                    "Nova versão encontrada. Download iniciado.",
-                    Toast.LENGTH_LONG
-            ).show();
+            showDownloadProgress();
+            monitorDownloadProgress();
 
         } catch (Exception ignored) {
             Toast.makeText(
                     this,
-                    "Não foi possível baixar a atualização.",
+                    "Não foi possível iniciar a atualização.",
                     Toast.LENGTH_LONG
             ).show();
         }
