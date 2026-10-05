@@ -16,3 +16,5 @@ Cloudflare Pages: repository root `/`, output directory `CineHUB_WEB`, productio
 Deployment trigger validation: 2026-10-05.
 
 Production trigger mode: repository-wide push, with Cloudflare publishing only `CineHUB_WEB` as the Pages output. Android TV remains in its own directory/project.
+
+Large IPTV snapshots over Cloudflare Pages 25 MiB are removed during the Pages build and consumed remotely from IPTV-Brasil; the app's source registry was updated accordingly.
