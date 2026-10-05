@@ -379,39 +379,6 @@ public class MainActivity extends AppCompatActivity {
         downloadProgressText = null;
     }
 
-    private void enqueueUpdate(String url, String version) {
-        try {
-            DownloadManager.Request request =
-                    new DownloadManager.Request(Uri.parse(url));
-
-            request.setTitle("CineHUB " + version);
-            request.setDescription("Baixando atualização do CineHUB");
-            request.setMimeType("application/vnd.android.package-archive");
-            request.setNotificationVisibility(
-                    DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED
-            );
-            request.setDestinationInExternalFilesDir(
-                    this,
-                    Environment.DIRECTORY_DOWNLOADS,
-                    "CineHUB-Mobile-update.apk"
-            );
-
-            pendingDownloadId =
-                    ((DownloadManager) getSystemService(DOWNLOAD_SERVICE))
-                            .enqueue(request);
-
-            showDownloadProgress();
-            monitorDownloadProgress();
-
-        } catch (Exception ignored) {
-            Toast.makeText(
-                    this,
-                    "Não foi possível iniciar a atualização.",
-                    Toast.LENGTH_LONG
-            ).show();
-        }
-    }
-
     private void installApk(Uri uri) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && !getPackageManager().canRequestPackageInstalls()) {
