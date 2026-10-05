@@ -11,8 +11,19 @@
 <script>
 (function(){
   try{
+    var isTV=new URLSearchParams(location.search).get('tv')==='1';
     var mode=localStorage.getItem('cinehub_mode');
+    if(isTV && mode!=='performance'){
+      mode='performance';
+      localStorage.setItem('cinehub_mode','performance');
+    }
     if(mode==='performance'||mode==='advanced') document.documentElement.classList.add('cinehub-'+mode);
+    if(isTV){
+      window.setTimeout(function(){
+        var s=document.getElementById('splash');
+        if(s && !s.classList.contains('hide')) s.classList.add('hide');
+      },7000);
+    }
   }catch(_){}
 })();
 </script>
