@@ -116,7 +116,7 @@ jobs:
           print('Identical:',len(report['identical']))
           print('Conflicts:',len(report['conflicts']))
           if report['conflicts']:
-              raise SystemExit('Conflict detected; refusing silent overwrite.')
+              print('CONFLICTS_FOUND — preserving both source ZIPs for analysis.')
           PY
 
       - name: Validate WEB
@@ -143,14 +143,27 @@ jobs:
           test -f CineHUB_TV_Android/settings.gradle.kts
           echo "Android TV untouched by WEB integration."
 
-      - name: Commit integrated WEB
+      - name: Commit WEB comparison report
         run: |
           set -euo pipefail
           git config user.name "CineHUB Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add CineHUB_WEB
-          git commit -m "web: integrate CineHUB WEB PT1 + PT2"
+          git commit -m "web: record PT1 + PT2 integration report"
           git push
+
+      - name: Stop before ZIP deletion when conflicts exist
+        if: hashFiles('CineHUB_WEB/WEB_INTEGRATION_REPORT.json') != ''
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('CineHUB_WEB/WEB_INTEGRATION_REPORT.json')
+          d=json.loads(p.read_text(encoding='utf-8'))
+          if d.get('conflicts'):
+              print(f"STOP: {len(d['conflicts'])} conflicts require analysis before ZIP deletion.")
+              raise SystemExit(1)
+          PY
 
       - name: Remove source ZIPs only after successful validation
         run: |
