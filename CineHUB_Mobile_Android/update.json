@@ -4,7 +4,7 @@
   "versionCode": 103,
   "releaseUrl": "https://github.com/mooNXy7/CineHUB/releases/tag/mobile-v1.0.3",
   "apkUrl": "https://github.com/mooNXy7/CineHUB/releases/download/mobile-v1.0.3/CineHUB-Mobile-v1.0.3.apk",
-  "sha256": "",
+  "sha256": "202cfabe04526ecb07b1278ba099e80b5f317544730a1ad66b19c3368f437e7c",
   "channel": "stable",
   "title": "Visual Update",
   "releaseNotes": "• Novo pop-up de atualização com visual preto e vermelho.\n• Botões Instalar e Mais tarde com acabamento em gradiente.\n• Novidades e versão organizadas em um layout mais premium.\n• Correção da proporção da logo na splash.",
