@@ -10,14 +10,22 @@ android {
         applicationId = "com.cinehub.tv"
         minSdk = 23
         targetSdk = 35
-        versionCode = 100
-        versionName = "1.0.0"
+        versionCode = 101
+        versionName = "1.0.1"
         buildConfigField("String", "CINEHUB_REMOTE_URL", "\"\"")
+    }
+
+    signingConfigs {
+        getByName("debug") {
+            // CI usa a chave debug do ambiente para garantir um APK assinado.
+            // Uma chave de release privada estável será configurada antes de updates de produção.
+        }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("debug")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
