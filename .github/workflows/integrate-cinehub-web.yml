@@ -10,6 +10,7 @@ permissions:
 
 jobs:
   integrate:
+    if: hashFiles('CineHUB_OFC-PT1.zip', 'CineHUB_OFC-PT2.zip') != ''
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -80,14 +81,16 @@ jobs:
                   out=dest/rel
                   out.parent.mkdir(parents=True, exist_ok=True)
                   if out.exists():
-                      if sha(out)==sha(p):
+                      incoming=sha(p)
+                      existing=sha(out)
+                      if existing==incoming:
                           report['identical'].append(str(rel))
                       else:
                           report['conflicts'].append({
                               'file':str(rel),
                               'source':label,
-                              'existing_sha256':sha(out),
-                              'incoming_sha256':sha(p)
+                              'existing_sha256':existing,
+                              'incoming_sha256':incoming
                           })
                   else:
                       shutil.copy2(p,out)
@@ -121,14 +124,9 @@ jobs:
           from pathlib import Path
           root=Path('CineHUB_WEB')
           files=[p for p in root.rglob('*') if p.is_file()]
-          ext=lambda e: sum(p.suffix.lower()==e for p in files)
+          for ext in ('.html','.css','.js','.json','.m3u','.m3u8'):
+              print(ext.upper().replace('.','')+':', sum(p.suffix.lower()==ext for p in files))
           print('WEB total files:', len(files))
-          print('HTML:', ext('.html'))
-          print('CSS:', ext('.css'))
-          print('JS:', ext('.js'))
-          print('JSON:', ext('.json'))
-          print('M3U:', ext('.m3u'))
-          print('M3U8:', ext('.m3u8'))
           PY
 
       - name: Protect Android TV from WEB integration
@@ -138,7 +136,7 @@ jobs:
           test -f CineHUB_TV_Android/settings.gradle.kts
           echo "Android TV tree remains separate."
 
-      - name: Commit integrated WEB
+      - name: Commit integrated WEB and report
         run: |
           set -euo pipefail
           git config user.name "CineHUB Bot"
@@ -147,7 +145,7 @@ jobs:
           git commit -m "web: integrate CineHUB WEB PT1 + PT2"
           git push
 
-      - name: Remove WEB source ZIPs
+      - name: Remove WEB source ZIPs after successful validation
         run: |
           set -euo pipefail
           git rm CineHUB_OFC-PT1.zip CineHUB_OFC-PT2.zip
