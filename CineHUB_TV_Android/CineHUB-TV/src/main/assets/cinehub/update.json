@@ -1,9 +1,9 @@
 {
   "app": "CineHUB TV",
-  "version": "1.0.2",
-  "versionCode": 102,
-  "releaseUrl": "https://github.com/mooNXy7/CineHUB/releases/tag/v1.0.2",
-  "apkUrl": "https://github.com/mooNXy7/CineHUB/releases/download/v1.0.2/CineHUB-TV-v1.0.2.apk",
-  "sha256": "2781c7415c0901643d5c829a6188f96d1311c1495ac51ef501b6c4d41390de5e",
+  "version": "1.0.4",
+  "versionCode": 104,
+  "releaseUrl": "https://github.com/mooNXy7/CineHUB/releases/tag/v1.0.4",
+  "apkUrl": "https://github.com/mooNXy7/CineHUB/releases/download/v1.0.4/CineHUB-TV-v1.0.4.apk",
+  "sha256": "",
   "channel": "stable"
 }
