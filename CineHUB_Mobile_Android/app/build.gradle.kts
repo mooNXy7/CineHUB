@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
 }
@@ -19,7 +21,7 @@ android {
             isMinifyEnabled = false
             val ks = rootProject.file("keystore.properties")
             if (ks.exists()) {
-                val p = java.util.Properties().apply { ks.inputStream().use(::load) }
+                val p = Properties().apply { ks.inputStream().use { load(it) } }
                 signingConfig = signingConfigs.create("cinehubRelease") {
                     storeFile = rootProject.file(p.getProperty("storeFile"))
                     storePassword = p.getProperty("storePassword")
