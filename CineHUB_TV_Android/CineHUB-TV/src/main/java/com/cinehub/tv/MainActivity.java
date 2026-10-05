@@ -105,6 +105,16 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
             }
+            @Override public boolean onRenderProcessGone(WebView view, android.webkit.RenderProcessGoneDetail detail) {
+                // Some Android TV/TV Box WebView builds can kill the renderer under memory/GPU pressure.
+                // Keep the native activity alive and recreate the page instead of closing CineHUB.
+                try {
+                    view.post(() -> {
+                        try { view.loadUrl(resolveStartUrl()); } catch (Exception ignored) { }
+                    });
+                } catch (Exception ignored) { }
+                return true;
+            }
         });
         webView.setWebChromeClient(new WebChromeClient() {
             @Override public void onShowCustomView(View view, CustomViewCallback callback){ enterFullscreen(view,callback); }
