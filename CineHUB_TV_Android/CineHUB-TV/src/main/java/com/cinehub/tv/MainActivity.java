@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOCAL_URL = "file:///android_asset/cinehub/index.html?tv=1";
     private static final String UPDATE_URL = "https://raw.githubusercontent.com/mooNXy7/CineHUB/main/CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json";
     private static final String UPDATE_FALLBACK_URL = "https://raw.githubusercontent.com/mooNXy7/CineHUB/main/CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json";
-    private static final int CURRENT_VERSION_CODE = 103;
+    private static final int CURRENT_VERSION_CODE = 104;
     private final ExecutorService updateExecutor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private long pendingDownloadId = -1;
@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         s.setMediaPlaybackRequiresUserGesture(false); s.setAllowFileAccess(true); s.setAllowContentAccess(true);
         s.setSupportZoom(false); s.setBuiltInZoomControls(false); s.setDisplayZoomControls(false);
         s.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.0.3");
+        s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.0.4");
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) WebSettingsCompat.setForceDark(s, WebSettingsCompat.FORCE_DARK_OFF);
         webView.setBackgroundColor(Color.BLACK); webView.setFocusable(true); webView.requestFocus();
         if (android.os.Build.VERSION.SDK_INT >= 26) webView.setRendererPriorityPolicy(WebView.RENDERER_PRIORITY_IMPORTANT, true);
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
         webView.setOnLongClickListener(v->true);
     }
 
-    private void checkForUpdate(){
+    private byte[] readAll(InputStream in) throws java.io.IOException {\n        java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();\n        byte[] buf = new byte[4096]; int n;\n        while ((n = in.read(buf)) != -1) out.write(buf, 0, n);\n        return out.toByteArray();\n    }\n\n    private void checkForUpdate(){
         updateExecutor.execute(() -> {
             HttpURLConnection connection = null;
             try {
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                 connection.setConnectTimeout(5000); connection.setReadTimeout(5000);
                 connection.setRequestProperty("User-Agent","CineHUB-TV/"+CURRENT_VERSION_CODE);
                 try (InputStream in = connection.getInputStream()) {
-                    byte[] data = in.readAllBytes();
+                    byte[] data = readAll(in);
                     JSONObject json = new JSONObject(new String(data, java.nio.charset.StandardCharsets.UTF_8));
                     int remoteCode = json.optInt("versionCode", CURRENT_VERSION_CODE); String apkUrl = json.optString("apkUrl", "");
                     if (remoteCode > CURRENT_VERSION_CODE && !apkUrl.isEmpty()) mainHandler.post(() -> enqueueUpdate(apkUrl, json.optString("version", "nova versão")));
