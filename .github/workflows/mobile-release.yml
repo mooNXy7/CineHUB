@@ -7,6 +7,10 @@ on:
       - 'CineHUB_Mobile_Android/**'
       - '.github/workflows/mobile-release.yml'
 
+concurrency:
+  group: cinehub-mobile-release
+  cancel-in-progress: true
+
 permissions:
   contents: write
 
