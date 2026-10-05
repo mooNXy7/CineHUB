@@ -3,10 +3,6 @@ name: Integrate CineHUB WEB
 on:
   push:
     branches: [main]
-    paths:
-      - 'CineHUB_OFC-PT1.zip'
-      - 'CineHUB_OFC-PT2.zip'
-      - '.github/workflows/integrate-cinehub-web.yml'
   workflow_dispatch:
 
 permissions:
@@ -21,40 +17,44 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Prepare
+      - name: Guard repository layout
         run: |
           set -euo pipefail
-          rm -rf /tmp/web_parts /tmp/web_part1 /tmp/web_part2
-          mkdir -p /tmp/web_parts /tmp/web_part1 /tmp/web_part2
-          unzip -q CineHUB_OFC-PT1.zip -d /tmp/web_part1
-          unzip -q CineHUB_OFC-PT2.zip -d /tmp/web_part2
+          test -f CineHUB_OFC-PT1.zip
+          test -f CineHUB_OFC-PT2.zip
+          test -d CineHUB_TV_Android
 
-      - name: Normalize extracted roots
+      - name: Prepare source parts
+        run: |
+          set -euo pipefail
+          rm -rf /tmp/web_parts
+          mkdir -p /tmp/web_parts/pt1 /tmp/web_parts/pt2
+          unzip -q CineHUB_OFC-PT1.zip -d /tmp/web_parts/pt1
+          unzip -q CineHUB_OFC-PT2.zip -d /tmp/web_parts/pt2
+
+      - name: Normalize source roots
         run: |
           set -euo pipefail
           python3 - <<'PY'
           from pathlib import Path
-          def root_for(base):
-              entries=[p for p in base.iterdir()]
-              if len(entries)==1 and entries[0].is_dir():
-                  return entries[0]
-              return base
-          for name in ('web_part1','web_part2'):
-              base=Path('/tmp')/name
-              root=root_for(base)
-              target=Path('/tmp/web_parts')/name
-              target.mkdir(parents=True, exist_ok=True)
+          import shutil
+
+          def normalize(src, dst):
+              entries=[p for p in src.iterdir()]
+              root=entries[0] if len(entries)==1 and entries[0].is_dir() else src
+              dst.mkdir(parents=True, exist_ok=True)
               for p in root.iterdir():
-                  dest=target/p.name
+                  out=dst/p.name
                   if p.is_dir():
-                      import shutil
-                      shutil.copytree(p,dest,dirs_exist_ok=True)
+                      shutil.copytree(p,out,dirs_exist_ok=True)
                   else:
-                      import shutil
-                      shutil.copy2(p,dest)
+                      shutil.copy2(p,out)
+
+          normalize(Path('/tmp/web_parts/pt1'), Path('/tmp/web_parts/n1'))
+          normalize(Path('/tmp/web_parts/pt2'), Path('/tmp/web_parts/n2'))
           PY
 
-      - name: Compare and integrate
+      - name: Compare and integrate without silent overwrite
         run: |
           set -euo pipefail
           mkdir -p CineHUB_WEB
@@ -63,17 +63,16 @@ jobs:
           import hashlib, shutil, json
 
           dest=Path('CineHUB_WEB')
-          stats={'added':[],'identical':[],'conflicts':[]}
+          report={'pt1_added':[],'pt2_added':[],'identical':[],'conflicts':[]}
 
-          def digest(p):
+          def sha(p):
               h=hashlib.sha256()
               with p.open('rb') as f:
                   for chunk in iter(lambda:f.read(1024*1024), b''):
                       h.update(chunk)
               return h.hexdigest()
 
-          for part in ('web_part1','web_part2'):
-              src=Path('/tmp/web_parts')/part
+          def merge(src, label):
               for p in sorted(src.rglob('*')):
                   if not p.is_file():
                       continue
@@ -81,42 +80,63 @@ jobs:
                   out=dest/rel
                   out.parent.mkdir(parents=True, exist_ok=True)
                   if out.exists():
-                      if digest(out)==digest(p):
-                          stats['identical'].append(str(rel))
+                      if sha(out)==sha(p):
+                          report['identical'].append(str(rel))
                       else:
-                          stats['conflicts'].append(str(rel))
+                          report['conflicts'].append({
+                              'file':str(rel),
+                              'source':label,
+                              'existing_sha256':sha(out),
+                              'incoming_sha256':sha(p)
+                          })
                   else:
                       shutil.copy2(p,out)
-                      stats['added'].append(str(rel))
+                      report[f'{label}_added'].append(str(rel))
+
+          merge(Path('/tmp/web_parts/n1'),'pt1')
+          merge(Path('/tmp/web_parts/n2'),'pt2')
 
           Path('CineHUB_WEB/WEB_INTEGRATION_REPORT.json').write_text(
-              json.dumps(stats,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'
+              json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'
           )
-          if stats['conflicts']:
-              print('CONFLICTS:')
-              print('\n'.join(stats['conflicts']))
-              raise SystemExit(2)
-          print(f"Added: {len(stats['added'])} | Identical: {len(stats['identical'])} | Conflicts: 0")
+
+          print('PT1 added:', len(report['pt1_added']))
+          print('PT2 added:', len(report['pt2_added']))
+          print('Identical:', len(report['identical']))
+          print('Conflicts:', len(report['conflicts']))
+          if report['conflicts']:
+              raise SystemExit('WEB integration stopped: conflicts detected; no silent overwrite.')
           PY
 
-      - name: Validate WEB
+      - name: Validate WEB structure
         run: |
           set -euo pipefail
           test -f CineHUB_WEB/index.html
           test -f CineHUB_WEB/service-worker.js
           test -f CineHUB_WEB/manifest.json
-          test -d CineHUB_WEB/src
+          test -d CineHUB_WEB/src/css
+          test -d CineHUB_WEB/src/js
           test -d CineHUB_WEB/dados
           python3 - <<'PY'
           from pathlib import Path
           root=Path('CineHUB_WEB')
-          files=list(root.rglob('*'))
-          print('WEB files:', sum(p.is_file() for p in files))
-          print('HTML:', sum(p.suffix.lower()=='.html' for p in files))
-          print('CSS:', sum(p.suffix.lower()=='.css' for p in files))
-          print('JS:', sum(p.suffix.lower()=='.js' for p in files))
-          print('M3U/M3U8:', sum(p.suffix.lower() in ('.m3u','.m3u8') for p in files))
+          files=[p for p in root.rglob('*') if p.is_file()]
+          ext=lambda e: sum(p.suffix.lower()==e for p in files)
+          print('WEB total files:', len(files))
+          print('HTML:', ext('.html'))
+          print('CSS:', ext('.css'))
+          print('JS:', ext('.js'))
+          print('JSON:', ext('.json'))
+          print('M3U:', ext('.m3u'))
+          print('M3U8:', ext('.m3u8'))
           PY
+
+      - name: Protect Android TV from WEB integration
+        run: |
+          set -euo pipefail
+          test -d CineHUB_TV_Android
+          test -f CineHUB_TV_Android/settings.gradle.kts
+          echo "Android TV tree remains separate."
 
       - name: Commit integrated WEB
         run: |
@@ -124,18 +144,12 @@ jobs:
           git config user.name "CineHUB Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add CineHUB_WEB
-          if git diff --cached --quiet; then
-            echo "No WEB changes to commit."
-          else
-            git commit -m "web: integrate CineHUB WEB PT1 + PT2"
-            git push
-          fi
+          git commit -m "web: integrate CineHUB WEB PT1 + PT2"
+          git push
 
-      - name: Remove source ZIPs after successful integration
+      - name: Remove WEB source ZIPs
         run: |
           set -euo pipefail
-          git config user.name "CineHUB Bot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git rm CineHUB_OFC-PT1.zip CineHUB_OFC-PT2.zip
-          git commit -m "chore: remove WEB source ZIPs after successful integration"
+          git commit -m "chore: remove WEB source ZIPs after validation"
           git push
