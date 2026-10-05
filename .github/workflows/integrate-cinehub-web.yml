@@ -119,15 +119,27 @@ jobs:
               print('CONFLICTS_FOUND — preserving both source ZIPs for analysis.')
           PY
 
+      - name: Inventory extracted WEB before validation
+        run: |
+          set -euo pipefail
+          {
+            echo "=== PT1 ==="
+            find /tmp/web_parts/n1 -maxdepth 3 -type f | sort
+            echo "=== PT2 ==="
+            find /tmp/web_parts/n2 -maxdepth 3 -type f | sort
+            echo "=== MERGED ==="
+            find CineHUB_WEB -maxdepth 4 -type f | sort
+          } > CineHUB_WEB/WEB_SOURCE_INVENTORY.txt
+
       - name: Validate WEB
         run: |
           set -euo pipefail
-          test -f CineHUB_WEB/index.html
-          test -f CineHUB_WEB/service-worker.js
-          test -f CineHUB_WEB/manifest.json
-          test -d CineHUB_WEB/src/css
-          test -d CineHUB_WEB/src/js
-          test -d CineHUB_WEB/dados
+          test -f CineHUB_WEB/index.html || { echo "MISSING index.html"; exit 1; }
+          test -f CineHUB_WEB/service-worker.js || { echo "MISSING service-worker.js"; exit 1; }
+          test -f CineHUB_WEB/manifest.json || { echo "MISSING manifest.json"; exit 1; }
+          test -d CineHUB_WEB/src/css || { echo "MISSING src/css"; exit 1; }
+          test -d CineHUB_WEB/src/js || { echo "MISSING src/js"; exit 1; }
+          test -d CineHUB_WEB/dados || { echo "MISSING dados"; exit 1; }
           python3 - <<'PY'
           from pathlib import Path
           root=Path('CineHUB_WEB')
