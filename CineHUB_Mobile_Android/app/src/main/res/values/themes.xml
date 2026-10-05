@@ -11,7 +11,7 @@
 
     <style name="Theme.CineHUBMobile.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">#050609</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/cinehub_splash</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_cinehub_official</item>
         <item name="postSplashScreenTheme">@style/Theme.CineHUBMobile</item>
     </style>
 </resources>
