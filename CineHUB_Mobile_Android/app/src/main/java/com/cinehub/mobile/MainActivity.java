@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ActivityNotFoundException;
 import android.graphics.Color;
+import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,6 +29,8 @@ import android.widget.Toast;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.view.Gravity;
+import android.view.ViewGroup;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
@@ -217,20 +221,129 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showUpdateDialog(String version, String releaseNotes, String apkUrl) {
-        String message =
-                "Versão " + version + "\n\n"
-                + "Novidades:\n"
-                + releaseNotes;
+    private GradientDrawable roundedBackground(int[] colors, float radius) {
+        GradientDrawable drawable = new GradientDrawable(
+                GradientDrawable.Orientation.TL_BR,
+                colors
+        );
+        drawable.setCornerRadius(radius);
+        return drawable;
+    }
 
-        new AlertDialog.Builder(this)
-                .setTitle("Nova atualização disponível!")
-                .setMessage(message)
+    private TextView dialogText(String text, float size, int color) {
+        TextView view = new TextView(this);
+        view.setText(text);
+        view.setTextSize(size);
+        view.setTextColor(color);
+        view.setGravity(Gravity.CENTER_VERTICAL);
+        return view;
+    }
+
+    private void showUpdateDialog(String version, String releaseNotes, String apkUrl) {
+        int white = Color.WHITE;
+        int muted = Color.rgb(190, 190, 195);
+        int red = Color.rgb(229, 9, 20);
+
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setPadding(34, 30, 34, 26);
+        root.setBackground(roundedBackground(
+                new int[]{Color.rgb(18, 18, 21), Color.rgb(5, 6, 9)},
+                34f
+        ));
+
+        TextView title = dialogText("Nova atualização disponível!", 21, white);
+        title.setTypeface(Typeface.DEFAULT_BOLD);
+        root.addView(title, new LinearLayout.LayoutParams(-1, -2));
+
+        TextView versionView = dialogText("VERSÃO " + version, 13, red);
+        versionView.setTypeface(Typeface.DEFAULT_BOLD);
+        LinearLayout.LayoutParams vp = new LinearLayout.LayoutParams(-1, -2);
+        vp.topMargin = 10;
+        root.addView(versionView, vp);
+
+        View divider = new View(this);
+        divider.setBackgroundColor(Color.rgb(90, 12, 18));
+        LinearLayout.LayoutParams dp = new LinearLayout.LayoutParams(-1, 2);
+        dp.topMargin = 18;
+        dp.bottomMargin = 18;
+        root.addView(divider, dp);
+
+        TextView notesTitle = dialogText("Novidades", 15, white);
+        notesTitle.setTypeface(Typeface.DEFAULT_BOLD);
+        root.addView(notesTitle, new LinearLayout.LayoutParams(-1, -2));
+
+        TextView notes = dialogText(releaseNotes, 14, muted);
+        notes.setGravity(Gravity.TOP);
+        notes.setLineSpacing(2f, 1.08f);
+        LinearLayout.LayoutParams np = new LinearLayout.LayoutParams(-1, -2);
+        np.topMargin = 8;
+        root.addView(notes, np);
+
+        LinearLayout buttons = new LinearLayout(this);
+        buttons.setOrientation(LinearLayout.HORIZONTAL);
+        buttons.setGravity(Gravity.CENTER_VERTICAL);
+        LinearLayout.LayoutParams bp = new LinearLayout.LayoutParams(-1, 54);
+        bp.topMargin = 26;
+        root.addView(buttons, bp);
+
+        TextView later = dialogText("Mais tarde", 14, white);
+        later.setGravity(Gravity.CENTER);
+        later.setTypeface(Typeface.DEFAULT_BOLD);
+        later.setBackground(roundedBackground(
+                new int[]{Color.rgb(28, 28, 32), Color.rgb(12, 12, 15)},
+                22f
+        ));
+
+        TextView install = dialogText("Instalar", 14, Color.WHITE);
+        install.setGravity(Gravity.CENTER);
+        install.setTypeface(Typeface.DEFAULT_BOLD);
+        install.setBackground(roundedBackground(
+                new int[]{Color.rgb(255, 52, 64), Color.rgb(185, 0, 12), Color.rgb(110, 0, 7)},
+                22f
+        ));
+
+        LinearLayout.LayoutParams buttonParam = new LinearLayout.LayoutParams(0, -1, 1f);
+        buttons.addView(later, buttonParam);
+        LinearLayout.LayoutParams installParam = new LinearLayout.LayoutParams(0, -1, 1f);
+        installParam.leftMargin = 12;
+        buttons.addView(install, installParam);
+
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setView(root)
                 .setCancelable(true)
-                .setNegativeButton("Mais tarde", null)
-                .setPositiveButton("Instalar", (dialog, which) ->
-                        enqueueUpdate(apkUrl, version))
-                .show();
+                .create();
+
+        later.setOnClickListener(v -> dialog.dismiss());
+        install.setOnClickListener(v -> {
+            dialog.dismiss();
+            enqueueUpdate(apkUrl, version);
+        });
+
+        dialog.setOnShowListener(d -> {
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setBackgroundDrawable(
+                        roundedBackground(
+                                new int[]{Color.rgb(5, 6, 9), Color.rgb(5, 6, 9)},
+                                34f
+                        )
+                );
+                dialog.getWindow().setDimAmount(0.72f);
+            }
+        });
+
+        dialog.show();
+
+        if (dialog.getWindow() != null) {
+            int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.90f);
+            dialog.getWindow().setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT);
+            dialog.getWindow().setBackgroundDrawable(
+                    roundedBackground(
+                            new int[]{Color.rgb(5, 6, 9), Color.rgb(5, 6, 9)},
+                            34f
+                    )
+            );
+        }
     }
 
     private void enqueueUpdate(String url, String version) {
