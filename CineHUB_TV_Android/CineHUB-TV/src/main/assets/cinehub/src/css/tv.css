@@ -1,0 +1,11 @@
+/* CineHUB TV — TV/TV Box presentation layer */
+.tv-screen .screen-inner{max-width:1500px}
+.tv-tabs{margin-bottom:14px}
+.tv-tab{cursor:pointer}
+.popular-channels{margin-bottom:16px}
+.tv-panel{min-width:0}
+.tv-source-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.channel-grid{contain:layout paint}
+.guide-grid{contain:layout paint}
+@media (min-width:1100px){.channel-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.compact-popular{grid-template-columns:repeat(6,minmax(0,1fr))}.guide-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:900px){.tv-live-bar{align-items:flex-start;flex-direction:column}.tv-source-actions{width:100%;justify-content:flex-start}.tv-source-actions .secondary{flex:1}}
