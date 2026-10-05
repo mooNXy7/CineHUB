@@ -3,6 +3,11 @@ name: Integrate CineHUB WEB
 on:
   push:
     branches: [main]
+    paths:
+      - 'CineHUB_OFC-PT1.zip'
+      - 'CineHUB_OFC-PT2.zip'
+      - '.cinehub_web_start'
+      - '.github/workflows/integrate-cinehub-web.yml'
   workflow_dispatch:
 
 permissions:
@@ -10,7 +15,7 @@ permissions:
 
 jobs:
   integrate:
-    if: hashFiles('CineHUB_OFC-PT1.zip', 'CineHUB_OFC-PT2.zip') != ''
+    if: github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, 'chore: remove WEB source ZIPs after validation')
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -18,14 +23,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Guard repository layout
+      - name: Guard source ZIPs
         run: |
           set -euo pipefail
           test -f CineHUB_OFC-PT1.zip
           test -f CineHUB_OFC-PT2.zip
           test -d CineHUB_TV_Android
 
-      - name: Prepare source parts
+      - name: Extract WEB parts
         run: |
           set -euo pipefail
           rm -rf /tmp/web_parts
@@ -73,13 +78,13 @@ jobs:
                       h.update(chunk)
               return h.hexdigest()
 
-          def merge(src, label):
+          def merge(src,label):
               for p in sorted(src.rglob('*')):
                   if not p.is_file():
                       continue
                   rel=p.relative_to(src)
                   out=dest/rel
-                  out.parent.mkdir(parents=True, exist_ok=True)
+                  out.parent.mkdir(parents=True,exist_ok=True)
                   if out.exists():
                       incoming=sha(p)
                       existing=sha(out)
@@ -102,16 +107,15 @@ jobs:
           Path('CineHUB_WEB/WEB_INTEGRATION_REPORT.json').write_text(
               json.dumps(report,ensure_ascii=False,indent=2)+'\n',encoding='utf-8'
           )
-
-          print('PT1 added:', len(report['pt1_added']))
-          print('PT2 added:', len(report['pt2_added']))
-          print('Identical:', len(report['identical']))
-          print('Conflicts:', len(report['conflicts']))
+          print('PT1 added:',len(report['pt1_added']))
+          print('PT2 added:',len(report['pt2_added']))
+          print('Identical:',len(report['identical']))
+          print('Conflicts:',len(report['conflicts']))
           if report['conflicts']:
-              raise SystemExit('WEB integration stopped: conflicts detected; no silent overwrite.')
+              raise SystemExit('Conflict detected; refusing silent overwrite.')
           PY
 
-      - name: Validate WEB structure
+      - name: Validate WEB
         run: |
           set -euo pipefail
           test -f CineHUB_WEB/index.html
@@ -125,18 +129,17 @@ jobs:
           root=Path('CineHUB_WEB')
           files=[p for p in root.rglob('*') if p.is_file()]
           for ext in ('.html','.css','.js','.json','.m3u','.m3u8'):
-              print(ext.upper().replace('.','')+':', sum(p.suffix.lower()==ext for p in files))
-          print('WEB total files:', len(files))
+              print(ext, sum(p.suffix.lower()==ext for p in files))
+          print('TOTAL',len(files))
           PY
 
-      - name: Protect Android TV from WEB integration
+      - name: Verify Android TV remains isolated
         run: |
           set -euo pipefail
-          test -d CineHUB_TV_Android
           test -f CineHUB_TV_Android/settings.gradle.kts
-          echo "Android TV tree remains separate."
+          echo "Android TV untouched by WEB integration."
 
-      - name: Commit integrated WEB and report
+      - name: Commit integrated WEB
         run: |
           set -euo pipefail
           git config user.name "CineHUB Bot"
@@ -145,7 +148,7 @@ jobs:
           git commit -m "web: integrate CineHUB WEB PT1 + PT2"
           git push
 
-      - name: Remove WEB source ZIPs after successful validation
+      - name: Remove source ZIPs only after successful validation
         run: |
           set -euo pipefail
           git rm CineHUB_OFC-PT1.zip CineHUB_OFC-PT2.zip
