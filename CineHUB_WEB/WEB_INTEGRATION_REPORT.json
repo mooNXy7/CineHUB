@@ -1,5 +1,7 @@
 {
-  "pt1_added": [
+  "pt1_added": [],
+  "pt2_added": [],
+  "identical": [
     "CineHUB_1.1/dados/canais-m3u8.js",
     "CineHUB_1.1/dados/canais.js",
     "CineHUB_1.1/dados/conteudo/catalogo/destaques.m3u8",
@@ -117,9 +119,7 @@
     "CineHUB_1.1/src/js/providers/megaembed.js",
     "CineHUB_1.1/src/js/webdata.js",
     "CineHUB_1.1/tools/atualizar_listas.py",
-    "CineHUB_1.1/tools/atualizar_listas.sh"
-  ],
-  "pt2_added": [
+    "CineHUB_1.1/tools/atualizar_listas.sh",
     "assets/logos/adaptive-icon.png",
     "assets/logos/channel-band.svg",
     "assets/logos/channel-cultura.svg",
@@ -141,6 +141,5 @@
     "manifest.json",
     "service-worker.js"
   ],
-  "identical": [],
   "conflicts": []
 }
