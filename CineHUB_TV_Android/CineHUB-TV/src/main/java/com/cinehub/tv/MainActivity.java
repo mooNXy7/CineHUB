@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOCAL_URL = "file:///android_asset/cinehub/index.html?tv=1";
     private static final String UPDATE_URL = "https://raw.githubusercontent.com/mooNXy7/CineHUB/main/CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json";
     private static final String UPDATE_FALLBACK_URL = "https://raw.githubusercontent.com/mooNXy7/CineHUB/main/CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json";
-    private static final int CURRENT_VERSION_CODE = 106;
+    private static final int CURRENT_VERSION_CODE = 107;
     private final ExecutorService updateExecutor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private long pendingDownloadId = -1;
