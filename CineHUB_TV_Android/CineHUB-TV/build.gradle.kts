@@ -10,8 +10,8 @@ android {
         applicationId = "com.cinehub.tv"
         minSdk = 23
         targetSdk = 35
-        versionCode = 104
-        versionName = "1.0.4"
+        versionCode = 105
+        versionName = "1.0.5"
         buildConfigField("String", "CINEHUB_REMOTE_URL", "\"\"")
     }
 
