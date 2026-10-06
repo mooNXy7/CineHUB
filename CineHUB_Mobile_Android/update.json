@@ -6,7 +6,7 @@
   "apkUrl": "https://github.com/mooNXy7/CineHUB/releases/download/mobile-v1.0.6/CineHUB-Mobile-v1.0.6.apk",
   "sha256": "",
   "channel": "stable",
-  "title": "CineHUB Visual Test",
-  "releaseNotes": "• Refinamento do pop-up de atualização.\n• Identidade visual CineHUB aplicada ao fluxo OTA.\n• Botões Instalar e Mais tarde com acabamento aprimorado.\n• Melhorias de espaçamento, tipografia e leitura.\n• Barra de progresso e mensagens de atualização refinadas.",
+  "title": "CineHUB Visual Identity Test",
+  "releaseNotes": "• Teste de identidade visual dos pop-ups OTA.\n• Interface preta com detalhes em vermelho CineHUB.\n• Botões com gradiente e cantos arredondados.\n• Barra de progresso integrada ao visual do aplicativo.\n• Teste completo do fluxo de atualização e instalação.",
   "buildTrigger": "mobile-1.0.6-visual-test"
 }
