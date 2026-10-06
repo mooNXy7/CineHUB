@@ -56,18 +56,18 @@ jobs:
       - name: Configure stable CineHUB TV signing
         shell: bash
         env:
-          CINEHUB_KEYSTORE_BASE64: ${{ secrets.CINEHUB_KEYSTORE_BASE64 }}
+          CINEHUB_TV_KEYSTORE_BASE64: ${{ secrets.CINEHUB_TV_KEYSTORE_BASE64 }}
         run: |
           set -euo pipefail
-          test -n "${CINEHUB_KEYSTORE_BASE64}" || { echo "Missing CINEHUB_KEYSTORE_BASE64 repository secret"; exit 1; }
-          echo "${CINEHUB_KEYSTORE_BASE64}" | base64 --decode > "${GITHUB_WORKSPACE}/cinehub-tv-release.jks"
+          test -n "${CINEHUB_TV_KEYSTORE_BASE64}" || { echo "Missing CINEHUB_TV_KEYSTORE_BASE64 repository secret"; exit 1; }
+          echo "${CINEHUB_TV_KEYSTORE_BASE64}" | base64 --decode > "${GITHUB_WORKSPACE}/cinehub-tv-release.jks"
       - name: Build CineHUB TV APK
         working-directory: CineHUB_TV_Android
         env:
           CINEHUB_KEYSTORE_PATH: ${{ github.workspace }}/cinehub-tv-release.jks
-          CINEHUB_KEYSTORE_PASSWORD: ${{ secrets.CINEHUB_KEYSTORE_PASSWORD }}
-          CINEHUB_KEY_ALIAS: ${{ secrets.CINEHUB_KEY_ALIAS }}
-          CINEHUB_KEY_PASSWORD: ${{ secrets.CINEHUB_KEY_PASSWORD }}
+          CINEHUB_TV_KEYSTORE_PASSWORD: ${{ secrets.CINEHUB_TV_KEYSTORE_PASSWORD }}
+          CINEHUB_TV_KEY_ALIAS: ${{ secrets.CINEHUB_TV_KEY_ALIAS }}
+          CINEHUB_TV_KEY_PASSWORD: ${{ secrets.CINEHUB_TV_KEY_PASSWORD }}
         run: gradle :CineHUB-TV:assembleRelease --no-daemon --stacktrace
       - name: Verify APK installability and stable signature
         shell: bash
