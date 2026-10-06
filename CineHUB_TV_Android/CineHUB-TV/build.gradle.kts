@@ -11,7 +11,6 @@ android {
         targetSdk = 35
         versionCode = 109
         versionName = "1.0.9"
-        buildConfigField("String", "CINEHUB_REMOTE_URL", """")
     }
     signingConfigs {
         getByName("debug") {}
