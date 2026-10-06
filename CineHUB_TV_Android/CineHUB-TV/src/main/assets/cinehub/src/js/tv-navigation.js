@@ -21,6 +21,27 @@ function move(dir){
  if(best)focus(best);
 }
 function press(){var x=document.activeElement;if(!x||!visible(x)||!active(x)){focus(list()[0]);return}if(/^(INPUT|TEXTAREA|SELECT)$/.test(x.tagName))return;try{x.click()}catch(_){}}
+
+function bindNativeHeader(){
+ document.addEventListener('click',function(e){
+  if(e.target.closest('[data-action="config"]')&&window.openConfig)window.openConfig();
+  if(e.target.closest('[data-action="community"]')&&window.openSheet)window.openSheet('discordSheet');
+ },true);
+}
+function renderHomeProgram(){
+ var row=document.getElementById('programRow');if(!row)return;
+ var channels=Array.isArray(window.canaisM3U8)?window.canaisM3U8:[];row.innerHTML='';
+ if(!channels.length){row.innerHTML='<div class="empty">Programação disponível ao abrir a área de TV.</div>';return;}
+ var seen={},frag=document.createDocumentFragment();
+ channels.forEach(function(ch){
+  var name=String(ch&&ch.nome||'').trim(),key=name.toLowerCase();if(!name||seen[key])return;seen[key]=1;
+  var card=document.createElement('article');card.className='channel glass press';card.tabIndex=0;
+  var logo=String(ch.logo||'imagens/sem-capa.jpg');
+  card.innerHTML='<div class="channel-logo-wrap"><img class="channel-logo" loading="lazy" decoding="async" src="'+logo.replace(/"/g,'&quot;')+'" alt=""></div><div class="channel-title-row"><span class="channel-tv-icon">TV</span><h3>'+name.replace(/[&<>]/g,function(s){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[s]})+'</h3></div><div class="channel-meta-line"><span class="pill">'+String(ch.grupo||'Geral').replace(/[&<>]/g,function(s){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[s]})+'</span></div>';
+  var open=function(){var targetName=name.toLowerCase();var nav=document.querySelector('[data-screen="tv"]');if(nav)nav.click();setTimeout(function(){var nodes=document.querySelectorAll('#channelGrid .channel');for(var i=0;i<nodes.length;i++){var h=nodes[i].querySelector('h3');if(h&&h.textContent.trim().toLowerCase()===targetName){nodes[i].focus();nodes[i].click();break;}}},260)};
+  card.addEventListener('click',open);card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.keyCode===23){e.preventDefault();open()}});frag.appendChild(card);
+ });row.appendChild(frag);
+}
 function initial(){var m=document.querySelector('.system-modal.active');if(m){focus(m.querySelector('button'));return}var l=document.querySelector('.player.active,.detail.active,.sheet.active,.screen.active');if(l){focus(l.querySelector('button,a[href],input'));return}focus(document.querySelector('#heroPlay')||document.querySelector('.dock-btn'))}
 document.addEventListener('keydown',function(e){var k=e.keyCode||e.which;if(k===21||k===22||k===19||k===20){e.preventDefault();move(k===21?'left':k===22?'right':k===19?'up':'down')}else if(k===23||k===66){e.preventDefault();press()}else if(k===4||e.key==='Escape'){if(back())e.preventDefault()}},true);
 document.addEventListener('focusin',function(e){if(visible(e.target))focus(e.target)});
@@ -37,6 +58,6 @@ function watch(){
   if(k!==last){last=k;setTimeout(initial,80)}
 }
 new MutationObserver(watch).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','hidden']});
-setTimeout(initial,700);
+setTimeout(initial,700);window.addEventListener('cinehub:sources-updated',renderHomeProgram);window.addEventListener('cinehub:epg-updated',renderHomeProgram);
 window.CineHUBTVNavigation=root;
 })();
