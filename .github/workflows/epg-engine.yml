@@ -70,6 +70,8 @@ jobs:
               print("Network fetches:", s.get("stats",{}).get("networkFetches"))
               print("Channels with EPG:", s.get("stats",{}).get("channelsWithPrograms"))
               print("Programs:", s.get("stats",{}).get("programs"))
+              for src in s.get("sources",[]):
+                  print("EPG source:", src.get("id"), src.get("status"), src.get("httpStatus"), src.get("stats"), src.get("error"))
           except Exception as e:
               print("EPG status unavailable:", e)
           PY
@@ -85,7 +87,7 @@ jobs:
         run: |
           git config user.name "CineHUB Data Engine"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add CineHUB_Data/epg/schedule.index.json CineHUB_Data/status/epg-status.json CineHUB_WEB/data-engine/epg/epg
+          git add CineHUB_Data/epg/schedule.index.json CineHUB_Data/status/epg-status.json CineHUB_WEB/data-engine/epg
           if git diff --cached --quiet; then
             echo "NO CHANGES"
             exit 0
