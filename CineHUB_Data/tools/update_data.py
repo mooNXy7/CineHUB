@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# Data Engine publication pipeline remains additive and GitHub-size safe.
 """CineHUB Data Engine - Phase 2 bootstrap updater."""
 from __future__ import annotations
 import hashlib, json, os, time
