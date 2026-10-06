@@ -1,0 +1,48 @@
+name: CineHUB Data Engine - Phase 8 CI
+
+on:
+  pull_request:
+    paths:
+      - "CineHUB_Data/**"
+      - "CineHUB_WEB/data-engine/**"
+      - ".github/workflows/cinehub-data-update.yml"
+      - ".github/workflows/epg-engine.yml"
+      - ".github/workflows/data-engine-phase8-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate JSON
+        run: |
+          set -euo pipefail
+          python3 -m json.tool CineHUB_Data/sources/registry.json >/dev/null
+          python3 -m json.tool CineHUB_Data/manifests/data-manifest.json >/dev/null
+          python3 -m json.tool CineHUB_Data/status/data-status.json >/dev/null
+          python3 -m json.tool CineHUB_Data/catalog/catalog-manifest.json >/dev/null
+      - name: Compile Data Engine
+        run: |
+          set -euo pipefail
+          python3 -m py_compile CineHUB_Data/tools/*.py
+      - name: Run unit tests
+        working-directory: CineHUB_Data/tools
+        run: python3 -m unittest discover -p "test_*.py" -v
+      - name: Verify WEB publication contract
+        run: |
+          test -f CineHUB_WEB/data-engine/_headers
+          grep -q "/data-engine/manifest.json" CineHUB_Data/manifests/data-manifest.json
+          grep -q '"automatic": true' CineHUB_Data/manifests/data-manifest.json
+      - name: Verify platform trees are untouched by the publication layer
+        run: |
+          git diff --exit-code -- CineHUB_WEB/src CineHUB_Mobile_Android CineHUB_TV_Android
