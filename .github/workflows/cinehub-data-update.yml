@@ -14,6 +14,9 @@ concurrency:
   group: cinehub-data-engine
   cancel-in-progress: false
 
+env:
+  GIT_TERMINAL_PROMPT: "0"
+
 permissions:
   contents: write
 
@@ -112,4 +115,20 @@ jobs:
             exit 0
           fi
           git commit -m "chore(data): refresh source fingerprints"
-          git push origin HEAD:main
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main; then
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+            fi
+            git rebase --abort 2>/dev/null || true
+            if [ "$attempt" -lt 3 ]; then sleep $((attempt * 5)); fi
+            git add CineHUB_Data CineHUB_WEB/data-engine
+            if git diff --cached --quiet; then
+              echo "Generated changes were already published by another run"
+              exit 0
+            fi
+          done
+          echo "Failed to publish generated Data Engine changes after 3 attempts"
+          exit 1
