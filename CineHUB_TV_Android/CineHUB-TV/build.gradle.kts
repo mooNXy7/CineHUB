@@ -17,15 +17,27 @@ android {
 
     signingConfigs {
         getByName("debug") {
-            // CI usa a chave debug do ambiente para garantir um APK assinado.
-            // Uma chave de release privada estável será configurada antes de updates de produção.
+            // Desenvolvimento/local.
+        }
+        create("release") {
+            val ks = System.getenv("CINEHUB_KEYSTORE_PATH")
+            val kp = System.getenv("CINEHUB_KEYSTORE_PASSWORD")
+            val ka = System.getenv("CINEHUB_KEY_ALIAS")
+            val ap = System.getenv("CINEHUB_KEY_PASSWORD")
+            if (!ks.isNullOrBlank() && !kp.isNullOrBlank() && !ka.isNullOrBlank() && !ap.isNullOrBlank()) {
+                storeFile = file(ks)
+                storePassword = kp
+                keyAlias = ka
+                keyPassword = ap
+            }
         }
     }
 
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            val stableKey = System.getenv("CINEHUB_KEYSTORE_PATH")
+            signingConfig = if (!stableKey.isNullOrBlank()) signingConfigs.getByName("release") else signingConfigs.getByName("debug")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
