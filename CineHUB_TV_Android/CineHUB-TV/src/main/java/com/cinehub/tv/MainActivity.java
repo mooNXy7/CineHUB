@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String LOCAL_URL = "file:///android_asset/cinehub/index.html?tv=1";
     private static final String UPDATE_URL = "https://raw.githubusercontent.com/mooNXy7/CineHUB/main/CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json";
     private static final String UPDATE_FALLBACK_URL = "https://raw.githubusercontent.com/mooNXy7/CineHUB/main/CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json";
-    private static final int CURRENT_VERSION_CODE = 105;
+    private static final int CURRENT_VERSION_CODE = 106;
     private final ExecutorService updateExecutor = Executors.newSingleThreadExecutor();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private long pendingDownloadId = -1;
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         s.setMediaPlaybackRequiresUserGesture(false); s.setAllowFileAccess(true); s.setAllowContentAccess(true);
         s.setSupportZoom(false); s.setBuiltInZoomControls(false); s.setDisplayZoomControls(false);
         s.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.0.5");
+        s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.0.6");
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) WebSettingsCompat.setForceDark(s, WebSettingsCompat.FORCE_DARK_OFF);
         webView.setBackgroundColor(Color.BLACK); webView.setFocusable(true); webView.requestFocus();
         if (android.os.Build.VERSION.SDK_INT >= 26) webView.setRendererPriorityPolicy(WebView.RENDERER_PRIORITY_IMPORTANT, true);
