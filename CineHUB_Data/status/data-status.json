@@ -3,8 +3,8 @@
   "status": "bootstrap",
   "updatedAt": null,
   "engine": {
-    "phase": 3,
-    "mode": "source-health-check",
+    "phase": 4,
+    "mode": "source-health-check+channel-normalization",
     "lastRunAt": null,
     "changed": false
   },
@@ -36,5 +36,13 @@
     "Phase 3 verifies remote source reachability and basic payload validity.",
     "Health states use tolerance: first failure unknown, second degraded, third or more offline.",
     "Runtime WEB/Mobile/TV data paths remain unchanged."
-  ]
+  ],
+  "normalization": {
+    "enabled": true,
+    "output": "CineHUB_Data/normalized/channels.json",
+    "scope": "channels",
+    "stableIds": true,
+    "preservesMultipleSources": true,
+    "preservesLastKnownDataOnSourceFailure": true
+  }
 }

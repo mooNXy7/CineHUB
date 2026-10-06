@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "1.0.0",
+  "generatedBy": "CineHUB Data Engine Phase 4",
+  "stats": {
+    "sourcesRead": 0,
+    "recordsRead": 0,
+    "entities": 0,
+    "duplicatesMerged": 0
+  },
+  "channels": []
+}

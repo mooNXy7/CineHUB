@@ -55,3 +55,38 @@ Se as fontes permanecerem iguais, o workflow imprime:
 NO CHANGES
 
 e não cria commit.
+
+## Fase 4 — Normalização e deduplicação
+
+O Data Engine agora possui um normalizador central de canais em `CineHUB_Data/tools/normalize_channels.py`.
+
+A etapa:
+
+- lê fontes de canais habilitadas, locais e remotas;
+- normaliza nomes, acentos, pontuação e marcadores de qualidade;
+- cria IDs estáveis derivados da identidade canônica;
+- mantém aliases encontrados nas fontes;
+- agrega várias URLs/fontes na mesma entidade;
+- preserva prioridade, logo, grupo, idioma, país e tvg-id quando disponíveis;
+- deduplica registros sem apagar fontes alternativas;
+- não processa fontes de catálogo VOD como canais;
+- preserva o último dado conhecido de uma fonte que esteja temporariamente indisponível.
+
+A saída é `CineHUB_Data/normalized/channels.json`.
+
+Importante: esta fase ainda não substitui os dados consumidos pelo WEB, Mobile ou TV. O índice normalizado é produzido em paralelo e será conectado ao fluxo comum nas fases seguintes, depois de validação.
+
+Exemplo conceitual:
+
+```text
+Canal X
+Canal-X HD
+CANAL X [HD]
+      ↓
+normalizer
+      ↓
+channel-a1b2c3...
+      ├── Fonte A
+      ├── Fonte B
+      └── Fonte C
+```
