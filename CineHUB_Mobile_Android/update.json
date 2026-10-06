@@ -4,7 +4,7 @@
   "versionCode": 104,
   "releaseUrl": "https://github.com/mooNXy7/CineHUB/releases/tag/mobile-v1.0.4",
   "apkUrl": "https://github.com/mooNXy7/CineHUB/releases/download/mobile-v1.0.4/CineHUB-Mobile-v1.0.4.apk",
-  "sha256": "",
+  "sha256": "b19867e63190782e26c70f15f19b7161cd1ca4f7c9da106b33a62c6fe0fc9c8c",
   "channel": "stable",
   "title": "OTA Visual Test",
   "releaseNotes": "• Teste do novo visual do pop-up de atualização.\n• Layout preto com detalhes vermelhos e botões em gradiente.\n• Teste do fluxo Instalar / Mais tarde.\n• Teste da barra de progresso durante o download.\n• Splash com logo oficial e proporção corrigida.",
