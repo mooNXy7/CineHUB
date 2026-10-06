@@ -1,0 +1,59 @@
+name: CineHUB EPG Engine
+
+on:
+  schedule:
+    - cron: "20 2 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+      - "CineHUB_Data/tools/build_epg.py"
+      - "CineHUB_Data/sources/registry.json"
+      - "CineHUB_Data/normalized/**"
+      - "CineHUB_Data/resolved/**"
+      - ".github/workflows/epg-engine.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  epg:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate EPG engine
+        run: python3 -m py_compile CineHUB_Data/tools/build_epg.py
+
+      - name: Build EPG
+        run: python3 CineHUB_Data/tools/build_epg.py
+
+      - name: Show EPG status
+        run: |
+          python3 - <<'PY'
+          import json
+          p="CineHUB_Data/status/epg-status.json"
+          try:
+              s=json.load(open(p,encoding="utf-8"))
+              print("EPG status:", s.get("status"))
+              print("Sources:", s.get("stats",{}).get("sourcesConfigured"))
+              print("Healthy:", s.get("stats",{}).get("sourcesHealthy"))
+              print("Channels with EPG:", s.get("stats",{}).get("channelsWithPrograms"))
+              print("Programs:", s.get("stats",{}).get("programs"))
+          except Exception as e:
+              print("EPG status unavailable:", e)
+          PY
+
+      - name: Publish generated EPG data
+        run: |
+          git config user.name "CineHUB Data Engine"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CineHUB_Data/epg/schedule.index.json CineHUB_Data/status/epg-status.json
+          if git diff --cached --quiet; then
+            echo "NO CHANGES"
+            exit 0
+          fi
+          git commit -m "data: update EPG manifest"
+          git push
