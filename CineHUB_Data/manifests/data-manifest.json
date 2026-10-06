@@ -2,12 +2,16 @@
   "schemaVersion": "1.0.0",
   "manifestVersion": 1,
   "name": "CineHUB Data Manifest",
-  "generatedBy": "CineHUB Data Layer bootstrap",
+  "generatedBy": "CineHUB Data Engine",
   "generatedAt": null,
   "publication": {
-    "mode": "repository",
-    "automatic": false,
-    "healthChecks": false
+    "mode": "cloudflare-pages",
+    "automatic": true,
+    "healthChecks": true,
+    "basePath": "/data-engine/",
+    "manifest": "/data-engine/manifest.json",
+    "status": "/data-engine/status-public.json",
+    "atomic": true
   },
   "sourcesRegistry": "CineHUB_Data/sources/registry.json",
   "datasets": {
@@ -28,23 +32,32 @@
     },
     "logos": {
       "registry": "CineHUB_Data/sources/registry.json"
+    },
+    "publication": {
+      "manifest": "/data-engine/manifest.json",
+      "status": "/data-engine/status-public.json",
+      "channels": "/data-engine/channels/resolved.json",
+      "catalog": "/data-engine/catalog/",
+      "epg": "/data-engine/epg/schedule.index.json"
     }
   },
   "consumers": {
     "web": {
-      "root": "CineHUB_WEB/"
+      "root": "CineHUB_WEB/",
+      "dataStrategy": "existing paths + additive /data-engine/ publication"
     },
     "mobile": {
       "root": "CineHUB_Mobile_Android/",
-      "currentDataStrategy": "WEB deployment"
+      "currentDataStrategy": "existing WEB deployment; common Data Engine publication available"
     },
     "tv": {
       "root": "CineHUB_TV_Android/",
-      "currentDataStrategy": "WEB data synchronized during Android release"
+      "currentDataStrategy": "existing WEB/assets strategy; common Data Engine publication available"
     }
   },
   "compatibility": {
     "currentAppsContinueUsingExistingPaths": true,
-    "breakingChanges": false
+    "breakingChanges": false,
+    "publicationIsAdditive": true
   }
 }
