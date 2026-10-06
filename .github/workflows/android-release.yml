@@ -1,4 +1,4 @@
-name: CineHUB TV 1.0.7 Release
+name: CineHUB TV 1.0.8 Release
 
 on:
   push:
@@ -88,25 +88,25 @@ jobs:
           set -euo pipefail
           APK="$(find CineHUB_TV_Android/CineHUB-TV/build/outputs/apk/release -maxdepth 1 -type f -name '*.apk' | head -n 1)"
           mkdir -p release
-          cp "$APK" release/CineHUB-TV-v1.0.7.apk
+          cp "$APK" release/CineHUB-TV-v1.0.8.apk
           cp "$APK" release/CineHUB-TV.apk
-          sha256sum release/CineHUB-TV-v1.0.7.apk release/CineHUB-TV.apk > release/SHA256SUMS.txt
-          SHA="$(sha256sum release/CineHUB-TV-v1.0.7.apk | awk '{print $1}')"
+          sha256sum release/CineHUB-TV-v1.0.8.apk release/CineHUB-TV.apk > release/SHA256SUMS.txt
+          SHA="$(sha256sum release/CineHUB-TV-v1.0.8.apk | awk '{print $1}')"
           python3 - <<PY
           import json
           p="CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json"
           d=json.load(open(p,encoding="utf-8"))
-          d.update({"version":"1.0.7","versionCode":107,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.0.7","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.0.7/CineHUB-TV-v1.0.7.apk","sha256":"$SHA","channel":"stable"})
+          d.update({"version":"1.0.8","versionCode":108,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.0.8","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.0.8/CineHUB-TV-v1.0.8.apk","sha256":"$SHA","channel":"stable"})
           open(p,"w",encoding="utf-8").write(json.dumps(d,indent=2,ensure_ascii=False)+"\\n")
           PY
-      - name: Publish CineHUB TV v1.0.7
+      - name: Publish CineHUB TV v1.0.8
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.7
+          tag_name: v1.0.8
           target_commitish: main
-          name: CineHUB TV v1.0.7 — Correção TV/TV Box
+          name: CineHUB TV v1.0.8 — Correção TV/TV Box
           files: |
-            release/CineHUB-TV-v1.0.7.apk
+            release/CineHUB-TV-v1.0.8.apk
             release/CineHUB-TV.apk
             release/SHA256SUMS.txt
           generate_release_notes: true
