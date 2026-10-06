@@ -20,10 +20,10 @@ android {
             // Desenvolvimento/local.
         }
         create("release") {
-            val ks = System.getenv("CINEHUB_KEYSTORE_PATH")
-            val kp = System.getenv("CINEHUB_KEYSTORE_PASSWORD")
-            val ka = System.getenv("CINEHUB_KEY_ALIAS")
-            val ap = System.getenv("CINEHUB_KEY_PASSWORD")
+            val ks = System.getenv("CINEHUB_TV_KEYSTORE_PATH")
+            val kp = System.getenv("CINEHUB_TV_KEYSTORE_PASSWORD")
+            val ka = System.getenv("CINEHUB_TV_KEY_ALIAS")
+            val ap = System.getenv("CINEHUB_TV_KEY_PASSWORD")
             if (!ks.isNullOrBlank() && !kp.isNullOrBlank() && !ka.isNullOrBlank() && !ap.isNullOrBlank()) {
                 storeFile = file(ks)
                 storePassword = kp
@@ -36,7 +36,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            val stableKey = System.getenv("CINEHUB_KEYSTORE_PATH")
+            val stableKey = System.getenv("CINEHUB_TV_KEYSTORE_PATH")
             signingConfig = if (!stableKey.isNullOrBlank()) signingConfigs.getByName("release") else signingConfigs.getByName("debug")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
