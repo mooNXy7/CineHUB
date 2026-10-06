@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.1.0",
   "generatedBy": "CineHUB Data Engine Phase 7",
-  "generatedAt": "2026-10-06T04:51:19.459337Z",
+  "generatedAt": "2026-10-06T04:56:50.650265Z",
   "window": {
-    "start": "2026-10-06T04:51:19.459337Z",
-    "end": "2026-10-08T04:51:19.459337Z",
+    "start": "2026-10-06T04:56:50.650265Z",
+    "end": "2026-10-08T04:56:50.650265Z",
     "hours": 48
   },
   "policy": {
@@ -24,7 +24,7 @@
     "channelsKnown": 455,
     "channelsWithPrograms": 451,
     "channelsWithoutPrograms": 4,
-    "programs": 27130
+    "programs": 27186
   },
   "channels": [
     {
@@ -20371,14 +20371,6 @@
       "name": "Box Kids TV",
       "programs": [
         {
-          "start": "2026-10-06T04:45:00Z",
-          "end": "2026-10-06T04:52:00Z",
-          "title": "Chico Liro : Cores",
-          "subtitle": null,
-          "description": "Chico chega à praça animado para um dia cheio de cores. Ele encontra Flora e Pedro confusos sobre quais cores usar em seu desenho. A narradora os encoraja a explorar as cores livremente, sem medo de errar, e expressar seus sentimentos de confusão.",
-          "category": null
-        },
-        {
           "start": "2026-10-06T04:52:00Z",
           "end": "2026-10-06T05:00:00Z",
           "title": "Chico Liro : Frutas",
@@ -31081,6 +31073,14 @@
         {
           "start": "2026-10-08T04:44:00Z",
           "end": "2026-10-08T04:56:00Z",
+          "title": "O Incrível Mundo de Gumball",
+          "subtitle": null,
+          "description": null,
+          "category": "Infantil"
+        },
+        {
+          "start": "2026-10-08T04:56:00Z",
+          "end": "2026-10-08T05:08:00Z",
           "title": "O Incrível Mundo de Gumball",
           "subtitle": null,
           "description": null,
@@ -52901,6 +52901,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -55155,14 +55163,6 @@
       "name": "Fashion TV",
       "programs": [
         {
-          "start": "2026-10-06T04:50:00Z",
-          "end": "2026-10-06T04:55:00Z",
-          "title": "Estilo Próprio na Prática",
-          "subtitle": "Temporada 2 Episódio 38",
-          "description": "Dicas fáceis de moda e maquiagem para encontrar a sua melhor versão.",
-          "category": "Séries"
-        },
-        {
           "start": "2026-10-06T04:55:00Z",
           "end": "2026-10-06T05:00:00Z",
           "title": "Estilo Próprio na Prática",
@@ -56753,6 +56753,14 @@
           "subtitle": "Temporada 2 Episódio 38",
           "description": "Dicas fáceis de moda e maquiagem para encontrar a sua melhor versão.",
           "category": "Séries"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:00:00Z",
+          "title": "Estilo Próprio na Prática",
+          "subtitle": "Temporada 2 Episódio 38",
+          "description": "Dicas fáceis de moda e maquiagem para encontrar a sua melhor versão.",
+          "category": "Séries"
         }
       ]
     },
@@ -56760,14 +56768,6 @@
       "id": "channel-654b403504d68df4",
       "name": "FashionTV Brasil",
       "programs": [
-        {
-          "start": "2026-10-06T04:50:00Z",
-          "end": "2026-10-06T04:55:00Z",
-          "title": "Estilo Próprio na Prática",
-          "subtitle": null,
-          "description": "Dicas fáceis de moda e maquiagem para encontrar a sua melhor versão.",
-          "category": null
-        },
         {
           "start": "2026-10-06T04:55:00Z",
           "end": "2026-10-06T05:00:00Z",
@@ -58355,6 +58355,14 @@
         {
           "start": "2026-10-08T04:50:00Z",
           "end": "2026-10-08T04:55:00Z",
+          "title": "Estilo Próprio na Prática",
+          "subtitle": null,
+          "description": "Dicas fáceis de moda e maquiagem para encontrar a sua melhor versão.",
+          "category": null
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:00:00Z",
           "title": "Estilo Próprio na Prática",
           "subtitle": null,
           "description": "Dicas fáceis de moda e maquiagem para encontrar a sua melhor versão.",
@@ -65270,6 +65278,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -65651,6 +65667,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -66034,6 +66058,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -66415,6 +66447,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -66814,6 +66854,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -67195,6 +67243,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -67744,6 +67800,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -68142,6 +68206,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -68523,6 +68595,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -68922,6 +69002,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -69319,6 +69407,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -69718,6 +69814,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -70116,6 +70220,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -70498,6 +70610,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -70879,6 +70999,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -71293,6 +71421,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -73629,6 +73765,14 @@
           "start": "2026-10-08T04:32:00Z",
           "end": "2026-10-08T04:55:00Z",
           "title": "Programação do Canal",
+          "subtitle": null,
+          "description": null,
+          "category": "Infantil"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:07:00Z",
+          "title": "Tara Duncan",
           "subtitle": null,
           "description": null,
           "category": "Infantil"
@@ -78918,6 +79062,14 @@
           "subtitle": null,
           "description": "O casal Dick e Jane vive de maneira confortável, mas ele acaba perdendo o emprego. Com o acúmulo de contas, a dupla decide roubar para pagar as dívidas e manter o estilo de vida, mas percebem que uma carreira criminosa pode ferir pessoas inocentes.",
           "category": "Filme"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:40:00Z",
+          "title": "Last Week Tonight With John Oliver",
+          "subtitle": "Temporada 13 Episódio 25",
+          "description": "O carismático e britânico comentarista John Oliver oferece sua perspectiva singular e voz distinta sobre qualquer número de questões sociais, políticas ou atuais.",
+          "category": "Séries"
         }
       ]
     },
@@ -82436,6 +82588,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -82833,6 +82993,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -83341,14 +83509,6 @@
       "id": "channel-903c9c150e170f09",
       "name": "LMC+",
       "programs": [
-        {
-          "start": "2026-10-06T04:26:00Z",
-          "end": "2026-10-06T04:53:00Z",
-          "title": "10.000 RPM",
-          "subtitle": null,
-          "description": "Programa sobe a colina do Festival de Goodwood.",
-          "category": null
-        },
         {
           "start": "2026-10-06T04:53:00Z",
           "end": "2026-10-06T05:32:00Z",
@@ -86254,6 +86414,14 @@
           "subtitle": null,
           "description": "O casal Dick e Jane vive de maneira confortável, mas ele acaba perdendo o emprego. Com o acúmulo de contas, a dupla decide roubar para pagar as dívidas e manter o estilo de vida, mas percebem que uma carreira criminosa pode ferir pessoas inocentes.",
           "category": "Filme"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:40:00Z",
+          "title": "Last Week Tonight With John Oliver",
+          "subtitle": "Temporada 13 Episódio 25",
+          "description": "O carismático e britânico comentarista John Oliver oferece sua perspectiva singular e voz distinta sobre qualquer número de questões sociais, políticas ou atuais.",
+          "category": "Séries"
         }
       ]
     },
@@ -90761,14 +90929,6 @@
       "id": "channel-eb1e1fdf2b2febee",
       "name": "Multishow",
       "programs": [
-        {
-          "start": "2026-10-06T04:24:00Z",
-          "end": "2026-10-06T04:54:00Z",
-          "title": "Os Suburbanos",
-          "subtitle": null,
-          "description": null,
-          "category": "Séries"
-        },
         {
           "start": "2026-10-06T04:54:00Z",
           "end": "2026-10-06T05:20:00Z",
@@ -98088,6 +98248,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -98477,6 +98645,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -98868,6 +99044,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -99258,6 +99442,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -99647,6 +99839,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -104506,6 +104706,14 @@
           "subtitle": null,
           "description": "Em meio à disputa pela Taça da Diversidade, os jogadores do Beescats Soccer Boys falam sobre sua relação com o futebol e refletem sobre esporte e discriminação sexual no Brasil.",
           "category": "Filme"
+        },
+        {
+          "start": "2026-10-08T04:52:00Z",
+          "end": "2026-10-08T05:00:00Z",
+          "title": "Noite Longa",
+          "subtitle": null,
+          "description": "Após ficar até mais tarde no escritório, Veronica acaba perdendo o último ônibus para casa e agora não tem outra alternativa senão enfrentar os perigos que a noite lhe reserva.",
+          "category": "Especial"
         }
       ]
     },
@@ -108420,6 +108628,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -108818,6 +109034,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -109215,6 +109439,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -117228,6 +117460,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -117649,6 +117889,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -138530,6 +138778,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -138911,6 +139167,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -139294,6 +139558,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -139676,6 +139948,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -140057,6 +140337,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -153764,6 +154052,14 @@
           "subtitle": null,
           "description": null,
           "category": "Séries"
+        },
+        {
+          "start": "2026-10-08T04:54:00Z",
+          "end": "2026-10-08T06:32:00Z",
+          "title": "Natalia, Natalia",
+          "subtitle": null,
+          "description": null,
+          "category": "Filme"
         }
       ]
     },
@@ -154689,6 +154985,14 @@
           "start": "2026-10-08T02:35:00Z",
           "end": "2026-10-08T04:55:00Z",
           "title": "Velozes & Furiosos 9",
+          "subtitle": null,
+          "description": null,
+          "category": "Filme"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T07:05:00Z",
+          "title": "Os Enforcados",
           "subtitle": null,
           "description": null,
           "category": "Filme"
@@ -156226,14 +156530,6 @@
       "name": "TLC",
       "programs": [
         {
-          "start": "2026-10-06T04:09:00Z",
-          "end": "2026-10-06T04:53:00Z",
-          "title": "Amor Atrás das Grades",
-          "subtitle": null,
-          "description": null,
-          "category": "Séries"
-        },
-        {
           "start": "2026-10-06T04:53:00Z",
           "end": "2026-10-06T05:59:00Z",
           "title": "Amor Fora das Grades",
@@ -156912,6 +157208,14 @@
           "subtitle": null,
           "description": null,
           "category": "Séries"
+        },
+        {
+          "start": "2026-10-08T04:53:00Z",
+          "end": "2026-10-08T05:15:00Z",
+          "title": "A Pequena Grande Família",
+          "subtitle": null,
+          "description": null,
+          "category": "Séries"
         }
       ]
     },
@@ -157422,14 +157726,6 @@
       "name": "TNT Novelas",
       "programs": [
         {
-          "start": "2026-10-06T04:09:00Z",
-          "end": "2026-10-06T04:55:00Z",
-          "title": "Reis",
-          "subtitle": null,
-          "description": "Samuel resiste a pressões externas; Abner confia em sua futura coroação; Saul lida com a incredulidade de Ainoã; Zeleque pede liberdade.",
-          "category": null
-        },
-        {
           "start": "2026-10-06T04:55:00Z",
           "end": "2026-10-06T05:41:00Z",
           "title": "Será Isso Amor?",
@@ -157891,6 +158187,14 @@
           "title": "Reis",
           "subtitle": null,
           "description": "O descontentamento dos anciãos com Samuel gera tensão; Kayla e Laísa conspiram contra Samuel; Abner se revolta contra os anciãos.",
+          "category": null
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:40:00Z",
+          "title": "Será Isso Amor?",
+          "subtitle": null,
+          "description": "A tensão entre Eda e Serkan chega ao fim quando eles passam uma noite juntos; Eda ajuda Aydan com sua fobia sem seu conhecimento.",
           "category": null
         }
       ]
@@ -160694,14 +160998,6 @@
       "name": "Travel & Food and Drinks",
       "programs": [
         {
-          "start": "2026-10-06T04:20:00Z",
-          "end": "2026-10-06T04:55:00Z",
-          "title": "Errei",
-          "subtitle": null,
-          "description": "O casal chega a Maceió, onde as praias de mar azul-turquesa e as piscinas naturais são apenas o começo. Alessandra e Luan exploram o melhor da capital alagoana, provam o famoso chiclete de camarão e se aventuram nos mercados locais.",
-          "category": null
-        },
-        {
           "start": "2026-10-06T04:55:00Z",
           "end": "2026-10-06T05:25:00Z",
           "title": "Decolla Tips & Trips",
@@ -161467,14 +161763,6 @@
       "id": "channel-f7e3b440060c1bc3",
       "name": "Travel Box",
       "programs": [
-        {
-          "start": "2026-10-06T04:50:00Z",
-          "end": "2026-10-06T04:55:00Z",
-          "title": "Travel Shots",
-          "subtitle": null,
-          "description": "Curiosidades e novidades de diversos lugares pelo Brasil e pelo mundo.",
-          "category": null
-        },
         {
           "start": "2026-10-06T04:55:00Z",
           "end": "2026-10-06T05:00:00Z",
@@ -162466,6 +162754,14 @@
           "subtitle": null,
           "description": "Curiosidades e novidades de diversos lugares pelo Brasil e pelo mundo.",
           "category": null
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:00:00Z",
+          "title": "Travel Shots",
+          "subtitle": null,
+          "description": "Curiosidades e novidades de diversos lugares pelo Brasil e pelo mundo.",
+          "category": null
         }
       ]
     },
@@ -162473,14 +162769,6 @@
       "id": "channel-58d7899da35ce691",
       "name": "Travel Box Brasil",
       "programs": [
-        {
-          "start": "2026-10-06T04:50:00Z",
-          "end": "2026-10-06T04:55:00Z",
-          "title": "Travel Shots",
-          "subtitle": null,
-          "description": null,
-          "category": "Variedades"
-        },
         {
           "start": "2026-10-06T04:55:00Z",
           "end": "2026-10-06T05:00:00Z",
@@ -163468,6 +163756,14 @@
         {
           "start": "2026-10-08T04:50:00Z",
           "end": "2026-10-08T04:55:00Z",
+          "title": "Travel Shots",
+          "subtitle": null,
+          "description": null,
+          "category": "Variedades"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:00:00Z",
           "title": "Travel Shots",
           "subtitle": null,
           "description": null,
@@ -168764,6 +169060,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -169161,6 +169465,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -171724,6 +172036,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -172105,6 +172425,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -176456,6 +176784,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -180012,6 +180348,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -182393,6 +182737,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -186409,6 +186761,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -191650,6 +192010,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -194562,6 +194930,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -196606,6 +196982,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -197011,6 +197395,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -200576,6 +200968,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -201522,6 +201922,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -201920,6 +202328,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -202317,6 +202733,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -204234,6 +204658,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -204957,6 +205389,14 @@
           "title": "A Nobreza do Amor",
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
+          "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
           "category": "Novela"
         }
       ]
@@ -208562,6 +209002,14 @@
           "subtitle": null,
           "description": "Omar atinge Jendal, e Tonho impede o turco antes do golpe fatal. Jendal ordena que seus guardas persigam Omar e Tonho, que conseguem fugir. Onildo é convocado para ajudar Jendal.",
           "category": "Novela"
+        },
+        {
+          "start": "2026-10-08T04:55:00Z",
+          "end": "2026-10-08T05:35:00Z",
+          "title": "Por Você",
+          "subtitle": null,
+          "description": "Bela acusa Nair de racismo e chama a polícia. Manoel revela que sofre de doença renal e faz diálise há algum tempo. Gabriel, Guto, Nelma e Kátia apoiam a decisão de Bela de denunciar Nair.",
+          "category": "Novela"
         }
       ]
     },
@@ -209563,14 +210011,6 @@
       "id": "channel-c07827a9d3618b53",
       "name": "TVE",
       "programs": [
-        {
-          "start": "2026-10-06T03:50:00Z",
-          "end": "2026-10-06T04:55:00Z",
-          "title": "Sukha",
-          "subtitle": null,
-          "description": "Espacio diario para el conocimiento, la cultura y el bienestar con una mirada entretenida, con humor, nuevos formatos, conexiones en directo, tertulias y arte en vivo. Un lugar de encuentro para personas con curiosidad.",
-          "category": "Talk Show"
-        },
         {
           "start": "2026-10-06T04:55:00Z",
           "end": "2026-10-06T05:30:00Z",
@@ -215218,6 +215658,14 @@
           "subtitle": null,
           "description": null,
           "category": "Séries"
+        },
+        {
+          "start": "2026-10-08T04:56:00Z",
+          "end": "2026-10-08T05:20:00Z",
+          "title": "Two and a Half Men",
+          "subtitle": null,
+          "description": null,
+          "category": "Séries"
         }
       ]
     },
@@ -216391,14 +216839,6 @@
       "id": "channel-8d550cb4c2374974",
       "name": "ZooMoo",
       "programs": [
-        {
-          "start": "2026-10-06T04:48:00Z",
-          "end": "2026-10-06T04:55:00Z",
-          "title": "Flash, o Aventureiro",
-          "subtitle": "Temporada 1 Episódio 21 - Tubarão Mangona",
-          "description": "O cãozinho Flash procura alguém interessante para fotografar - o destaque é o tubarão mangona.",
-          "category": "Séries"
-        },
         {
           "start": "2026-10-06T04:55:00Z",
           "end": "2026-10-06T05:02:00Z",
@@ -219789,6 +220229,14 @@
           "title": "Flash, o Aventureiro",
           "subtitle": "Temporada 1 Episódio 16 - Pinguim",
           "description": "Flash tenta descobrir qual é o animal que está sempre bem-vestido e elegante.",
+          "category": "Séries"
+        },
+        {
+          "start": "2026-10-08T04:56:00Z",
+          "end": "2026-10-08T05:03:00Z",
+          "title": "Flash, o Aventureiro",
+          "subtitle": "Temporada 1 Episódio 17 - Arraia",
+          "description": "Flash tenta descobrir qual é o animal que parece que está sempre se esparramando dentro d'água.",
           "category": "Séries"
         }
       ]
