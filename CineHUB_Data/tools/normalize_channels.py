@@ -42,7 +42,8 @@ def canonical_name(value: str) -> str:
         value = QUALITY_RE.sub("", value).strip()
         value = BRACKET_QUALITY_RE.sub("", value).strip()
     value = re.sub(r"(?i)\s+(?:HD|FHD|UHD|SD)$", "", value).strip()
-    value = re.sub(r"\s*[-|/]\s*$", "", value).strip()
+    value = re.sub(r"[^a-zA-Z0-9]+", " ", value).strip()
+    value = re.sub(r"\s+", " ", value)
     return value or "Unknown Channel"
 
 
