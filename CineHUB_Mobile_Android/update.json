@@ -1,12 +1,12 @@
 {
   "app": "CineHUB Mobile",
-  "version": "1.0.6",
-  "versionCode": 106,
-  "releaseUrl": "https://github.com/mooNXy7/CineHUB/releases/tag/mobile-v1.0.6",
-  "apkUrl": "https://github.com/mooNXy7/CineHUB/releases/download/mobile-v1.0.6/CineHUB-Mobile-v1.0.6.apk",
+  "version": "1.0.7",
+  "versionCode": 107,
+  "releaseUrl": "https://github.com/mooNXy7/CineHUB/releases/tag/mobile-v1.0.7",
+  "apkUrl": "https://github.com/mooNXy7/CineHUB/releases/download/mobile-v1.0.7/CineHUB-Mobile-v1.0.7.apk",
   "sha256": "",
   "channel": "stable",
   "title": "CineHUB Visual Identity Test",
-  "releaseNotes": "• Teste de identidade visual dos pop-ups OTA.\n• Interface preta com detalhes em vermelho CineHUB.\n• Botões com gradiente e cantos arredondados.\n• Barra de progresso integrada ao visual do aplicativo.\n• Teste completo do fluxo de atualização e instalação.",
-  "buildTrigger": "mobile-1.0.6-visual-test"
+  "releaseNotes": "• Correção de compilação do novo visual dos pop-ups OTA.\n• Teste do layout preto e vermelho.\n• Teste dos botões em gradiente.\n• Teste da barra de progresso integrada ao visual CineHUB.\n• Teste completo do fluxo de atualização e instalação.",
+  "buildTrigger": "mobile-1.0.7-visual-test"
 }
