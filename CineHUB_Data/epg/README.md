@@ -1,19 +1,57 @@
-# EPG Data Contract
+# CineHUB Data Engine — EPG Engine (Fase 7)
 
-O EPG atual continua sendo executado por:
+A Fase 7 adiciona um motor EPG multi-fonte **sem substituir os dados consumidos pelo WEB, Mobile ou TV**.
 
-`CineHUB_WEB/src/js/epg.js`
+## Fluxo
 
-Nesta fase não há alteração no carregamento do EPG.
+```
+EPG principal
+     ↓
+EPG secundário/fallback
+     ↓
+normalização de canais
+     ↓
+janela rolling de programação
+     ↓
+CineHUB_Data/epg/schedule.index.json
+```
 
-A Data Layer apenas reserva o contrato para:
+## Associação
 
-- fontes EPG;
-- aliases de canais;
-- IDs;
-- cache;
-- status;
-- validade;
-- fallback.
+A ordem de associação é:
 
-A implementação do EPG Engine ocorrerá na Fase 7.
+1. `tvg-id` / ID do canal quando disponível;
+2. nome canônico normalizado;
+3. aliases já produzidos pelo Data Engine.
+
+## Multi-fonte
+
+Cada fonte possui prioridade. O engine:
+
+- tenta todas as fontes habilitadas com retry controlado;
+- usa a fonte de maior prioridade quando duas fontes possuem o mesmo programa;
+- preenche lacunas com fontes secundárias;
+- não descarta o canal quando uma fonte falha;
+- registra latência, tamanho, canais associados e erros.
+
+## Janela
+
+A saída contém somente uma janela configurável de programação, padrão de 48 horas, em vez de entregar XMLTV bruto ao cliente.
+
+O arquivo é gerado pelo Data Engine e pode ser publicado posteriormente em Cloudflare. WEB/Mobile/TV ainda não consomem esta saída nesta fase.
+
+## Robustez
+
+- timeout e limite de tamanho;
+- retry limitado;
+- XML inválido não derruba as outras fontes;
+- horários convertidos para UTC;
+- programas expirados excluídos;
+- nenhum segredo no frontend;
+- URLs externas tratadas como dados.
+
+## Fontes
+
+O registry começa com duas fontes públicas brasileiras configuráveis: um guia por país do ecossistema iptv-org e um guia brasileiro do projeto IPTV-com. A arquitetura permite trocar, remover ou acrescentar providers sem modificar o parser.
+
+A implementação usa XMLTV e conceitos públicos de associação por ID/nome; não copia código do SaimoPlayer.
