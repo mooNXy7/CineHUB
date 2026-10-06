@@ -12,7 +12,8 @@
       "firstFailure": "unknown",
       "secondFailure": "degraded",
       "thirdOrMore": "offline"
-    }
+    },
+    "publicationMode": "compact-git-compatible"
   },
   "sources": [
     {
