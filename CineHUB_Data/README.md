@@ -147,3 +147,42 @@ Resolved Manifest
      ↓
 Commit somente se CineHUB_Data mudar
 ```
+
+
+## Fase 6 — Catálogo VOD inteligente
+
+O pipeline também gera índices derivados do catálogo existente sem substituir os arquivos usados pela aplicação.
+
+Além dos índices de filmes/séries e dos índices leves da Home, a etapa de série produz:
+
+- entidades de séries;
+- temporadas;
+- episódios;
+- IDs estáveis de série/episódio;
+- contagem de séries, temporadas e episódios.
+
+Arquivos:
+
+- CineHUB_Data/catalog/series.entities.json
+- CineHUB_Data/catalog/episodes.index.json
+- CineHUB_Data/catalog/catalog-manifest.json
+
+A extração de temporada/episódio reconhece padrões como S01 E05 e T01 E05.
+
+## Fase 7 — EPG Engine
+
+O EPG agora possui processamento multi-fonte centralizado.
+
+- associação por tvg-id, nome canônico e alias;
+- prioridade com preenchimento de lacunas;
+- retry limitado;
+- estados healthy/degraded/offline/unknown;
+- janela rolling padrão de 48 horas;
+- cache processado com validade;
+- ETag/Last-Modified quando disponíveis;
+- XMLTV bruto não é entregue ao cliente;
+- testes unitários para normalização, parsing, timezone e merge.
+
+O workflow de EPG é encadeado após uma execução bem-sucedida do Data Engine diário, garantindo que o guia utilize os canais resolvidos mais recentes.
+
+A Fase 7 continua aditiva: WEB, Mobile e TV mantêm seus caminhos atuais.
