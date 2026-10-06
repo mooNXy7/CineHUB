@@ -1,24 +1,44 @@
-# Catalog Data Contract
+# CineHUB Data Engine — VOD Catalog
 
-O catálogo atual permanece em `CineHUB_WEB/dados/conteudo/`.
+A Fase 6 cria uma camada VOD processada sem substituir o catálogo existente.
 
-Nesta fase, esta pasta define somente o contrato para a futura camada de catálogo.
+## Fonte
 
-## Datasets previstos
+A entrada continua sendo o catálogo atual em:
+`CineHUB_WEB/dados/conteudo/catalogo/*.m3u8`
 
-- filmes;
-- séries;
-- temporadas;
-- episódios;
-- destaques;
-- lançamentos;
-- índices;
-- metadados.
+Nenhum arquivo do WEB, Mobile ou TV é removido ou reescrito.
 
-## Regra
+## Saídas
 
-Dados brutos e dados processados deverão ser separados.
+- `movies.index.json` — índice compacto de filmes.
+- `series.index.json` — índice compacto de séries.
+- `featured.json` — seleção leve para áreas de destaque.
+- `trending.json` — seleção leve para áreas de descoberta.
+- `releases.json` — seleção leve de lançamentos.
+- `metadata.json` — contrato, estatísticas e timestamp da geração.
 
-A aplicação deve consumir índices/chunks adequados em vez de carregar o catálogo inteiro sem necessidade.
+Cada item possui um ID estável derivado de tipo + título + URL, além de título, grupo, logo, URL e arquivo de origem.
 
-A migração do catálogo atual para este contrato será feita em fases posteriores, com validação antes de alterar os consumidores.
+## Separação
+
+```text
+CATÁLOGO EXISTENTE
+      ↓
+build_vod_catalog.py
+      ↓
+CINEHUB DATA ENGINE
+      ├── índices de filmes
+      ├── índices de séries
+      └── índices leves da Home
+```
+
+O cliente não precisa varrer dezenas de milhares de entradas apenas para montar a Home.
+
+## Compatibilidade
+
+A integração com os aplicativos fica propositalmente para uma etapa posterior. Nesta fase, o Data Engine produz os dados processados em paralelo; portanto não há alteração obrigatória no APK nem no player atual.
+
+## Segurança
+
+O builder não consulta serviços externos nem expõe tokens. URLs existentes são tratadas como dados de catálogo e não são executadas durante a geração.
