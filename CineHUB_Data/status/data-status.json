@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "bootstrap",
+  "generatedAt": null,
+  "lastSuccessfulRefresh": null,
+  "healthChecks": {
+    "enabled": false,
+    "total": 0,
+    "healthy": 0,
+    "degraded": 0,
+    "offline": 0,
+    "unknown": 0
+  },
+  "catalog": {
+    "movies": null,
+    "series": null,
+    "episodes": null
+  },
+  "epg": {
+    "status": "runtime",
+    "lastRefresh": null
+  },
+  "notes": [
+    "Este arquivo é um contrato inicial de status.",
+    "Os números de saúde serão preenchidos somente quando a Fase 3 estiver implementada.",
+    "Nenhuma fonte é marcada como saudável sem uma verificação real."
+  ]
+}
