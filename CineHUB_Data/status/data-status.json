@@ -1,8 +1,20 @@
 {
   "schemaVersion": "1.0.0",
   "status": "bootstrap",
-  "generatedAt": null,
-  "lastSuccessfulRefresh": null,
+  "updatedAt": null,
+  "engine": {
+    "phase": 2,
+    "mode": "remote-source-fingerprint",
+    "lastRunAt": null,
+    "changed": false
+  },
+  "sources": {
+    "checked": 0,
+    "changed": 0,
+    "unchanged": 0,
+    "errors": 0
+  },
+  "lastRun": [],
   "healthChecks": {
     "enabled": false,
     "total": 0,
@@ -21,8 +33,7 @@
     "lastRefresh": null
   },
   "notes": [
-    "Este arquivo é um contrato inicial de status.",
-    "Os números de saúde serão preenchidos somente quando a Fase 3 estiver implementada.",
-    "Nenhuma fonte é marcada como saudável sem uma verificação real."
+    "Phase 2 records remote source changes without rewriting runtime WEB/Mobile/TV data.",
+    "Health states belong to Phase 3 and are not inferred from this file."
   ]
 }

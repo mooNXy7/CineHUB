@@ -1,0 +1,67 @@
+name: CineHUB Data Engine - Atualizacao diaria
+
+on:
+  schedule:
+    - cron: "17 4 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: cinehub-data-engine
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Validate Data Layer
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f CineHUB_Data/sources/registry.json
+          test -f CineHUB_Data/manifests/data-manifest.json
+          test -f CineHUB_Data/status/data-status.json
+          python3 -m json.tool CineHUB_Data/sources/registry.json >/dev/null
+          python3 -m json.tool CineHUB_Data/manifests/data-manifest.json >/dev/null
+          python3 -m json.tool CineHUB_Data/status/data-status.json >/dev/null
+          python3 -m py_compile CineHUB_Data/tools/update_data.py
+      - name: Run Data Engine update
+        run: python3 CineHUB_Data/tools/update_data.py
+      - name: Show result
+        run: |
+          python3 - <<'PY'
+          import json
+          d=json.load(open("CineHUB_Data/status/data-status.json", encoding="utf-8"))
+          print("Data Engine status:", d.get("status"))
+          print("Sources checked:", d.get("sources", {}).get("checked"))
+          print("Sources changed:", d.get("sources", {}).get("changed"))
+          print("Source errors:", d.get("sources", {}).get("errors"))
+          PY
+      - name: Commit only when data changed
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- CineHUB_Data; then
+            echo "NO CHANGES"
+            exit 0
+          fi
+          git config user.name "CineHUB Data Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add CineHUB_Data
+          if git diff --cached --quiet; then
+            echo "NO CHANGES"
+            exit 0
+          fi
+          git commit -m "chore(data): refresh source fingerprints"
+          git push origin HEAD:main
