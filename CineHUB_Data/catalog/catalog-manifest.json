@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generatedAt": "1970-01-01T00:00:00Z",
   "source": "CineHUB_WEB/dados/conteudo/catalogo",
   "generator": "CineHUB_Data/tools/build_vod_catalog.py",
@@ -10,6 +10,8 @@
     "featured": "CineHUB_Data/catalog/featured.json",
     "trending": "CineHUB_Data/catalog/trending.json",
     "releases": "CineHUB_Data/catalog/releases.json",
-    "metadata": "CineHUB_Data/catalog/metadata.json"
+    "metadata": "CineHUB_Data/catalog/metadata.json",
+    "seriesEntities": "CineHUB_Data/catalog/series.entities.json",
+    "episodes": "CineHUB_Data/catalog/episodes.index.json"
   }
 }

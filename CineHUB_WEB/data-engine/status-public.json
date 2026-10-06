@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "status": "updated",
+  "updatedAt": "2026-10-06T05:19:59Z",
+  "engine": {
+    "phase": 8,
+    "lastRunAt": "2026-10-06T05:17:46Z",
+    "publication": "cloudflare-pages-compatible"
+  },
+  "sources": {
+    "total": 8,
+    "healthy": 1,
+    "degraded": 0,
+    "offline": 0,
+    "unknown": 7
+  },
+  "catalog": {
+    "movies": 64015,
+    "series": 9818,
+    "episodes": 229819
+  },
+  "epg": {
+    "status": "healthy",
+    "lastRefresh": "2026-10-06T04:56:50.650265Z",
+    "channelsWithPrograms": 451,
+    "programs": 27186
+  },
+  "publication": {
+    "manifest": "/data-engine/manifest.json",
+    "cachePolicy": "short-lived manifest, cacheable datasets"
+  }
+}
