@@ -1,6 +1,11 @@
 name: CineHUB Data Engine - Health Check diario
 
 on:
+  push:
+    paths:
+      - "CineHUB_WEB/dados/conteudo/catalogo/**"
+      - "CineHUB_Data/tools/**"
+      - ".github/workflows/cinehub-data-update.yml"
   schedule:
     - cron: "17 4 * * *"
   workflow_dispatch:
