@@ -6,7 +6,7 @@
   "refreshPolicy": {
     "defaultDays": 3,
     "healthChecksEnabled": true,
-    "automaticPublishingEnabled": false,
+    "automaticPublishingEnabled": true,
     "healthCheckRetries": 2,
     "failurePolicy": {
       "firstFailure": "unknown",
