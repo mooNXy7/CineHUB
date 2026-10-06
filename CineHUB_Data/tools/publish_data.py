@@ -14,16 +14,17 @@ ROOT = Path(__file__).resolve().parents[2]
 DATA = ROOT / "CineHUB_Data"
 OUT = ROOT / "CineHUB_WEB" / "data-engine"
 
+# Keep the public Git repository lightweight. The full normalized/resolved channel
+# graphs and episode/series indexes can be hundreds of MB and are intentionally
+# kept as build artifacts rather than committed to GitHub. Clients retain their
+# existing local datasets; the public Data Engine exposes compact manifests,
+# status, source registry, VOD metadata and EPG.
 FILES = {
     "status.json": DATA / "status" / "data-status.json",
     "sources.json": DATA / "sources" / "registry.json",
-    "channels/normalized.json": DATA / "normalized" / "channels.json",
-    "channels/resolved.json": DATA / "resolved" / "channels.json",
     "catalog/manifest.json": DATA / "catalog" / "catalog-manifest.json",
     "catalog/movies.index.json": DATA / "catalog" / "movies.index.json",
-    "catalog/series.index.json": DATA / "catalog" / "series.index.json",
     "catalog/series.entities.json": DATA / "catalog" / "series.entities.json",
-    "catalog/episodes.index.json": DATA / "catalog" / "episodes.index.json",
     "catalog/featured.json": DATA / "catalog" / "featured.json",
     "catalog/trending.json": DATA / "catalog" / "trending.json",
     "catalog/releases.json": DATA / "catalog" / "releases.json",
@@ -35,11 +36,8 @@ FILES = {
 REQUIRED = {
     "status.json",
     "sources.json",
-    "channels/normalized.json",
-    "channels/resolved.json",
     "catalog/manifest.json",
     "catalog/movies.index.json",
-    "catalog/series.index.json",
     "catalog/metadata.json",
 }
 
@@ -93,9 +91,9 @@ def build() -> dict:
         epg_status = read_json(epg_status_path) if epg_status_path.is_file() else None
 
         capabilities = {
-            "channels": "resolved+normalized",
+            "channels": "existing-local-with-remote-source-status",
             "catalog": "pre-indexed",
-            "series": "series+season+episode indexes",
+            "series": "series-entities+catalog-metadata",
             "epg": bool(epg_status_path.is_file() and (DATA / "epg" / "schedule.index.json").is_file()),
             "health": True,
         }
