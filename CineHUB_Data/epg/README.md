@@ -49,7 +49,7 @@ A saída padrão contém 48 horas de programação.
 
 O cache processado possui validade padrão de 12 horas. Cache expirado não é tratado silenciosamente como programação atual: quando expirado, o engine volta à fonte e gera um novo conjunto.
 
-Os caches ficam em CineHUB_Data/epg/cache/.
+O cache processado fica em CineHUB_Data/.cache/epg/ e é persistido pelo GitHub Actions Cache, sem aumentar o histórico Git.
 
 O cliente não recebe XMLTV bruto e não precisa processá-lo.
 
