@@ -64,7 +64,7 @@ jobs:
       - name: Build CineHUB TV APK
         working-directory: CineHUB_TV_Android
         env:
-          CINEHUB_KEYSTORE_PATH: ${{ github.workspace }}/cinehub-tv-release.jks
+          CINEHUB_TV_KEYSTORE_PATH: ${{ github.workspace }}/cinehub-tv-release.jks
           CINEHUB_TV_KEYSTORE_PASSWORD: ${{ secrets.CINEHUB_TV_KEYSTORE_PASSWORD }}
           CINEHUB_TV_KEY_ALIAS: ${{ secrets.CINEHUB_TV_KEY_ALIAS }}
           CINEHUB_TV_KEY_PASSWORD: ${{ secrets.CINEHUB_TV_KEY_PASSWORD }}
@@ -89,7 +89,8 @@ jobs:
           APK="$(find CineHUB_TV_Android/CineHUB-TV/build/outputs/apk/release -maxdepth 1 -type f -name '*.apk' | head -n 1)"
           mkdir -p release
           cp "$APK" release/CineHUB-TV-v1.0.5.apk
-          sha256sum release/CineHUB-TV-v1.0.5.apk > release/SHA256SUMS.txt
+          cp "$APK" release/CineHUB-TV.apk
+          sha256sum release/CineHUB-TV-v1.0.5.apk release/CineHUB-TV.apk > release/SHA256SUMS.txt
           SHA="$(sha256sum release/CineHUB-TV-v1.0.5.apk | awk '{print $1}')"
           python3 - <<PY
           import json
@@ -106,6 +107,7 @@ jobs:
           name: CineHUB TV v1.0.5 — Correção TV/TV Box
           files: |
             release/CineHUB-TV-v1.0.5.apk
+            release/CineHUB-TV.apk
             release/SHA256SUMS.txt
           generate_release_notes: true
           overwrite_files: true
