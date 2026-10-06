@@ -67,7 +67,7 @@ def build() -> dict:
     if missing:
         raise SystemExit("Missing required Data Engine outputs: " + ", ".join(missing))
 
-    generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    previous = None\n    previous_path = OUT / "manifest.json"\n    if previous_path.is_file():\n        try:\n            previous = read_json(previous_path)\n        except Exception:\n            previous = None\n    generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
     with TemporaryDirectory(prefix="cinehub-data-publish-") as tmp:
         tmp_root = Path(tmp)
