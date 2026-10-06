@@ -259,15 +259,15 @@
       "transport": "remote",
       "url": "https://raw.githubusercontent.com/iptv-com/epg/main/guides/brazil.xml",
       "enabled": false,
-      "priority": 99
+      "priority": 98
     },
     {
       "id": "brazil-tv-epg",
-      "name": "BrazilTVEPG · Claro",
+      "name": "EPG-Scrapper-BR · merged",
       "kind": "xmltv",
       "scope": "epg",
       "transport": "remote",
-      "url": "https://raw.githubusercontent.com/limaalef/BrazilTVEPG/main/claro.xml",
+      "url": "https://raw.githubusercontent.com/marcoshimselfxd/EPG-Scrapper-BR/main/epg.xml",
       "enabled": true,
       "priority": 1
     }
