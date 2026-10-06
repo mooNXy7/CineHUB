@@ -34,6 +34,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.webkit.WebSettingsCompat;
 import androidx.webkit.WebViewFeature;
+import androidx.webkit.WebViewAssetLoader;
 
 public class MainActivity extends AppCompatActivity {
     private static final String LOCAL_URL = "file:///android_asset/cinehub/index.html?tv=1";
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
     private WebView webView;
+    private WebViewAssetLoader assetLoader;
     private View fullscreenView;
     private WebChromeClient.CustomViewCallback fullscreenCallback;
 
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         // HQ/low-cost Android TV firmware can have unstable GPU/WebView renderers.
         webView.setLayerType(View.LAYER_TYPE_SOFTWARE, null);
         configureWebView();
+        assetLoader = new WebViewAssetLoader.Builder().addPathHandler("/assets/", new WebViewAssetLoader.AssetsPathHandler(this)).build();
         webView.loadUrl(resolveStartUrl());
         registerDownloadReceiver();
         checkForUpdate();
@@ -86,20 +89,26 @@ public class MainActivity extends AppCompatActivity {
     private String resolveStartUrl() {
         String remote = BuildConfig.CINEHUB_REMOTE_URL;
         if (remote != null && !remote.trim().isEmpty()) return remote + (remote.contains("?") ? "&" : "?") + "tv=1";
-        return LOCAL_URL;
+        return "https://appassets.androidplatform.net/assets/cinehub/index.html?tv=1";
     }
 
     private void configureWebView() {
         WebSettings s = webView.getSettings();
         s.setJavaScriptEnabled(true); s.setDomStorageEnabled(true); s.setDatabaseEnabled(true);
-        s.setMediaPlaybackRequiresUserGesture(false); s.setAllowFileAccess(true); s.setAllowContentAccess(true);
+        s.setMediaPlaybackRequiresUserGesture(false); s.setAllowFileAccess(true); s.setAllowContentAccess(true); s.setAllowFileAccessFromFileURLs(false); s.setAllowUniversalAccessFromFileURLs(false);
         s.setSupportZoom(false); s.setBuiltInZoomControls(false); s.setDisplayZoomControls(false);
         s.setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);
-        s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.0.6");
+        s.setUserAgentString(s.getUserAgentString() + " CineHUB-TV/1.0.7");
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) WebSettingsCompat.setForceDark(s, WebSettingsCompat.FORCE_DARK_OFF);
         webView.setBackgroundColor(Color.BLACK); webView.setFocusable(true); webView.requestFocus();
         if (android.os.Build.VERSION.SDK_INT >= 26) webView.setRendererPriorityPolicy(WebView.RENDERER_PRIORITY_IMPORTANT, true);
         webView.setWebViewClient(new WebViewClient() {
+            @Override public android.webkit.WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                return assetLoader != null ? assetLoader.shouldInterceptRequest(request.getUrl()) : super.shouldInterceptRequest(view, request);
+            }
+            @Override public android.webkit.WebResourceResponse shouldInterceptRequest(WebView view, String url) {
+                return assetLoader != null ? assetLoader.shouldInterceptRequest(Uri.parse(url)) : super.shouldInterceptRequest(view, url);
+            }
             @Override public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri=request.getUrl(); String scheme=uri.getScheme();
                 if ("http".equalsIgnoreCase(scheme)||"https".equalsIgnoreCase(scheme)) {
