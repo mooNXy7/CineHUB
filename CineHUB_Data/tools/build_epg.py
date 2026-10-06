@@ -356,6 +356,31 @@ def run() -> int:
             source_states.append(source_state)
             failures_count = 0
         except Exception as exc:
+            # If the network source is temporarily unavailable, keep the most
+            # recent parsed cache as a stale-but-usable fallback. This prevents
+            # one transient outage from deleting the user's EPG.
+            stale = load(cache_path(source["id"]), None)
+            stale_schedules = None
+            if isinstance(stale, dict) and isinstance(stale.get("schedules"), dict):
+                stale_schedules = filter_window(stale["schedules"], now, horizon)
+            if stale_schedules:
+                failures_count += 1
+                source_state = {
+                    "id": source["id"],
+                    "priority": source.get("priority"),
+                    "status": "degraded" if failures_count < MAX_FAILURES_FOR_OFFLINE else "offline",
+                    "lastChecked": now.isoformat().replace("+00:00", "Z"),
+                    "latencyMs": round((time.perf_counter() - started) * 1000, 2),
+                    "httpStatus": getattr(exc, "code", None),
+                    "consecutiveFailures": failures_count,
+                    "cacheHit": True,
+                    "staleCache": True,
+                    "stats": {"channelsMatched": len(stale_schedules), "programsMatched": sum(map(len, stale_schedules.values()))},
+                    "error": str(exc)[:500],
+                }
+                results.append((stale_schedules, source))
+                source_states.append(source_state)
+                continue
             failures_count += 1
             health_status = classify(failures_count)
             message = str(exc)[:500]
