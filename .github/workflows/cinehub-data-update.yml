@@ -10,6 +10,9 @@ on:
     # Temporary validation cadence; restored to daily after the first green run.
     - cron: "*/5 * * * *"
   workflow_dispatch:
+  workflow_run:
+    workflows: ["CineHUB EPG Engine"]
+    types: [completed]
 
 concurrency:
   group: cinehub-data-engine
@@ -23,6 +26,7 @@ permissions:
 
 jobs:
   update:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
