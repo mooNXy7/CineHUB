@@ -109,26 +109,31 @@ jobs:
           fi
           git config user.name "CineHUB Data Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add CineHUB_Data CineHUB_WEB/data-engine
+          # Never commit the full normalized/resolved channel graphs or raw
+          # build caches. They can exceed GitHub's 100 MB object limit.
+          git add \
+            CineHUB_Data/sources/registry.json \
+            CineHUB_Data/status/data-status.json \
+            CineHUB_Data/catalog/catalog-manifest.json \
+            CineHUB_Data/catalog/movies.index.json \
+            CineHUB_Data/catalog/series.entities.json \
+            CineHUB_Data/catalog/featured.json \
+            CineHUB_Data/catalog/trending.json \
+            CineHUB_Data/catalog/releases.json \
+            CineHUB_Data/catalog/metadata.json \
+            CineHUB_WEB/data-engine
           if git diff --cached --quiet; then
             echo "NO CHANGES"
             exit 0
           fi
-          git commit -m "chore(data): refresh source fingerprints"
+          git commit -m "chore(data): refresh published datasets"
           for attempt in 1 2 3; do
             git fetch origin main
-            if git rebase origin/main; then
-              if git push origin HEAD:main; then
-                exit 0
-              fi
+            if git rebase origin/main && git push origin HEAD:main; then
+              exit 0
             fi
             git rebase --abort 2>/dev/null || true
             if [ "$attempt" -lt 3 ]; then sleep $((attempt * 5)); fi
-            git add CineHUB_Data CineHUB_WEB/data-engine
-            if git diff --cached --quiet; then
-              echo "Generated changes were already published by another run"
-              exit 0
-            fi
           done
           echo "Failed to publish generated Data Engine changes after 3 attempts"
           exit 1
