@@ -29,6 +29,15 @@ function initial(){var m=document.querySelector('.system-modal.active');if(m){fo
 document.addEventListener('keydown',function(e){var k=e.keyCode||e.which;if(k===21||k===22||k===19||k===20){e.preventDefault();move(k===21?'left':k===22?'right':k===19?'up':'down')}else if(k===23||k===66){e.preventDefault();press()}else if(k===4||e.key==='Escape'){if(back())e.preventDefault()}},true);
 document.addEventListener('focusin',function(e){if(visible(e.target))focus(e.target)});
 document.addEventListener('click',function(e){var x=e.target.closest('button,a,.card,.explore-card');if(x)setTimeout(function(){focus(x)},0)},true);
-var last='';new MutationObserver(function(){var x=document.querySelector('.system-modal.active,.player.active,.detail.active,.sheet.active,.screen.active');var k=x?(x.id||x.className):'home';if(k!==last){last=k;setTimeout(initial,80)}}).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','hidden']});
-setTimeout(initial,700);window.CineHUBTVNavigation=root;
+var last='';
+function watch(){
+  var m=document.getElementById('welcomeModal');
+  if(m&&m.classList.contains('active')){m.classList.remove('active');m.setAttribute('aria-hidden','true')}
+  var x=document.querySelector('.system-modal.active,.player.active,.detail.active,.sheet.active,.screen.active');
+  var k=x?(x.id||x.className):'home';
+  if(k!==last){last=k;setTimeout(initial,80)}
+}
+new MutationObserver(watch).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','hidden']});
+setTimeout(initial,700);
+window.CineHUBTVNavigation=root;
 })();
