@@ -26,6 +26,18 @@ def classify_health(failures: int) -> str:
         return "degraded"
     return "unknown"
 
+def validate_payload(source: dict, body: bytes) -> None:
+    if not body.strip():
+        raise ValueError("empty response")
+    kind = str(source.get("kind", "")).lower()
+    sample = body[:4096].decode("utf-8", errors="ignore").lstrip("\ufeff\\s")
+    if kind in {"m3u", "m3u8"}:
+        if "#extm3u" not in sample.lower() and "#extinf" not in sample.lower():
+            raise ValueError("invalid M3U/M3U8 response")
+    elif kind in {"epg", "xmltv"}:
+        if "<tv" not in sample.lower() and "<?xml" not in sample.lower():
+            raise ValueError("invalid EPG/XML response")
+
 def now_iso() -> str:
     return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
@@ -79,8 +91,10 @@ def update() -> int:
         result = {"id": source.get("id"), "url": url, "checkedAt": timestamp, "changed": False}
         try:
             started = time.perf_counter()
+            latency_ms = None
             body, http_status, content_type = fetch(url)
             latency_ms = round((time.perf_counter() - started) * 1000, 2)
+            validate_payload(source, body)
             digest = hashlib.sha256(body).hexdigest()
             old_digest = source.get("contentSha256")
             result.update({"status": "changed" if digest != old_digest else "unchanged",
@@ -113,7 +127,7 @@ def update() -> int:
             state_changed = state_changed or previous_status != health_status
         results.append(result)
 
-    if state_changed:
+    if state_changed or content_changed:
         registry["registryVersion"] = int(registry.get("registryVersion", 1)) + 1
         registry.setdefault("refreshPolicy", {})["lastRunAt"] = timestamp
         save_json(REGISTRY_PATH, registry)
