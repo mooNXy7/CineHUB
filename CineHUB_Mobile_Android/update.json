@@ -4,7 +4,7 @@
   "versionCode": 105,
   "releaseUrl": "https://github.com/mooNXy7/CineHUB/releases/tag/mobile-v1.0.5",
   "apkUrl": "https://github.com/mooNXy7/CineHUB/releases/download/mobile-v1.0.5/CineHUB-Mobile-v1.0.5.apk",
-  "sha256": "",
+  "sha256": "2eeea62c08fd601d780e045b30efedae709336292f0f1e5665d47ded01d23543",
   "channel": "stable",
   "title": "OTA Installer & Visual",
   "releaseNotes": "• Barra de progresso da atualização integrada à identidade CineHUB.\n• Progresso com fundo escuro e gradiente vermelho.\n• Ao concluir o download, o instalador do Android é aberto automaticamente.\n• A atualização passa a ser entregue como atualização do mesmo app, preservando os dados do CineHUB.\n• Fluxo de permissão para instalação desconhecida preparado para continuar a instalação.",
