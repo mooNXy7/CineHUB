@@ -59,6 +59,8 @@ jobs:
             print("Normalized channels:", n.get("stats", {}).get("entities"))
             print("Merged duplicates:", n.get("stats", {}).get("duplicatesMerged"))
             print("Normalization source failures:", n.get("stats", {}).get("failedSources"))
+          except Exception as e:
+            print("Normalized channels: unavailable", e)
           try:
             r=json.load(open("CineHUB_Data/resolved/channels.json", encoding="utf-8"))
             print("Resolved channels:", r.get("stats", {}).get("entitiesPublished"))
@@ -66,8 +68,6 @@ jobs:
             print("Resolved offline sources:", r.get("stats", {}).get("sourcesOffline"))
           except Exception as e:
             print("Resolved channels: unavailable", e)
-          except Exception as e:
-            print("Normalized channels: unavailable", e)
           PY
       - name: Commit only when data changed
         shell: bash
