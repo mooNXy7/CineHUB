@@ -16,6 +16,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: cinehub-epg-engine
+  cancel-in-progress: false
+
 jobs:
   epg:
     if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
@@ -79,4 +83,20 @@ jobs:
             exit 0
           fi
           git commit -m "data: update EPG manifest"
-          git push
+          for attempt in 1 2 3; do
+            git fetch origin main
+            if git rebase origin/main; then
+              if git push origin HEAD:main; then
+                exit 0
+              fi
+            fi
+            git rebase --abort 2>/dev/null || true
+            if [ "$attempt" -lt 3 ]; then sleep $((attempt * 5)); fi
+            git add CineHUB_Data/epg/schedule.index.json CineHUB_Data/status/epg-status.json CineHUB_WEB/data-engine
+            if git diff --cached --quiet; then
+              echo "EPG changes were already published by another run"
+              exit 0
+            fi
+          done
+          echo "Failed to publish EPG changes after 3 attempts"
+          exit 1
