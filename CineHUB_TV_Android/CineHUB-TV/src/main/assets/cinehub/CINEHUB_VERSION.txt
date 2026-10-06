@@ -1,3 +1,3 @@
-CineHUB TV 1.0.5 — TV runtime + OTA recovery
-1.0.4 TV runtime assets restored
-Release paths corrected
+CineHUB TV 1.0.9 — Dedicated TV streaming interface
+TV-first 16:9 layout, D-pad navigation and stable CineHUB content engine.
+Web/Mobile presentation remains untouched.

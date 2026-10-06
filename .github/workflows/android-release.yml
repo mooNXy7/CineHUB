@@ -1,13 +1,10 @@
-name: CineHUB TV 1.0.8 Release
-
+name: CineHUB TV 1.0.9 Release
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
-
 permissions:
   contents: write
-
 jobs:
   release:
     if: "github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'fix(tv)') || contains(github.event.head_commit.message, 'feat(tv)')"
@@ -17,20 +14,16 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Java 17
         uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: "17"
+        with: {distribution: temurin, java-version: "17"}
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: "8.11.1"
+        with: {gradle-version: "8.11.1"}
       - name: Integrate CineHUB TV data
         shell: bash
         run: |
           set -euo pipefail
           TV="CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/dados"
-          mkdir -p "$TV"
-          rm -rf "$TV/conteudo"
+          mkdir -p "$TV"; rm -rf "$TV/conteudo"
           cp -a CineHUB_WEB/dados/conteudo "$TV/conteudo"
           cp CineHUB_WEB/dados/listas.json "$TV/listas.json"
           cp CineHUB_WEB/dados/canais.js "$TV/canais.js"
@@ -42,24 +35,18 @@ jobs:
           cp CineHUB_WEB/src/js/epg.js CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/src/js/epg.js
           cp CineHUB_WEB/src/js/largecatalog.js CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/src/js/largecatalog.js
           cp CineHUB_WEB/src/js/providers/megaembed.js CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/src/js/providers/megaembed.js
-          test -f "$TV/conteudo/manifest.js"
-          test -f "$TV/conteudo/indices/filmes.json"
-          test -f "$TV/conteudo/indices/series.json"
-          test -s "$TV/canais.js"
-          test -s "$TV/canais-m3u8.js"
-      - name: Verify CineHUB TV branding
-        shell: bash
+          test -f "$TV/conteudo/manifest.js"; test -f "$TV/conteudo/indices/filmes.json"; test -f "$TV/conteudo/indices/series.json"
+          test -s "$TV/canais.js"; test -s "$TV/canais-m3u8.js"
+      - name: Verify branding
         run: |
-          set -euo pipefail
           grep -q 'CineHUB TV' CineHUB_TV_Android/CineHUB-TV/src/main/res/values/strings.xml
           grep -q 'android:icon="@drawable/adaptive_icon"' CineHUB_TV_Android/CineHUB-TV/src/main/AndroidManifest.xml
-      - name: Configure stable CineHUB TV signing
-        shell: bash
+      - name: Configure stable signing
         env:
           CINEHUB_TV_KEYSTORE_BASE64: ${{ secrets.CINEHUB_TV_KEYSTORE_BASE64 }}
         run: |
           set -euo pipefail
-          test -n "${CINEHUB_TV_KEYSTORE_BASE64}" || { echo "Missing CINEHUB_TV_KEYSTORE_BASE64 repository secret"; exit 1; }
+          test -n "${CINEHUB_TV_KEYSTORE_BASE64}"
           echo "${CINEHUB_TV_KEYSTORE_BASE64}" | base64 --decode > "${GITHUB_WORKSPACE}/cinehub-tv-release.jks"
       - name: Build CineHUB TV APK
         working-directory: CineHUB_TV_Android
@@ -69,7 +56,7 @@ jobs:
           CINEHUB_TV_KEY_ALIAS: ${{ secrets.CINEHUB_TV_KEY_ALIAS }}
           CINEHUB_TV_KEY_PASSWORD: ${{ secrets.CINEHUB_TV_KEY_PASSWORD }}
         run: gradle :CineHUB-TV:assembleRelease --no-daemon --stacktrace
-      - name: Verify APK installability and stable signature
+      - name: Verify APK
         shell: bash
         run: |
           set -euo pipefail
@@ -77,39 +64,31 @@ jobs:
           test -s "$APK"
           APKSIGNER="$(find "$ANDROID_HOME/build-tools" -type f -name apksigner | sort -V | tail -n 1)"
           ZIPALIGN="$(find "$ANDROID_HOME/build-tools" -type f -name zipalign | sort -V | tail -n 1)"
-          test -x "$APKSIGNER"
-          test -x "$ZIPALIGN"
-          "$ZIPALIGN" -c -P 16 -v 4 "$APK"
-          "$APKSIGNER" verify --verbose "$APK"
-          "$APKSIGNER" verify --print-certs "$APK"
+          "$ZIPALIGN" -c -P 16 -v 4 "$APK"; "$APKSIGNER" verify --verbose "$APK"; "$APKSIGNER" verify --print-certs "$APK"
       - name: Prepare release
         shell: bash
         run: |
           set -euo pipefail
           APK="$(find CineHUB_TV_Android/CineHUB-TV/build/outputs/apk/release -maxdepth 1 -type f -name '*.apk' | head -n 1)"
-          mkdir -p release
-          cp "$APK" release/CineHUB-TV-v1.0.8.apk
-          cp "$APK" release/CineHUB-TV.apk
-          sha256sum release/CineHUB-TV-v1.0.8.apk release/CineHUB-TV.apk > release/SHA256SUMS.txt
-          SHA="$(sha256sum release/CineHUB-TV-v1.0.8.apk | awk '{print $1}')"
+          mkdir -p release; cp "$APK" release/CineHUB-TV-v1.0.9.apk; cp "$APK" release/CineHUB-TV.apk
+          sha256sum release/CineHUB-TV-v1.0.9.apk release/CineHUB-TV.apk > release/SHA256SUMS.txt
+          SHA="$(sha256sum release/CineHUB-TV-v1.0.9.apk | awk '{print $1}')"
           python3 - <<PY
           import json
           p="CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json"
           d=json.load(open(p,encoding="utf-8"))
-          d.update({"version":"1.0.8","versionCode":108,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.0.8","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.0.8/CineHUB-TV-v1.0.8.apk","sha256":"$SHA","channel":"stable"})
-          open(p,"w",encoding="utf-8").write(json.dumps(d,indent=2,ensure_ascii=False)+"\\n")
+          d.update({"version":"1.0.9","versionCode":109,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.0.9","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.0.9/CineHUB-TV-v1.0.9.apk","sha256":"$SHA","channel":"stable"})
+          open(p,"w",encoding="utf-8").write(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
           PY
-      - name: Publish CineHUB TV v1.0.8
+      - name: Publish CineHUB TV v1.0.9
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.8
+          tag_name: v1.0.9
           target_commitish: main
-          name: CineHUB TV v1.0.8 — Correção TV/TV Box
+          name: CineHUB TV v1.0.9 — Dedicated TV experience
           files: |
-            release/CineHUB-TV-v1.0.8.apk
+            release/CineHUB-TV-v1.0.9.apk
             release/CineHUB-TV.apk
             release/SHA256SUMS.txt
           generate_release_notes: true
           overwrite_files: true
-
-# TV stable-signing release trigger.
