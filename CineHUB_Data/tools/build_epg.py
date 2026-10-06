@@ -317,6 +317,7 @@ def run() -> int:
     ]
     results = []
     failures = []
+    source_states = []
     cache_hits = 0
     network_fetches = 0
 
@@ -352,12 +353,13 @@ def run() -> int:
                 "error": None,
             }
             results.append((schedules, source))
+            source_states.append(source_state)
             failures_count = 0
         except Exception as exc:
             failures_count += 1
             health_status = classify(failures_count)
             message = str(exc)[:500]
-            failures.append({
+            failure_state = {
                 "id": source["id"],
                 "priority": source.get("priority"),
                 "status": health_status,
@@ -367,7 +369,9 @@ def run() -> int:
                 "consecutiveFailures": failures_count,
                 "cacheHit": False,
                 "error": message,
-            })
+            }
+            failures.append(failure_state)
+            source_states.append(failure_state)
             continue
 
     merged = merge_schedules(results)
@@ -416,29 +420,7 @@ def run() -> int:
     }
     save(OUTPUT_PATH, output)
 
-    status_sources = results and [
-        {
-            "id": source["id"],
-            "priority": source.get("priority"),
-            "status": "healthy",
-            "consecutiveFailures": 0,
-            "stats": next((r[1] for r in []), None),
-        } for _, source in results
-    ] or []
-    # Replace the temporary compact source list with the detailed runtime states.
-    detailed = []
-    for _, source in results:
-        detailed.append({
-            "id": source["id"],
-            "priority": source.get("priority"),
-            "status": "healthy",
-            "consecutiveFailures": 0,
-            "cacheHit": next(
-                (x.get("cacheHit") for x in [previous_by_id.get(source["id"], {})] if x),
-                False,
-            ),
-        })
-    detailed.extend(failures)
+    detailed = source_states
 
     status = {
         "schemaVersion": "1.1.0",
