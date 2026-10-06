@@ -12,6 +12,7 @@ import json
 import re
 from collections import Counter
 from datetime import datetime, timezone
+import subprocess
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -47,6 +48,19 @@ def stable_id(name: str, url: str, kind: str) -> str:
 def infer_kind(group: str, filename: str) -> str:
     text = f"{group} {filename}".casefold()
     return "series" if "série" in text or "series" in text else "movie"
+
+
+def source_revision() -> str:
+    try:
+        value = subprocess.check_output(
+            ["git", "log", "-1", "--format=%cI", "--", "CineHUB_WEB/dados/conteudo/catalogo"],
+            cwd=ROOT, text=True, stderr=subprocess.DEVNULL,
+        ).strip()
+        if value:
+            return value
+    except (OSError, subprocess.CalledProcessError):
+        pass
+    return "unknown"
 
 
 def scan() -> tuple[list[dict], dict]:
@@ -99,7 +113,7 @@ def scan() -> tuple[list[dict], dict]:
     # Deterministic order makes GitHub Actions produce no noisy diffs.
     items.sort(key=lambda x: (x["type"], x["title"].casefold(), x["id"]))
     stats = {
-        "generatedAt": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
+        "generatedAt": source_revision(),
         "sourceFiles": len(files),
         "sourceFilesRead": files_ok,
         "items": len(items),
