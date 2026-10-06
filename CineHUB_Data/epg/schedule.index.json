@@ -1,0 +1,446 @@
+{
+  "schemaVersion": "1.1.0",
+  "generatedBy": "CineHUB Data Engine Phase 7",
+  "generatedAt": "2026-10-06T04:49:49.639499Z",
+  "window": {
+    "start": "2026-10-06T04:49:49.639499Z",
+    "end": "2026-10-08T04:49:49.639499Z",
+    "hours": 48
+  },
+  "policy": {
+    "strategy": "channel-id-then-canonical-name",
+    "sourceStrategy": "priority-with-gap-fill",
+    "cache": "conditional-http-plus-parsed-cache",
+    "cacheTtlHours": 12,
+    "expiredProgramsDiscarded": true,
+    "clientProcessesXmltv": false
+  },
+  "stats": {
+    "sourcesConfigured": 2,
+    "sourcesHealthy": 1,
+    "sourcesFailed": 1,
+    "cacheHits": 0,
+    "networkFetches": 1,
+    "channelsKnown": 83,
+    "channelsWithPrograms": 0,
+    "channelsWithoutPrograms": 83,
+    "programs": 0
+  },
+  "channels": [
+    {
+      "id": "channel-5007afe06c4696d2",
+      "name": "+SBT Kids",
+      "programs": []
+    },
+    {
+      "id": "channel-dbf7dc4e16b8cb7c",
+      "name": "+SBT Novelas",
+      "programs": []
+    },
+    {
+      "id": "channel-21d7c469cc9578bd",
+      "name": "+SBT Show do Milhão",
+      "programs": []
+    },
+    {
+      "id": "channel-65f15ce8fee25b24",
+      "name": "BAND HD",
+      "programs": []
+    },
+    {
+      "id": "channel-c77832fcc92d69c1",
+      "name": "BAND NEWS",
+      "programs": []
+    },
+    {
+      "id": "channel-7c264f7ec27add2d",
+      "name": "Band SP_local",
+      "programs": []
+    },
+    {
+      "id": "channel-1667c9651d93fe2f",
+      "name": "BAND SPORTS HD",
+      "programs": []
+    },
+    {
+      "id": "channel-96147cdbfd6955d7",
+      "name": "bis",
+      "programs": []
+    },
+    {
+      "id": "channel-e483ea1626dc6613",
+      "name": "Canal UOL",
+      "programs": []
+    },
+    {
+      "id": "channel-7d4708f26a74ad73",
+      "name": "canal-brasil",
+      "programs": []
+    },
+    {
+      "id": "channel-104f5eb5e33cc59c",
+      "name": "canal-off",
+      "programs": []
+    },
+    {
+      "id": "channel-da0625a10d86319d",
+      "name": "Canção Nova",
+      "programs": []
+    },
+    {
+      "id": "channel-f9a5d6ae30ade2a6",
+      "name": "CBI",
+      "programs": []
+    },
+    {
+      "id": "channel-ac660da6bc6249a8",
+      "name": "Claro TV+ 4K",
+      "programs": []
+    },
+    {
+      "id": "channel-4ca1868d92f267b3",
+      "name": "Claro TV+ 4K ROCK IN RIO 2026",
+      "programs": []
+    },
+    {
+      "id": "channel-247eb5fbe2c330a7",
+      "name": "combate",
+      "programs": []
+    },
+    {
+      "id": "channel-36dc517083a0a91c",
+      "name": "dpa-fast",
+      "programs": []
+    },
+    {
+      "id": "channel-c8268a17f98e2f98",
+      "name": "ESPN",
+      "programs": []
+    },
+    {
+      "id": "channel-374c92aa9a9ad3e2",
+      "name": "ESPN 2",
+      "programs": []
+    },
+    {
+      "id": "channel-90d082dbff46c6c3",
+      "name": "ESPN 3",
+      "programs": []
+    },
+    {
+      "id": "channel-587c7f68c1ec6f85",
+      "name": "ESPN 4",
+      "programs": []
+    },
+    {
+      "id": "channel-f12c30e61feff4a6",
+      "name": "ESPN 5",
+      "programs": []
+    },
+    {
+      "id": "channel-a0bc3d3023422dfa",
+      "name": "ESPN 6",
+      "programs": []
+    },
+    {
+      "id": "channel-6d7ee145069f6b77",
+      "name": "futura",
+      "programs": []
+    },
+    {
+      "id": "channel-a49c417e52d0a833",
+      "name": "ge-tv",
+      "programs": []
+    },
+    {
+      "id": "channel-9160c805312d50c9",
+      "name": "Globo SP_local",
+      "programs": []
+    },
+    {
+      "id": "channel-e42e6a8c2e71d23c",
+      "name": "globo-internacional",
+      "programs": []
+    },
+    {
+      "id": "channel-c2597ea819a36075",
+      "name": "globonews",
+      "programs": []
+    },
+    {
+      "id": "channel-5bf937231dab38ea",
+      "name": "globoplay-novelas",
+      "programs": []
+    },
+    {
+      "id": "channel-89904e2f0db28108",
+      "name": "gloob",
+      "programs": []
+    },
+    {
+      "id": "channel-12602daef553b9d9",
+      "name": "gloobinho",
+      "programs": []
+    },
+    {
+      "id": "channel-618f8819eeae62b3",
+      "name": "gnt",
+      "programs": []
+    },
+    {
+      "id": "channel-c0342f74a7aa25aa",
+      "name": "malhacao-fast",
+      "programs": []
+    },
+    {
+      "id": "channel-eeb7d13944fb95f4",
+      "name": "megapix",
+      "programs": []
+    },
+    {
+      "id": "channel-c5bea86a75a20df2",
+      "name": "modo-viagem",
+      "programs": []
+    },
+    {
+      "id": "channel-eb1e1fdf2b2febee",
+      "name": "multishow",
+      "programs": []
+    },
+    {
+      "id": "channel-933a1975ba286df7",
+      "name": "Paramount+ 1",
+      "programs": []
+    },
+    {
+      "id": "channel-cad03c5ab1a1dee8",
+      "name": "Paramount+ 2",
+      "programs": []
+    },
+    {
+      "id": "channel-ccfbf2ecfdab24a0",
+      "name": "Paramount+ 3",
+      "programs": []
+    },
+    {
+      "id": "channel-3d0daa3ab79e1a2d",
+      "name": "Paramount+ 4",
+      "programs": []
+    },
+    {
+      "id": "channel-a7518cc15100be58",
+      "name": "premiere",
+      "programs": []
+    },
+    {
+      "id": "channel-21a7d7d77462d04a",
+      "name": "PREMIERE 2 HD",
+      "programs": []
+    },
+    {
+      "id": "channel-24f5a17197cfc670",
+      "name": "PREMIERE 3 HD",
+      "programs": []
+    },
+    {
+      "id": "channel-b3ba00c7ac1fde9e",
+      "name": "PREMIERE 4 HD",
+      "programs": []
+    },
+    {
+      "id": "channel-a11721330174a59d",
+      "name": "Premiere 5",
+      "programs": []
+    },
+    {
+      "id": "channel-0f2664977d310e7e",
+      "name": "PREMIERE 6 HD",
+      "programs": []
+    },
+    {
+      "id": "channel-67ded11fb3abb7b9",
+      "name": "PREMIERE 7 HD",
+      "programs": []
+    },
+    {
+      "id": "channel-aadbdaf87071bbb3",
+      "name": "PREMIERE CLUBES HD",
+      "programs": []
+    },
+    {
+      "id": "channel-34cfdbc7d75aa3a3",
+      "name": "RBI",
+      "programs": []
+    },
+    {
+      "id": "channel-7bd14d1340db00c2",
+      "name": "receitas-fast",
+      "programs": []
+    },
+    {
+      "id": "channel-59d3a66c47c47892",
+      "name": "Record SP_local",
+      "programs": []
+    },
+    {
+      "id": "channel-faaeed260e161b55",
+      "name": "Rede Brasil HD",
+      "programs": []
+    },
+    {
+      "id": "channel-3e92519621f2f405",
+      "name": "REDE GOSPEL",
+      "programs": []
+    },
+    {
+      "id": "channel-3edc945eec39e0d4",
+      "name": "Rede Século 21",
+      "programs": []
+    },
+    {
+      "id": "channel-987a96d141d83bb4",
+      "name": "Rede TV! SP_local",
+      "programs": []
+    },
+    {
+      "id": "channel-4e64bc9131aac6a0",
+      "name": "Rede Vida HD",
+      "programs": []
+    },
+    {
+      "id": "channel-64087abe6d4b2df6",
+      "name": "SBT",
+      "programs": []
+    },
+    {
+      "id": "channel-143032abf25315be",
+      "name": "SBT News",
+      "programs": []
+    },
+    {
+      "id": "channel-128561c5bc0594e7",
+      "name": "SBT Rio",
+      "programs": []
+    },
+    {
+      "id": "channel-3f49dbbfe051cb20",
+      "name": "SPACE HD",
+      "programs": []
+    },
+    {
+      "id": "channel-ba1aef27b99e0b44",
+      "name": "sportv",
+      "programs": []
+    },
+    {
+      "id": "channel-c1976882673eda21",
+      "name": "sportv-2",
+      "programs": []
+    },
+    {
+      "id": "channel-77eef443bb86ec2d",
+      "name": "sportv-3",
+      "programs": []
+    },
+    {
+      "id": "channel-0ca2ae33d9ec43e5",
+      "name": "studio-universal",
+      "programs": []
+    },
+    {
+      "id": "channel-1da34e74bee49b11",
+      "name": "telecine-action",
+      "programs": []
+    },
+    {
+      "id": "channel-59c1000f6d94f068",
+      "name": "telecine-cult",
+      "programs": []
+    },
+    {
+      "id": "channel-8c15ae2fab5acb14",
+      "name": "telecine-fun",
+      "programs": []
+    },
+    {
+      "id": "channel-4ac8ef183490a852",
+      "name": "telecine-pipoca",
+      "programs": []
+    },
+    {
+      "id": "channel-caae59e1cd47511f",
+      "name": "telecine-premium",
+      "programs": []
+    },
+    {
+      "id": "channel-4b6c709e22de4916",
+      "name": "telecine-touch",
+      "programs": []
+    },
+    {
+      "id": "channel-2b7369225f830e26",
+      "name": "TIMES EXCLUSIVO CNBC",
+      "programs": []
+    },
+    {
+      "id": "channel-48b2769a272c373b",
+      "name": "TNT HD",
+      "programs": []
+    },
+    {
+      "id": "channel-2ed2d812c45787a0",
+      "name": "TNT NOVELAS",
+      "programs": []
+    },
+    {
+      "id": "channel-5941e22567ee4d88",
+      "name": "TNT SERIES HD",
+      "programs": []
+    },
+    {
+      "id": "channel-251cef84c6ade534",
+      "name": "TV BRASIL",
+      "programs": []
+    },
+    {
+      "id": "channel-19b1b6e899fc5e8d",
+      "name": "TV Cultura SP_local",
+      "programs": []
+    },
+    {
+      "id": "channel-f1a3dd9212c6c957",
+      "name": "TV Novo Tempo",
+      "programs": []
+    },
+    {
+      "id": "channel-9b3d98d3321e4ad9",
+      "name": "tv-globo",
+      "programs": []
+    },
+    {
+      "id": "channel-a9fd078562420a27",
+      "name": "universal",
+      "programs": []
+    },
+    {
+      "id": "channel-e55958f56efd7c00",
+      "name": "UNIVERSAL PREMIERE HD",
+      "programs": []
+    },
+    {
+      "id": "channel-5fc90ab335783816",
+      "name": "usa",
+      "programs": []
+    },
+    {
+      "id": "channel-13b7b334ed3fc2f3",
+      "name": "X Sports_local",
+      "programs": []
+    },
+    {
+      "id": "channel-b1a9680bbe16cc35",
+      "name": "Xsports",
+      "programs": []
+    }
+  ]
+}
