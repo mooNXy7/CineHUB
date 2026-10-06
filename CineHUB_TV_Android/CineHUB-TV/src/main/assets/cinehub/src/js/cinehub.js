@@ -192,6 +192,16 @@ function fillRow(id,items,type='movie'){
  list.forEach(x=>frag.appendChild(card(x,type)));
  r.appendChild(frag);
 }
+function renderHomeProgram(){
+ const r=$('#programRow');if(!r)return;
+ const channels=Array.isArray(window.canaisM3U8)?window.canaisM3U8:[];
+ r.innerHTML='';
+ if(!channels.length){r.innerHTML='<div class="empty">Programação disponível ao abrir a área de TV.</div>';return}
+ const frag=document.createDocumentFragment();
+ channels.filter((x,i,a)=>x&&x.nome&&a.findIndex(y=>String(y?.nome||'').toLowerCase()===String(x.nome||'').toLowerCase())===i)
+   .slice(0,10).forEach(ch=>frag.appendChild(channelCard(ch)));
+ r.appendChild(frag);
+}
 function renderContinue(){
  const p=store.get('cinehub_progress',null),sec=$('#continueSection'),r=$('#continueRow');
  if(!sec||!r)return;
@@ -237,6 +247,7 @@ async function loadHomeCatalog(){
   fillRow('trendingRow',movies.slice(0,12),'movie');
   fillRow('releaseRow',releaseItems.slice(0,12),'movie');
   fillRow('seriesTrendRow',seriesItems.slice(0,12),'series');
+  renderHomeProgram();
   const recommendations=[...movies.slice(0,6),...seriesItems.slice(0,6)];
   fillRow('recommendRow',recommendations,'movie');
   if(state.homeItems.length){hero(0);loadHeroHighlights().catch(()=>{});}
@@ -251,6 +262,7 @@ async function loadHomeCatalog(){
 function renderHome(){
  fillRow('trendingRow',[]);fillRow('releaseRow',[]);fillRow('seriesTrendRow',[]);fillRow('recommendRow',[]);
  loadHomeCatalog();
+ renderHomeProgram();
  renderContinue();renderFavorites();
 }
 
@@ -852,7 +864,7 @@ function bind(){
   const screen=e.target.closest('[data-screen]');if(screen){const s=screen.dataset.screen;if(s==='movies'||s==='series'||s==='tv')openScreen(s==='movies'?'moviesScreen':s==='series'?'seriesScreen':'tvScreen')}
   const dock=e.target.closest('[data-dock]');if(dock){const d=dock.dataset.dock;setDockActive(d);if(d==='home'){showTransitionLoading('Voltando ao CineHUB…',150);close('moviesScreen');close('seriesScreen');close('tvScreen');close('searchScreen');close('detail');close('meSheet');close('discordSheet');close('configSheet');close('tvDetailSheet');close('premiumSheet');close('projectSheet');window.scrollTo({top:0,behavior:'smooth'})}if(d==='community')openSheet('discordSheet');if(d==='config')openConfig()}
   const closeBtn=e.target.closest('[data-close]');if(closeBtn)close(closeBtn.dataset.close);
-  if(e.target.closest('[data-action="search"]'))openSearch();if(e.target.closest('[data-action="profile"]'))profile();if(e.target.closest('[data-action="premium"]'))openSheet('premiumSheet');if(e.target.closest('[data-action="project"]'))openSheet('projectSheet');
+  if(e.target.closest('[data-action="search"]'))openSearch();if(e.target.closest('[data-action="profile"]'))profile();if(e.target.closest('[data-action="config"]'))openConfig();if(e.target.closest('[data-action="community"]'))openSheet('discordSheet');if(e.target.closest('[data-action="premium"]'))openSheet('premiumSheet');if(e.target.closest('[data-action="project"]'))openSheet('projectSheet');
   const pressTarget=e.target.closest('.press,.icon-btn,.dock-btn,.chip,.setting-row,.lang-option,.mode-option');
   if(pressTarget){
     setTimeout(()=>{
@@ -875,10 +887,10 @@ function bind(){
  on('#playerRetry','click',()=>{if(state.current)playCurrent({type:state.currentType||'movie',season:parseInt($('#seriesSeason')?.value||1,10)||1,episode:parseInt($('#seriesEpisode')?.value||1,10)||1});});
  on('#tvRefresh','click',async()=>{sound('open');const b=$('#tvRefresh');if(b)b.disabled=true;toast('Atualizando listas…');await window.CineHUBExternalSources?.loadSaimo?.();await window.CineHUBExternalSources?.loadIptv?.({remote:true,local:false});if(b)b.disabled=false;setupChannelChips();renderChannels();renderPopularChannels();toast('Listas atualizadas.')});
  on('#tvEpgSource','click',async()=>{const b=$('#tvEpgSource');const current=window.CineHUBEPG?.state?.source==='iptvcom'?'saimo':'iptvcom';window.CineHUBEPG?.setSource(current);if(b)b.textContent=current==='iptvcom'?'EPG: Brasil':'EPG: Principal';toast('Atualizando guia…');await window.CineHUBEPG?.load?.(window.canaisM3U8||[],true);renderChannels()});
- window.addEventListener('cinehub:epg-updated',e=>{const b=$('#tvEpgSource');if(b)b.textContent=(window.CineHUBEPG?.state?.source==='iptvcom')?'EPG: Brasil':'EPG: Principal';const count=Number(e.detail?.count||0);const tab=$('#tvGuideTab');if(tab){tab.hidden=count<=0;$('#tvGuideCount').textContent=count>0?`· ${count}`:'';}if($('#tvScreen')?.classList.contains('active')){renderChannels();if(state.tvTab==='guide')renderGuide()}if(count>0)sound('success')});
+ window.addEventListener('cinehub:epg-updated',e=>{renderHomeProgram();const b=$('#tvEpgSource');if(b)b.textContent=(window.CineHUBEPG?.state?.source==='iptvcom')?'EPG: Brasil':'EPG: Principal';const count=Number(e.detail?.count||0);const tab=$('#tvGuideTab');if(tab){tab.hidden=count<=0;$('#tvGuideCount').textContent=count>0?`· ${count}`:'';}if($('#tvScreen')?.classList.contains('active')){renderChannels();if(state.tvTab==='guide')renderGuide()}if(count>0)sound('success')});
 
  on('#tvExternalSources','click',async()=>{sound('open');const b=$('#tvExternalSources');if(!b)return;b.disabled=true;b.textContent='Carregando fontes…';toast('Carregando listas sem travar a interface…');const r=await window.CineHUBExternalSources?.loadIptv?.({remote:true,local:true});b.disabled=false;b.textContent='＋ Fontes externas';setupChannelChips();renderChannels();renderPopularChannels();toast(r?.ok?`Fontes integradas: +${(r.count||0).toLocaleString('pt-BR')} entradas`:'Não foi possível carregar as fontes externas.');});
- window.addEventListener('cinehub:sources-updated',()=>{if(!$('#tvScreen')?.classList.contains('active'))return;const loading=Number(window.CineHUBExternalSources?.state?.activeLoads||0)>0;if(loading){const count=(window.canaisM3U8||[]).length;const title=$('#tvNowTitle');if(title)title.textContent=`${count.toLocaleString('pt-BR')} canais carregados`;if(!$('#channelGrid')?.childElementCount)renderChannels();return}setupChannelChips();renderChannels();renderPopularChannels()});
+ window.addEventListener('cinehub:sources-updated',()=>{renderHomeProgram();if(!$('#tvScreen')?.classList.contains('active'))return;const loading=Number(window.CineHUBExternalSources?.state?.activeLoads||0)>0;if(loading){const count=(window.canaisM3U8||[]).length;const title=$('#tvNowTitle');if(title)title.textContent=`${count.toLocaleString('pt-BR')} canais carregados`;if(!$('#channelGrid')?.childElementCount)renderChannels();return}setupChannelChips();renderChannels();renderPopularChannels()});
  on('#tvGuideTab','click',()=>{sound('open');setTvTab('guide')});
  on('#tvChannelsTab','click',()=>{sound('tap');setTvTab('channels')});
  on('#movieMore','click',async()=>{const cat=largeMovieCategory;if(!cat||cat==='__featured')return;const meta=window.CineHUBLargeCatalog.manifest[cat];if(!meta)return;const chunk=await window.CineHUBLargeCatalog.next(cat);if(!chunk.length){$('#movieMore').hidden=true;return}const items=largeMovieSearch?chunk.filter(x=>`${x.titulo} ${x.categoria}`.toLowerCase().includes(largeMovieSearch)):chunk;const g=$('#movieGrid');items.slice(0,120).forEach(x=>g.appendChild(card(x,'movie')));$('#movieCatalogMeta').textContent=`${cat.replace(/^Filmes \| /,'')} · carregando sob demanda · ${meta.count.toLocaleString('pt-BR')} títulos`;if((window.CineHUBLargeCatalog.manifest[cat]?.files||[]).length<=1)$('#movieMore').hidden=true});
