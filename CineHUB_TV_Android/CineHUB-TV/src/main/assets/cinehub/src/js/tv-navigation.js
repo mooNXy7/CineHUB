@@ -1,63 +1,69 @@
-/* CineHUB TV Navigation 1.0.6 — Android TV / TV Box D-pad layer. */
+/* CineHUB TV 1.0.9 — TV-first navigation and presentation bridge */
 (function(){
 'use strict';
-var root=window.CineHUBTVNavigation||{};root.version='1.0.8';
-var SELECTOR='button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
-var KEY={LEFT:21,RIGHT:22,UP:19,DOWN:20,ENTER:23,BACK:4};
-function visible(el){if(!el||el.hidden)return false;var c=getComputedStyle(el),r=el.getBoundingClientRect();return c.display!=='none'&&c.visibility!=='hidden'&&parseFloat(c.opacity||1)>0&&r.width>1&&r.height>1}
-function active(el){var x=el.closest('.system-modal,.sheet,.detail,.player,.screen');return x?x.classList.contains('active'):!document.querySelector('.system-modal.active,.sheet.active,.detail.active,.player.active,.screen.active')}
-function list(){return Array.prototype.slice.call(document.querySelectorAll(SELECTOR)).filter(function(x){return visible(x)&&active(x)})}
-var focusing=false;function focus(el){if(!el||!visible(el)||focusing)return;document.querySelectorAll('.cinehub-tv-focus').forEach(function(x){x.classList.remove('cinehub-tv-focus')});el.classList.add('cinehub-tv-focus');if(document.activeElement!==el){focusing=true;try{el.focus({preventScroll:true})}catch(_){try{el.focus()}catch(__){}}finally{focusing=false}}try{el.scrollIntoView({behavior:'auto',block:'nearest',inline:'nearest'})}catch(_){}}
-function center(x){var r=x.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2,w:r.width,h:r.height}}
+var TV=window.CineHUBTV||{};TV.version='1.0.9';
+function q(s){return document.querySelector(s)}
+function qa(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
+function esc(s){return String(s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+function ensureNav(){
+ if(q('#tvMainNav'))return;
+ var n=document.createElement('nav');n.id='tvMainNav';n.setAttribute('aria-label','Navegação TV');
+ n.innerHTML='<div class="tv-nav-brand"><img src="assets/logos/logo-horizontal.png" alt="CineHUB"></div><button class="tv-nav-item active" data-tv-route="home">Início</button><button class="tv-nav-item" data-tv-route="movies">Filmes</button><button class="tv-nav-item" data-tv-route="series">Séries</button><button class="tv-nav-item" data-tv-route="tv">TV ao vivo</button><button class="tv-nav-item" data-tv-route="search">Buscar</button><span class="tv-nav-spacer"></span><span class="tv-nav-hint">◀ ▶ navegar&nbsp;&nbsp; OK selecionar&nbsp;&nbsp; BACK voltar</span></nav>';
+ document.body.insertBefore(n,document.body.firstChild);
+ qa('[data-tv-route]').forEach(function(b){b.addEventListener('click',function(){route(b.dataset.tvRoute)})});
+}
+function route(r){
+ qa('.tv-nav-item').forEach(function(b){b.classList.toggle('active',b.dataset.tvRoute===r)});
+ if(r==='home'){closeScreens();window.scrollTo(0,0);focusFirst();return}
+ if(r==='movies'){q('[data-screen="movies"]')?.click();setTimeout(focusFirst,100);return}
+ if(r==='series'){q('[data-screen="series"]')?.click();setTimeout(focusFirst,100);return}
+ if(r==='tv'){q('[data-screen="tv"]')?.click();setTimeout(focusFirst,100);return}
+ if(r==='search'){q('[data-action="search"]')?.click();setTimeout(focusFirst,100)}
+}
+function closeScreens(){qa('.screen.active,.detail.active,.player.active,.sheet.active').forEach(function(x){if(x.id!=='welcomeModal'){var b=x.querySelector('[data-close]');if(b)b.click();else x.classList.remove('active')}})}
+function visible(x){if(!x||x.disabled||x.hidden)return false;var s=getComputedStyle(x),r=x.getBoundingClientRect();return s.display!=='none'&&s.visibility!=='hidden'&&+s.opacity>0&&r.width>1&&r.height>1}
+function context(x){var c=x&&x.closest('.screen,.detail,.player,.sheet,.system-modal');return c?c.classList.contains('active'):true}
+function items(){return qa('button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),[tabindex]:not([tabindex="-1"])').filter(function(x){return visible(x)&&context(x)&&!x.closest('#welcomeModal')})}
+function focus(x){if(!visible(x))return;qa('.cinehub-tv-focus').forEach(function(e){e.classList.remove('cinehub-tv-focus')});x.classList.add('cinehub-tv-focus');try{x.focus({preventScroll:true})}catch(_){try{x.focus()}catch(__){}}try{x.scrollIntoView({block:'nearest',inline:'nearest',behavior:'auto'})}catch(_){}}
+function focusFirst(){var a=items();focus(a.find(function(x){return x.matches('#heroPlay,.tv-nav-item.active,.primary')})||a[0])}
+function center(x){var r=x.getBoundingClientRect();return{x:r.left+r.width/2,y:r.top+r.height/2}}
 function move(dir){
- var from=document.activeElement;if(!from||!visible(from)||!active(from))from=list()[0];
- var all=list();if(!from){return}if(!all.length)return;
+ var all=items(),from=document.activeElement;if(!visible(from)||!context(from))from=all[0];if(!from)return;
  var a=center(from),best=null,score=1e9;
  all.forEach(function(x){if(x===from)return;var b=center(x),dx=b.x-a.x,dy=b.y-a.y;
-   var p=dir==='left'?-dx:dir==='right'?dx:dir==='up'?-dy:dy;if(p<=5)return;
+   var primary=(dir==='left'?-dx:dir==='right'?dx:dir==='up'?-dy:dy);if(primary<12)return;
    var cross=(dir==='left'||dir==='right')?Math.abs(dy):Math.abs(dx);
-   var s=p+cross*1.6;if(s<score){score=s;best=x}
+   var sameRow=cross<Math.max(45,Math.min(a.y,b.y)*0+70);
+   var s=primary+(sameRow?cross*1.8:cross*4.5);if(s<score){score=s;best=x}
  });
  if(best)focus(best);
 }
-function press(){var x=document.activeElement;if(!x||!visible(x)||!active(x)){focus(list()[0]);return}if(/^(INPUT|TEXTAREA|SELECT)$/.test(x.tagName))return;try{x.click()}catch(_){}}
-
-function bindNativeHeader(){
- document.addEventListener('click',function(e){
-  if(e.target.closest('[data-action="config"]')){var profile=document.querySelector('[data-action="profile"]');if(profile){profile.click();setTimeout(function(){var cfg=document.querySelector('#profileConfig');if(cfg)cfg.click()},100)}}
-  if(e.target.closest('[data-action="community"]')){var sheet=document.getElementById('discordSheet');if(sheet){sheet.classList.add('active');document.body.style.overflow='hidden'}}
- },true);
+function press(){var x=document.activeElement;if(!x||!visible(x)){focusFirst();return}if(/^(INPUT|TEXTAREA|SELECT)$/.test(x.tagName))return;x.click()}
+function key(e){
+ var k=e.keyCode||e.which;
+ if([19,20,21,22].indexOf(k)>=0){e.preventDefault();e.stopPropagation();move(k===21?'left':k===22?'right':k===19?'up':'down');return}
+ if(k===23||k===66){e.preventDefault();e.stopPropagation();press();return}
+ if(k===4||e.key==='Escape'){e.preventDefault();if(window.CineHUBTV&&window.CineHUBTV.back)window.CineHUBTV.back();return}
 }
-function renderHomeProgram(){
- var row=document.getElementById('programRow');if(!row)return;
- var channels=Array.isArray(window.canaisM3U8)?window.canaisM3U8:[];row.innerHTML='';
- if(!channels.length){row.innerHTML='<div class="empty">Programação disponível ao abrir a área de TV.</div>';return;}
- var seen={},frag=document.createDocumentFragment();
- channels.forEach(function(ch){
-  var name=String(ch&&ch.nome||'').trim(),key=name.toLowerCase();if(!name||seen[key])return;seen[key]=1;
-  var card=document.createElement('article');card.className='channel glass press';card.tabIndex=0;
-  var logo=String(ch.logo||'imagens/sem-capa.jpg');
-  card.innerHTML='<div class="channel-logo-wrap"><img class="channel-logo" loading="lazy" decoding="async" src="'+logo.replace(/"/g,'&quot;')+'" alt=""></div><div class="channel-title-row"><span class="channel-tv-icon">TV</span><h3>'+name.replace(/[&<>]/g,function(s){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[s]})+'</h3></div><div class="channel-meta-line"><span class="pill">'+String(ch.grupo||'Geral').replace(/[&<>]/g,function(s){return {'&':'&amp;','<':'&lt;','>':'&gt;'}[s]})+'</span></div>';
-  var open=function(){var targetName=name.toLowerCase();var nav=document.querySelector('[data-screen="tv"]');if(nav)nav.click();setTimeout(function(){var nodes=document.querySelectorAll('#channelGrid .channel');for(var i=0;i<nodes.length;i++){var h=nodes[i].querySelector('h3');if(h&&h.textContent.trim().toLowerCase()===targetName){nodes[i].focus();nodes[i].click();break;}}},260)};
-  card.addEventListener('click',open);card.addEventListener('keydown',function(e){if(e.key==='Enter'||e.keyCode===23){e.preventDefault();open()}});frag.appendChild(card);
- });row.appendChild(frag);
+function back(){
+ var x=q('.player.active,.detail.active,.sheet.active,.screen.active');
+ if(x){var b=x.querySelector('[data-close]');if(b)b.click();else x.classList.remove('active');setTimeout(focusFirst,80);routeFromVisible();return true}
+ window.scrollTo(0,0);route('home');focusFirst();return false;
 }
-function initial(){var m=document.querySelector('.system-modal.active');if(m){focus(m.querySelector('button'));return}var l=document.querySelector('.player.active,.detail.active,.sheet.active,.screen.active');if(l){focus(l.querySelector('button,a[href],input'));return}focus(document.querySelector('#heroPlay')||document.querySelector('.top-actions button'))}
-document.addEventListener('keydown',function(e){var k=e.keyCode||e.which;if(k===21||k===22||k===19||k===20){e.preventDefault();move(k===21?'left':k===22?'right':k===19?'up':'down')}else if(k===23||k===66){e.preventDefault();press()}else if(k===4||e.key==='Escape'){if(back())e.preventDefault()}},true);
+function routeFromVisible(){
+ var x=q('#tvScreen.active'),m=q('#moviesScreen.active'),s=q('#seriesScreen.active'),search=q('#searchScreen.active');
+ var r=x?'tv':m?'movies':s?'series':search?'search':'home';qa('.tv-nav-item').forEach(function(b){b.classList.toggle('active',b.dataset.tvRoute===r)});
+}
+document.addEventListener('keydown',key,true);
 document.addEventListener('focusin',function(e){if(visible(e.target))focus(e.target)});
-document.addEventListener('click',function(e){var x=e.target.closest('button,a,.card,.explore-card');if(x)setTimeout(function(){focus(x)},0)},true);
-function goHome(){var active=document.querySelector('.system-modal.active,.player.active,.detail.active,.sheet.active,.screen.active');if(active){back();return true}window.scrollTo({top:0,behavior:'auto'});focus(document.querySelector('#heroPlay')||document.querySelector('.top-actions button'));return true}
-function back(){var selectors=['.system-modal.active','.player.active','.detail.active','.sheet.active','.screen.active'];for(var i=0;i<selectors.length;i++){var x=document.querySelector(selectors[i]);if(x){var b=x.querySelector('[data-close]');if(b){b.click();setTimeout(initial,80);return true}x.classList.remove('active');setTimeout(initial,80);return true}}window.scrollTo({top:0,behavior:'auto'});focus(document.querySelector('#heroPlay')||document.querySelector('.top-actions button'));return false}
-root.back=back;root.goHome=goHome;window.CineHUBTV=root;
-var last='';
-function watch(){
-  var m=document.getElementById('welcomeModal');
-  if(m&&m.classList.contains('active')){m.classList.remove('active');m.setAttribute('aria-hidden','true')}
-  var x=document.querySelector('.system-modal.active,.player.active,.detail.active,.sheet.active,.screen.active');
-  var k=x?(x.id||x.className):'home';
-  if(k!==last){last=k;setTimeout(initial,80)}
-}
-new MutationObserver(watch).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','hidden']});
-bindNativeHeader();setTimeout(renderHomeProgram,900);setTimeout(initial,700);window.addEventListener('cinehub:sources-updated',renderHomeProgram);window.addEventListener('cinehub:epg-updated',renderHomeProgram);
-window.CineHUBTVNavigation=root;
+document.addEventListener('click',function(e){var x=e.target.closest('button,a,.card,.channel,.explore-card');if(x)setTimeout(function(){if(visible(x))focus(x)},20)},true);
+new MutationObserver(function(){routeFromVisible()}).observe(document.body,{subtree:true,attributes:true,attributeFilter:['class','hidden']});
+document.addEventListener('DOMContentLoaded',function(){
+ document.documentElement.classList.add('cinehub-performance');
+ try{localStorage.setItem('cinehub_mode','performance')}catch(_){}
+ ensureNav();
+ var wm=q('#welcomeModal');if(wm){wm.classList.remove('active');wm.setAttribute('aria-hidden','true')}
+ setTimeout(focusFirst,900);
+});
+TV.back=back;TV.goHome=function(){return back()};window.CineHUBTV=TV;
 })();
