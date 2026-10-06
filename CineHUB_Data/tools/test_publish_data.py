@@ -16,7 +16,6 @@ class PublishDataTests(unittest.TestCase):
 
     def test_required_outputs_are_defined(self):
         self.assertIn("status.json", publish_data.REQUIRED)
-        self.assertIn("channels/resolved.json", publish_data.REQUIRED)
         self.assertIn("catalog/manifest.json", publish_data.REQUIRED)
 
     def test_build_creates_publication_and_is_stable(self):
@@ -25,10 +24,8 @@ class PublishDataTests(unittest.TestCase):
             data = root / "data"
             out = root / "out"
             status = data / "status"
-            normalized = data / "normalized"
-            resolved = data / "resolved"
             catalog = data / "catalog"
-            for directory in (status, normalized, resolved, catalog):
+            for directory in (status, catalog):
                 directory.mkdir(parents=True)
 
             (status / "data-status.json").write_text(
@@ -36,20 +33,14 @@ class PublishDataTests(unittest.TestCase):
                 encoding="utf-8",
             )
             (data / "sources.json").write_text("{}", encoding="utf-8")
-            (normalized / "channels.json").write_text("{}", encoding="utf-8")
-            (resolved / "channels.json").write_text("{}", encoding="utf-8")
-
             files = {
                 "status.json": status / "data-status.json",
                 "sources.json": data / "sources.json",
-                "channels/normalized.json": normalized / "channels.json",
-                "channels/resolved.json": resolved / "channels.json",
                 "catalog/manifest.json": catalog / "catalog-manifest.json",
                 "catalog/movies.index.json": catalog / "movies.index.json",
-                "catalog/series.index.json": catalog / "series.index.json",
                 "catalog/metadata.json": catalog / "metadata.json",
             }
-            for path in list(files.values())[4:]:
+            for path in list(files.values())[2:]:
                 path.write_text("{}", encoding="utf-8")
 
             with patch.object(publish_data, "DATA", data),                  patch.object(publish_data, "OUT", out),                  patch.object(publish_data, "FILES", files),                  patch.object(publish_data, "REQUIRED", set(files)):
