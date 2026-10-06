@@ -79,7 +79,7 @@ jobs:
             '  Cache-Control: public, max-age=60, stale-while-revalidate=300' \
             > CineHUB_WEB/data-engine/_headers
 
-          git add CineHUB_Data/sources/registry.json CineHUB_Data/status/data-status.json CineHUB_Data/catalog/catalog-manifest.json CineHUB_Data/catalog/movies.index.json CineHUB_Data/catalog/series.entities.json CineHUB_Data/catalog/featured.json CineHUB_Data/catalog/trending.json CineHUB_Data/catalog/releases.json CineHUB_Data/catalog/metadata.json CineHUB_WEB/data-engine
+          git add CineHUB_Data/manifests/data-manifest.json CineHUB_Data/sources/registry.json CineHUB_Data/status/data-status.json CineHUB_Data/catalog/catalog-manifest.json CineHUB_Data/catalog/movies.index.json CineHUB_Data/catalog/series.entities.json CineHUB_Data/catalog/featured.json CineHUB_Data/catalog/trending.json CineHUB_Data/catalog/releases.json CineHUB_Data/catalog/metadata.json CineHUB_WEB/data-engine
 
           if git diff --cached --quiet; then
             echo "NO CHANGES"
