@@ -66,11 +66,14 @@ jobs:
               print("EPG status unavailable:", e)
           PY
 
+      - name: Build public Data Engine package with EPG
+        run: python3 CineHUB_Data/tools/publish_data.py
+
       - name: Publish generated EPG data
         run: |
           git config user.name "CineHUB Data Engine"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add CineHUB_Data/epg/schedule.index.json CineHUB_Data/status/epg-status.json
+          git add CineHUB_Data/epg/schedule.index.json CineHUB_Data/status/epg-status.json CineHUB_WEB/data-engine
           if git diff --cached --quiet; then
             echo "NO CHANGES"
             exit 0
