@@ -248,8 +248,8 @@
       "scope": "epg",
       "transport": "remote",
       "url": "https://iptv-org.github.io/epg/guides/br/mi.tv.epg.xml",
-      "enabled": true,
-      "priority": 1
+      "enabled": false,
+      "priority": 99
     },
     {
       "id": "iptv-com-brazil",
@@ -258,6 +258,16 @@
       "scope": "epg",
       "transport": "remote",
       "url": "https://raw.githubusercontent.com/iptv-com/epg/main/guides/brazil.xml",
+      "enabled": true,
+      "priority": 1
+    },
+    {
+      "id": "brazil-tv-epg",
+      "name": "BrazilTVEPG · merged",
+      "kind": "xmltv",
+      "scope": "epg",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/limaalef/BrazilTVEPG/main/epg.xml",
       "enabled": true,
       "priority": 2
     }
