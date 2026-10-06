@@ -239,5 +239,27 @@
       "url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/",
       "enabled": true
     }
+  ],
+  "epgSources": [
+    {
+      "id": "iptv-org-br-mi-tv",
+      "name": "iptv-org · Brazil / mi.tv",
+      "kind": "xmltv",
+      "scope": "epg",
+      "transport": "remote",
+      "url": "https://iptv-org.github.io/epg/guides/br/mi.tv.epg.xml",
+      "enabled": true,
+      "priority": 1
+    },
+    {
+      "id": "iptv-com-brazil",
+      "name": "IPTV-com · Brazil",
+      "kind": "xmltv",
+      "scope": "epg",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/iptv-com/epg/main/guides/brazil.xml",
+      "enabled": true,
+      "priority": 2
+    }
   ]
 }
