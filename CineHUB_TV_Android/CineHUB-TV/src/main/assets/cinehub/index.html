@@ -28,6 +28,20 @@
 })();
 </script>
 
+<script>
+(function(){
+  var RAW_LOGOS='https://raw.githubusercontent.com/mooNXy7/CineHUB/main/CineHUB_WEB/assets/logos/';
+  document.addEventListener('error',function(e){
+    var el=e.target;
+    if(!el||el.tagName!=='IMG'||el.dataset.cinehubLogoFallback==='1')return;
+    var src=el.getAttribute('src')||'';
+    if(src.indexOf('assets/logos/')===-1)return;
+    var name=src.split('/').pop();
+    el.dataset.cinehubLogoFallback='1';
+    el.src=RAW_LOGOS+name;
+  },true);
+})();
+</script>
 <link rel="icon" href="assets/logos/favicon-32.png">
 <link rel="stylesheet" href="src/css/main.css">
 <link rel="stylesheet" href="src/css/tv.css">
