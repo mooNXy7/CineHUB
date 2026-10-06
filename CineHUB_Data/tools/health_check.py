@@ -78,11 +78,14 @@ def update() -> int:
             continue
         result = {"id": source.get("id"), "url": url, "checkedAt": timestamp, "changed": False}
         try:
+            started = time.perf_counter()
             body, http_status, content_type = fetch(url)
+            latency_ms = round((time.perf_counter() - started) * 1000, 2)
             digest = hashlib.sha256(body).hexdigest()
             old_digest = source.get("contentSha256")
             result.update({"status": "changed" if digest != old_digest else "unchanged",
-                           "httpStatus": http_status, "bytes": len(body),
+                           "healthStatus": "healthy", "httpStatus": http_status, "bytes": len(body),
+                           "latency": latency_ms,
                            "contentType": content_type, "sha256": digest})
             previous_status = source.get("health", {}).get("status")
             previous_failures = int(source.get("consecutiveFailures", 0))
@@ -90,7 +93,7 @@ def update() -> int:
                            "contentBytes": len(body), "contentSha256": digest,
                            "lastContentType": content_type, "lastFetchError": None,
                            "consecutiveFailures": 0})
-            source["health"] = {"status": "healthy", "lastChecked": timestamp, "latency": None,
+            source["health"] = {"status": "healthy", "lastChecked": timestamp, "latency": latency_ms,
                                 "httpStatus": http_status, "error": None, "consecutiveFailures": 0}
             state_changed = state_changed or previous_status != "healthy" or previous_failures != 0
             if digest != old_digest:
@@ -104,7 +107,7 @@ def update() -> int:
             previous_status = source.get("health", {}).get("status")
             result.update({"status": "error", "error": message, "healthStatus": health_status})
             source.update({"lastFetchedAt": timestamp, "lastFetchError": message, "consecutiveFailures": failures})
-            source["health"] = {"status": health_status, "lastChecked": timestamp, "latency": None,
+            source["health"] = {"status": health_status, "lastChecked": timestamp, "latency": latency_ms,
                                 "httpStatus": getattr(exc, "code", None), "error": message,
                                 "consecutiveFailures": failures}
             state_changed = state_changed or previous_status != health_status
