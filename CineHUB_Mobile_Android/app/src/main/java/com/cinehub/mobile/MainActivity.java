@@ -292,7 +292,8 @@ public class MainActivity extends AppCompatActivity {
         root.addView(buttons, bp);
 
         TextView later = dialogText("Mais tarde", 14, white);
-        later.setGravity(Gravity.CENTER);\n        later.setAllCaps(false);
+        later.setGravity(Gravity.CENTER);
+        later.setAllCaps(false);
         later.setTypeface(Typeface.DEFAULT_BOLD);
         later.setBackground(roundedBackground(
                 new int[]{Color.rgb(28, 28, 32), Color.rgb(12, 12, 15)},
@@ -300,7 +301,8 @@ public class MainActivity extends AppCompatActivity {
         ));
 
         TextView install = dialogText("Instalar", 14, Color.WHITE);
-        install.setGravity(Gravity.CENTER);\n        install.setAllCaps(false);
+        install.setGravity(Gravity.CENTER);
+        install.setAllCaps(false);
         install.setTypeface(Typeface.DEFAULT_BOLD);
         install.setBackground(roundedBackground(
                 new int[]{Color.rgb(255, 52, 64), Color.rgb(185, 0, 12), Color.rgb(110, 0, 7)},
