@@ -14,3 +14,17 @@ html.cinehub-performance .section,html.cinehub-performance .screen-inner{content
 @media(min-width:1100px){.channel-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.compact-popular{grid-template-columns:repeat(6,minmax(0,1fr))}.guide-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.grid{grid-template-columns:repeat(6,minmax(0,1fr))}.row{grid-auto-columns:minmax(180px,210px);gap:16px}.card{min-height:290px}}
 @media(max-width:1100px){.tv-screen .screen-inner{padding-left:22px;padding-right:22px}.channel-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:900px){.tv-live-bar{align-items:flex-start;flex-direction:column}.tv-source-actions{width:100%;justify-content:flex-start}.tv-source-actions .secondary{flex:1}}
+
+/* CineHUB TV Experience 1.0.7 */
+.tv-header-nav{position:fixed;top:18px;left:50%;transform:translateX(-50%);z-index:120;display:flex;gap:6px;padding:6px;border-radius:18px;max-width:62vw}
+.tv-header-btn{border:0;background:transparent;color:#d9dbe1;border-radius:13px;min-width:104px;min-height:48px;padding:0 18px;font-size:15px;font-weight:700;cursor:pointer}
+.tv-header-btn:hover,.tv-header-btn.cinehub-tv-focus{background:rgba(229,9,20,.12)}
+.tv-hints{position:fixed;left:50%;bottom:112px;transform:translateX(-50%);z-index:100;display:flex;gap:18px;padding:8px 16px;border-radius:14px;opacity:.82;font-size:12px;pointer-events:none}
+#tvSearchSection .tv-home-search{max-width:1000px}
+.tv-keyboard{margin:18px 0 22px;padding:18px;border-radius:22px;max-width:1050px}
+.tv-key-row{display:flex;justify-content:center;gap:8px;margin:8px 0}
+.tv-key{min-width:68px;min-height:52px;border:0;border-radius:13px;background:rgba(255,255,255,.07);color:#fff;font-size:17px;font-weight:700}
+.tv-key.cinehub-tv-focus{background:rgba(229,9,20,.18)}
+.tv-key-actions .tv-key{min-width:150px}
+@media(max-width:1100px){.tv-header-nav{max-width:72vw}.tv-header-btn{min-width:80px;padding:0 12px}.tv-key{min-width:52px}.tv-hints{bottom:102px}}
+@media(min-width:1800px){.tv-header-btn{min-width:126px;min-height:54px;font-size:17px}.tv-key{min-width:82px;min-height:60px}.tv-hints{font-size:14px}}
