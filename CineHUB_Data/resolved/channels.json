@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.1.0",
+  "generatedBy": "CineHUB Data Engine Phase 5",
+  "policy": {
+    "maxFallbacks": 4,
+    "strategy": "health-priority-quality",
+    "offlineSourcesKeptAsLastResort": true,
+    "infiniteRetries": false
+  },
+  "stats": {
+    "entitiesRead": 0,
+    "entitiesPublished": 0,
+    "sourcesRead": 0,
+    "sourcesEligible": 0,
+    "sourcesOffline": 0,
+    "fallbackChains": 0,
+    "maxFallbacks": 4
+  },
+  "channels": []
+}

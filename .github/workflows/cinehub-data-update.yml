@@ -38,10 +38,13 @@ jobs:
           python3 -m py_compile CineHUB_Data/tools/update_data.py
           python3 -m py_compile CineHUB_Data/tools/health_check.py
           python3 -m py_compile CineHUB_Data/tools/normalize_channels.py
+          python3 -m py_compile CineHUB_Data/tools/resolve_sources.py
       - name: Run Data Engine health check
         run: python3 CineHUB_Data/tools/health_check.py
       - name: Normalize channels
         run: python3 CineHUB_Data/tools/normalize_channels.py
+      - name: Resolve multi-source fallback
+        run: python3 CineHUB_Data/tools/resolve_sources.py
       - name: Show result
         run: |
           python3 - <<'PY'
@@ -56,6 +59,13 @@ jobs:
             print("Normalized channels:", n.get("stats", {}).get("entities"))
             print("Merged duplicates:", n.get("stats", {}).get("duplicatesMerged"))
             print("Normalization source failures:", n.get("stats", {}).get("failedSources"))
+          try:
+            r=json.load(open("CineHUB_Data/resolved/channels.json", encoding="utf-8"))
+            print("Resolved channels:", r.get("stats", {}).get("entitiesPublished"))
+            print("Fallback chains:", r.get("stats", {}).get("fallbackChains"))
+            print("Resolved offline sources:", r.get("stats", {}).get("sourcesOffline"))
+          except Exception as e:
+            print("Resolved channels: unavailable", e)
           except Exception as e:
             print("Normalized channels: unavailable", e)
           PY

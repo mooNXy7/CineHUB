@@ -90,3 +90,60 @@ channel-a1b2c3...
       ├── Fonte B
       └── Fonte C
 ```
+
+
+## Fase 5 — Multi-source + fallback
+
+O Data Engine agora possui um resolvedor central em `CineHUB_Data/tools/resolve_sources.py`.
+
+Ele transforma as múltiplas fontes de cada entidade normalizada em uma cadeia de fallback determinística, usando:
+
+1. estado do Health Check;
+2. prioridade da fonte;
+3. qualidade declarada;
+4. ordem estável como desempate.
+
+A saída é `CineHUB_Data/resolved/channels.json`.
+
+### Política de fallback
+
+- no máximo 4 tentativas por entidade;
+- fontes `healthy` vêm antes de `degraded`, `unknown` e `offline`;
+- fontes offline não são apagadas: podem permanecer como último recurso para recuperar automaticamente quando voltarem;
+- não existem retries infinitos;
+- falhas ficam registradas no estado da fonte;
+- Referer e User-Agent presentes no M3U são preservados para o player.
+
+Exemplo:
+
+```text
+Canal X
+  ↓
+Resolver
+  ├─ Fonte A · healthy · prioridade 1
+  ├─ Fonte B · healthy · prioridade 2
+  ├─ Fonte C · degraded · prioridade 3
+  └─ Fonte D · offline · último recurso
+```
+
+### Compatibilidade
+
+A Fase 5 é adicionada de forma paralela. O WEB, Mobile e TV continuam usando seus fluxos atuais de reprodução e listas. O novo manifesto resolvido fica disponível para a futura integração comum, sem obrigar atualização de APK nesta etapa.
+
+A implementação aproveita o conceito já existente no CineHUB de `sources[]` e o princípio observado no SaimoPlayer de manter várias fontes por canal e tentar a próxima quando a anterior falhar. Não foi copiado código do SaimoPlayer.
+
+### Pipeline
+
+O workflow diário agora executa:
+
+```text
+Health Check
+     ↓
+Normalizer
+     ↓
+Multi-source Resolver
+     ↓
+Resolved Manifest
+     ↓
+Commit somente se CineHUB_Data mudar
+```

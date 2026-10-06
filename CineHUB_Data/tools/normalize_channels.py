@@ -81,6 +81,8 @@ def parse_m3u(text: str) -> list[dict]:
                 "group": meta.get("group-title") or meta.get("group") or "",
                 "country": meta.get("tvg-country") or meta.get("country") or "",
                 "language": meta.get("tvg-language") or meta.get("language") or "",
+                "referer": meta.get("http-referrer") or meta.get("http-referrer-url") or meta.get("referrer") or "",
+                "user_agent": meta.get("http-user-agent") or meta.get("user-agent") or "",
                 "url": line,
             })
             pending = None
@@ -153,12 +155,8 @@ def normalize() -> int:
     ]
     source_ids = {s.get("id") for s in channel_sources}
 
-    # Refresh current sources while retaining records from sources that fail.
     for old in previous.get("channels", []):
-        kept = [
-            x for x in old.get("sources", [])
-            if x.get("sourceId") not in source_ids
-        ]
+        kept = [x for x in old.get("sources", []) if x.get("sourceId") not in source_ids]
         if kept:
             old_copy = dict(old)
             old_copy["sources"] = kept
@@ -206,11 +204,14 @@ def normalize() -> int:
             source_entry = {
                 "sourceId": source.get("id"),
                 "url": item.get("url"),
+                "priority": source.get("priority"),
+                "quality": detect_quality(name),
+                "language": language or None,
+                "referer": item.get("referer") or None,
+                "userAgent": item.get("user_agent") or None,
                 "tvgId": item.get("tvg_id") or None,
                 "logo": item.get("logo") or None,
                 "group": clean_text(item.get("group", "")) or None,
-                "quality": detect_quality(name),
-                "priority": source.get("priority"),
             }
 
             if not any(
@@ -222,7 +223,6 @@ def normalize() -> int:
             else:
                 stats["duplicatesMerged"] += 1
 
-    # Restore last-known records for sources that were temporarily unavailable.
     for old in previous.get("channels", []):
         for old_source in old.get("sources", []):
             if old_source.get("sourceId") not in failed_source_ids:
@@ -231,10 +231,7 @@ def normalize() -> int:
             if not entity_id:
                 continue
             if entity_id not in entities:
-                entities[entity_id] = {
-                    **old,
-                    "sources": [],
-                }
+                entities[entity_id] = {**old, "sources": []}
             if not any(
                 x.get("sourceId") == old_source.get("sourceId")
                 and x.get("url") == old_source.get("url")
@@ -242,11 +239,7 @@ def normalize() -> int:
             ):
                 entities[entity_id]["sources"].append(old_source)
 
-    entities = {
-        key: value
-        for key, value in entities.items()
-        if value.get("sources")
-    }
+    entities = {key: value for key, value in entities.items() if value.get("sources")}
 
     for entity in entities.values():
         entity["aliases"] = sorted(set(entity.get("aliases", [])))
