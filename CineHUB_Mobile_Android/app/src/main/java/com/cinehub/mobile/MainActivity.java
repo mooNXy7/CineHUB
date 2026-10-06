@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog downloadDialog;
     private ProgressBar downloadProgress;
     private TextView downloadProgressText;
+    private Uri pendingApkUri;
     private final Handler downloadHandler = new Handler(Looper.getMainLooper());
     private WebView webView;
     private View fullscreenView;
@@ -66,11 +67,14 @@ public class MainActivity extends AppCompatActivity {
             if (id != pendingDownloadId) return;
             DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
             Uri uri = dm.getUriForDownloadedFile(id);
-            stopDownloadProgress();
 
             if (uri != null) {
-                installApk(uri);
+                finishDownloadAndInstall(uri);
             } else {
+                stopDownloadProgress();
+            }
+
+            if (uri == null) {
                 Toast.makeText(
                         MainActivity.this,
                         "Não foi possível concluir a atualização.",
@@ -380,14 +384,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showDownloadProgress() {
+        int white = Color.WHITE;
+        int muted = Color.rgb(190, 190, 195);
+        int red = Color.rgb(229, 9, 20);
+
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(48, 12, 48, 12);
+        layout.setPadding(34, 28, 34, 28);
+        layout.setBackground(roundedBackground(
+                new int[]{Color.rgb(18, 18, 21), Color.rgb(5, 6, 9)},
+                30f
+        ));
 
-        downloadProgressText = new TextView(this);
-        downloadProgressText.setText("Preparando atualização...");
-        downloadProgressText.setTextSize(15);
-        layout.addView(downloadProgressText);
+        TextView title = dialogText("Atualizando CineHUB", 20, white);
+        title.setTypeface(Typeface.DEFAULT_BOLD);
+        layout.addView(title, new LinearLayout.LayoutParams(-1, -2));
+
+        downloadProgressText = dialogText("Preparando atualização...", 14, muted);
+        LinearLayout.LayoutParams textParams = new LinearLayout.LayoutParams(-1, -2);
+        textParams.topMargin = 8;
+        layout.addView(downloadProgressText, textParams);
 
         downloadProgress = new ProgressBar(
                 this,
@@ -396,20 +412,54 @@ public class MainActivity extends AppCompatActivity {
         );
         downloadProgress.setMax(100);
         downloadProgress.setProgress(0);
+        downloadProgress.setProgressDrawable(
+                getResources().getDrawable(
+                        android.R.drawable.progress_horizontal,
+                        getTheme()
+                )
+        );
 
         LinearLayout.LayoutParams progressParams =
-                new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                );
+                new LinearLayout.LayoutParams(-1, 18);
         progressParams.topMargin = 24;
         layout.addView(downloadProgress, progressParams);
 
+        TextView hint = dialogText("Não feche o CineHUB durante a atualização.", 12, muted);
+        LinearLayout.LayoutParams hintParams = new LinearLayout.LayoutParams(-1, -2);
+        hintParams.topMargin = 14;
+        layout.addView(hint, hintParams);
+
         downloadDialog = new AlertDialog.Builder(this)
-                .setTitle("Atualizando CineHUB")
                 .setView(layout)
                 .setCancelable(false)
-                .show();
+                .create();
+
+        downloadDialog.setOnShowListener(d -> {
+            if (downloadDialog.getWindow() != null) {
+                downloadDialog.getWindow().setBackgroundDrawable(
+                        roundedBackground(
+                                new int[]{Color.rgb(5, 6, 9), Color.rgb(5, 6, 9)},
+                                30f
+                        )
+                );
+                downloadDialog.getWindow().setDimAmount(0.75f);
+                int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.90f);
+                downloadDialog.getWindow().setLayout(
+                        width,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                );
+            }
+        });
+
+        downloadDialog.show();
+
+        if (downloadDialog.getWindow() != null) {
+            int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.90f);
+            downloadDialog.getWindow().setLayout(
+                    width,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
+        }
     }
 
     private void monitorDownloadProgress() {
@@ -492,27 +542,46 @@ public class MainActivity extends AppCompatActivity {
         downloadProgressText = null;
     }
 
+    private void finishDownloadAndInstall(Uri uri) {
+        if (downloadProgress != null) {
+            downloadProgress.setProgress(100);
+        }
+        if (downloadProgressText != null) {
+            downloadProgressText.setText("Download concluído. Preparando instalação...");
+        }
+
+        pendingApkUri = uri;
+
+        downloadHandler.postDelayed(() -> {
+            stopDownloadProgress();
+            installApk(uri);
+        }, 550);
+    }
+
     private void installApk(Uri uri) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O
                 && !getPackageManager().canRequestPackageInstalls()) {
+
+            pendingApkUri = uri;
 
             try {
                 Intent settingsIntent = new Intent(
                         Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES,
                         Uri.parse("package:" + getPackageName())
                 );
+                settingsIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(settingsIntent);
 
                 Toast.makeText(
                         this,
-                        "Permita instalações do CineHUB e toque no APK novamente.",
+                        "Permita instalações do CineHUB. Ao voltar, a instalação será retomada.",
                         Toast.LENGTH_LONG
                 ).show();
 
             } catch (Exception ignored) {
                 Toast.makeText(
                         this,
-                        "Atualização baixada. Permita instalações do CineHUB nas configurações.",
+                        "Permita instalações do CineHUB nas configurações.",
                         Toast.LENGTH_LONG
                 ).show();
             }
@@ -521,11 +590,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         try {
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setDataAndType(
-                    uri,
-                    "application/vnd.android.package-archive"
-            );
+            Intent intent = new Intent(Intent.ACTION_INSTALL_PACKAGE);
+            intent.setData(uri);
+            intent.setType("application/vnd.android.package-archive");
             intent.addFlags(
                     Intent.FLAG_GRANT_READ_URI_PERMISSION
                             | Intent.FLAG_ACTIVITY_NEW_TASK
@@ -535,7 +602,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception ignored) {
             Toast.makeText(
                     this,
-                    "Atualização baixada. Abra o APK em Downloads para instalar.",
+                    "Não foi possível abrir o instalador da atualização.",
                     Toast.LENGTH_LONG
             ).show();
         }
@@ -654,6 +721,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override public boolean dispatchKeyEvent(KeyEvent event) {
         return super.dispatchKeyEvent(event);
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+
+        if (pendingApkUri != null
+                && Build.VERSION.SDK_INT < Build.VERSION_CODES.O
+                || (pendingApkUri != null && getPackageManager().canRequestPackageInstalls())) {
+            Uri uri = pendingApkUri;
+            pendingApkUri = null;
+            installApk(uri);
+        }
     }
 
     @Override protected void onDestroy() {
