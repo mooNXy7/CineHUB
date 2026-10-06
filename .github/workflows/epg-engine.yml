@@ -8,8 +8,6 @@ on:
     paths:
       - "CineHUB_Data/tools/build_epg.py"
       - "CineHUB_Data/sources/registry.json"
-      - "CineHUB_Data/normalized/**"
-      - "CineHUB_Data/resolved/**"
       - ".github/workflows/epg-engine.yml"
   workflow_run:
     workflows: ["CineHUB Data Engine - Health Check diário"]
