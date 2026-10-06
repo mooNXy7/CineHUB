@@ -186,3 +186,51 @@ O EPG agora possui processamento multi-fonte centralizado.
 O workflow de EPG é encadeado após uma execução bem-sucedida do Data Engine diário, garantindo que o guia utilize os canais resolvidos mais recentes.
 
 A Fase 7 continua aditiva: WEB, Mobile e TV mantêm seus caminhos atuais.
+
+## Fase 8 — Publicação e distribuição
+
+A publicação central fica disponível em `CineHUB_WEB/data-engine/` e é consumida de forma remota pelos adaptadores compatíveis.
+
+Política de compatibilidade:
+
+- Data Engine é **remote-first com fallback local**;
+- ausência, timeout ou JSON inválido não derruba o aplicativo;
+- WEB e TV mantêm seus índices locais como fallback;
+- Mobile continua usando o WEB oficial, portanto recebe as melhorias de dados sem APK novo;
+- nenhuma mudança de conteúdo, catálogo, canal ou EPG deve alterar o `versionCode` do APK.
+
+### Regra de atualização do aplicativo
+
+O popup OTA só deve aparecer quando existir uma versão de APK superior no respectivo `update.json`.
+
+Portanto:
+
+```
+mudança somente em dados
+        ↓
+Data Engine / Cloudflare
+        ↓
+WEB/Mobile/TV recebem
+        ↓
+NÃO mostrar popup OTA
+
+mudança no aplicativo nativo
+        ↓
+nova versão APK + versionCode
+        ↓
+update.json atualizado
+        ↓
+mostrar popup OTA
+```
+
+Não publicar uma nova versão OTA apenas para distribuir alterações que o Data Engine já consegue entregar remotamente.
+
+Se uma melhoria exigir alteração do código nativo ou dos assets embarcados necessários para o funcionamento offline da TV/Mobile, ela deve ser tratada como versão do aplicativo e passar pelo fluxo normal de release/OTA.
+
+### Integridade
+
+O manifest publicado registra fingerprints SHA-256 dos datasets. Os clientes devem aceitar dados publicados somente quando o JSON puder ser carregado e validado; em qualquer falha, o fallback existente permanece ativo.
+
+### Resultado
+
+O conteúdo pode evoluir independentemente dos APKs, enquanto mudanças reais no produto/app continuam visíveis ao usuário através do popup de atualização.
