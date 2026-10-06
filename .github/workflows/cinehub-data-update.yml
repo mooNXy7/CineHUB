@@ -56,6 +56,13 @@ jobs:
         run: python3 CineHUB_Data/tools/build_vod_catalog.py
       - name: Build explicit series and episode indexes
         run: python3 CineHUB_Data/tools/build_series_index.py
+      - name: Validate publication tool
+        run: |
+          python3 -m py_compile CineHUB_Data/tools/publish_data.py
+          python3 -m py_compile CineHUB_Data/tools/test_publish_data.py
+          (cd CineHUB_Data/tools && python3 -m unittest test_publish_data.py -v)
+      - name: Build public Data Engine package
+        run: python3 CineHUB_Data/tools/publish_data.py
       - name: Show result
         run: |
           python3 - <<'PY'
@@ -99,7 +106,7 @@ jobs:
           fi
           git config user.name "CineHUB Data Bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add CineHUB_Data
+          git add CineHUB_Data CineHUB_WEB/data-engine
           if git diff --cached --quiet; then
             echo "NO CHANGES"
             exit 0
