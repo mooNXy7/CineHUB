@@ -139,6 +139,7 @@ def parse_source(body: bytes, source_id: str, lookup: dict[str, str], now: datet
     root = ET.fromstring(body)
     schedules: dict[str, list[dict]] = {}
     epg_ids: dict[str, str] = {}
+    discovered_names: dict[str, str] = {}
     matched_channels = 0
     programs = 0
 
@@ -159,7 +160,16 @@ def parse_source(body: bytes, source_id: str, lookup: dict[str, str], now: datet
                     break
         if target:
             epg_ids[eid] = target
+            discovered_names[target] = names[0] if names else eid or target
             matched_channels += 1
+        elif names or eid:
+            # Keep EPG usable even before the full resolved-channel dataset is
+            # available. The stable ID is deterministic and will be remapped
+            # to the canonical CineHUB channel on a later run.
+            label = names[0] if names else eid
+            target = stable_channel_id(label)
+            epg_ids[eid] = target
+            discovered_names[target] = label
 
     for node in root.iter():
         if local_name(node.tag) != "programme":
@@ -189,7 +199,7 @@ def parse_source(body: bytes, source_id: str, lookup: dict[str, str], now: datet
 
     for cid in schedules:
         schedules[cid].sort(key=lambda x: (x["start"], x["end"], x["title"].casefold()))
-    return schedules, {"channelsMatched": matched_channels, "programsMatched": programs}
+    return schedules, {"channelsMatched": matched_channels, "programsMatched": programs, "channelNames": discovered_names}
 
 
 def filter_window(schedules: dict, now: datetime, end: datetime) -> dict:
@@ -337,6 +347,8 @@ def run() -> int:
                     raise RuntimeError("HTTP 304 received without a valid cache")
                 network_fetches += 1
                 schedules, stats = parse_source(body, source["id"], lookup, now, horizon)
+                for cid, name in stats.pop("channelNames", {}).items():
+                    meta.setdefault(cid, {"id": cid, "name": name, "aliases": []})
                 save_cache(source, signature, schedules, response_headers)
             latency = round((time.perf_counter() - started) * 1000, 2)
             source_state = {
