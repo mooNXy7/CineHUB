@@ -3,8 +3,8 @@
   "status": "bootstrap",
   "updatedAt": null,
   "engine": {
-    "phase": 2,
-    "mode": "remote-source-fingerprint",
+    "phase": 3,
+    "mode": "source-health-check",
     "lastRunAt": null,
     "changed": false
   },
@@ -16,7 +16,7 @@
   },
   "lastRun": [],
   "healthChecks": {
-    "enabled": false,
+    "enabled": true,
     "total": 0,
     "healthy": 0,
     "degraded": 0,
@@ -33,7 +33,8 @@
     "lastRefresh": null
   },
   "notes": [
-    "Phase 2 records remote source changes without rewriting runtime WEB/Mobile/TV data.",
-    "Health states belong to Phase 3 and are not inferred from this file."
+    "Phase 3 verifies remote source reachability and basic payload validity.",
+    "Health states use tolerance: first failure unknown, second degraded, third or more offline.",
+    "Runtime WEB/Mobile/TV data paths remain unchanged."
   ]
 }

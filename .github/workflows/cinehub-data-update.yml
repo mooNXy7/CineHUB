@@ -1,4 +1,4 @@
-name: CineHUB Data Engine - Atualizacao diaria
+name: CineHUB Data Engine - Health Check diario
 
 on:
   schedule:
@@ -36,8 +36,8 @@ jobs:
           python3 -m json.tool CineHUB_Data/manifests/data-manifest.json >/dev/null
           python3 -m json.tool CineHUB_Data/status/data-status.json >/dev/null
           python3 -m py_compile CineHUB_Data/tools/update_data.py
-      - name: Run Data Engine update
-        run: python3 CineHUB_Data/tools/update_data.py
+      - name: Run Data Engine health check
+        run: python3 CineHUB_Data/tools/health_check.py
       - name: Show result
         run: |
           python3 - <<'PY'

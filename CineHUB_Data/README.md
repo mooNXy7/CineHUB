@@ -16,6 +16,28 @@ O pipeline diário:
 
 O workflow também pode ser executado manualmente.
 
+## Fase 3 — Health Check
+
+O mesmo pipeline agora verifica fontes remotas antes de considerá-las saudáveis.
+
+- mede latência;
+- registra HTTP status;
+- aplica retries;
+- rejeita respostas vazias;
+- valida o formato básico de M3U/M3U8 e XML/EPG quando o tipo estiver declarado;
+- mantém contagem de falhas consecutivas;
+- classifica a fonte como healthy, unknown, degraded ou offline;
+- não remove uma fonte após uma única falha.
+
+A política atual é:
+
+- primeira falha → unknown;
+- segunda falha consecutiva → degraded;
+- terceira ou mais → offline;
+- sucesso → healthy e zera a sequência de falhas.
+
+O Health Check valida a disponibilidade da fonte, não cada stream individual. A validação/fallback por entidade será aprofundada nas fases 4 e 5.
+
 ## Compatibilidade
 
 Nesta primeira implementação, o pipeline não substitui CineHUB_WEB/dados, não reescreve assets do Mobile e não modifica os assets da TV.
