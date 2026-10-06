@@ -2,21 +2,23 @@ name: CineHUB EPG Engine
 
 on:
   schedule:
-    - cron: "20 2 * * *"
+    - cron: "20 5 * * *"
   workflow_dispatch:
   push:
     paths:
       - "CineHUB_Data/tools/build_epg.py"
       - "CineHUB_Data/sources/registry.json"
-      - "CineHUB_Data/normalized/**"
-      - "CineHUB_Data/resolved/**"
       - ".github/workflows/epg-engine.yml"
+  workflow_run:
+    workflows: ["CineHUB Data Engine - Health Check diário"]
+    types: [completed]
 
 permissions:
   contents: write
 
 jobs:
   epg:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -24,8 +26,23 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Restore EPG processed cache
+        uses: actions/cache@v4
+        with:
+          path: CineHUB_Data/.cache/epg
+          key: cinehub-epg-${{ runner.os }}-${{ hashFiles('CineHUB_Data/sources/registry.json') }}
+          restore-keys: |
+            cinehub-epg-${{ runner.os }}-
+
       - name: Validate EPG engine
-        run: python3 -m py_compile CineHUB_Data/tools/build_epg.py
+        run: |
+          python3 -m py_compile CineHUB_Data/tools/build_epg.py
+          python3 -m py_compile CineHUB_Data/tools/test_build_epg.py
+          python3 -m json.tool CineHUB_Data/sources/registry.json >/dev/null
+          python3 -m json.tool CineHUB_Data/resolved/channels.json >/dev/null
+      - name: Run EPG unit tests
+        working-directory: CineHUB_Data/tools
+        run: python3 -m unittest test_build_epg.py -v
 
       - name: Build EPG
         run: python3 CineHUB_Data/tools/build_epg.py
@@ -40,6 +57,9 @@ jobs:
               print("EPG status:", s.get("status"))
               print("Sources:", s.get("stats",{}).get("sourcesConfigured"))
               print("Healthy:", s.get("stats",{}).get("sourcesHealthy"))
+              print("Failed:", s.get("stats",{}).get("sourcesFailed"))
+              print("Cache hits:", s.get("stats",{}).get("cacheHits"))
+              print("Network fetches:", s.get("stats",{}).get("networkFetches"))
               print("Channels with EPG:", s.get("stats",{}).get("channelsWithPrograms"))
               print("Programs:", s.get("stats",{}).get("programs"))
           except Exception as e:

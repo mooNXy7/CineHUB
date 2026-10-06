@@ -1,57 +1,98 @@
 # CineHUB Data Engine — EPG Engine (Fase 7)
 
-A Fase 7 adiciona um motor EPG multi-fonte **sem substituir os dados consumidos pelo WEB, Mobile ou TV**.
+A Fase 7 cria o EPG Engine multi-fonte sem substituir os dados consumidos atualmente pelo WEB, Mobile ou TV.
 
 ## Fluxo
 
-```
-EPG principal
-     ↓
-EPG secundário/fallback
-     ↓
-normalização de canais
-     ↓
-janela rolling de programação
-     ↓
+```text
+fontes XMLTV
+    ↓
+retry + validação
+    ↓
+cache HTTP condicional / cache processado
+    ↓
+associação por tvg-id → nome canônico → alias
+    ↓
+janela rolling
+    ↓
+merge por prioridade + preenchimento de lacunas
+    ↓
 CineHUB_Data/epg/schedule.index.json
 ```
-
-## Associação
-
-A ordem de associação é:
-
-1. `tvg-id` / ID do canal quando disponível;
-2. nome canônico normalizado;
-3. aliases já produzidos pelo Data Engine.
 
 ## Multi-fonte
 
 Cada fonte possui prioridade. O engine:
 
-- tenta todas as fontes habilitadas com retry controlado;
-- usa a fonte de maior prioridade quando duas fontes possuem o mesmo programa;
-- preenche lacunas com fontes secundárias;
-- não descarta o canal quando uma fonte falha;
-- registra latência, tamanho, canais associados e erros.
+- tenta as fontes em ordem de prioridade;
+- usa retry limitado;
+- aceita ETag / Last-Modified quando a origem fornece;
+- reutiliza o resultado processado enquanto o cache estiver válido;
+- não baixa/processa novamente o XML inteiro quando um cache condicional pode ser reutilizado;
+- usa a fonte de maior prioridade quando dois feeds possuem o mesmo programa;
+- permite que fontes secundárias preencham canais/programações ausentes;
+- registra latência, HTTP status, cache hit, canais associados, programas e erros.
 
-## Janela
+## Normalização
 
-A saída contém somente uma janela configurável de programação, padrão de 48 horas, em vez de entregar XMLTV bruto ao cliente.
+A associação segue:
 
-O arquivo é gerado pelo Data Engine e pode ser publicado posteriormente em Cloudflare. WEB/Mobile/TV ainda não consomem esta saída nesta fase.
+1. tvg-id / ID do canal;
+2. nome canônico normalizado;
+3. aliases produzidos pelo Data Engine.
+
+A normalização remove acentos, pontuação e marcadores de qualidade como HD/FHD/UHD/4K.
+
+## Janela e cache
+
+A saída padrão contém 48 horas de programação.
+
+O cache processado possui validade padrão de 12 horas. Cache expirado não é tratado silenciosamente como programação atual: quando expirado, o engine volta à fonte e gera um novo conjunto.
+
+O cache processado fica em CineHUB_Data/.cache/epg/ e é persistido pelo GitHub Actions Cache, sem aumentar o histórico Git.
+
+O cliente não recebe XMLTV bruto e não precisa processá-lo.
 
 ## Robustez
 
-- timeout e limite de tamanho;
-- retry limitado;
+- timeout configurável;
+- limite de tamanho;
+- até 3 tentativas por fonte;
 - XML inválido não derruba as outras fontes;
+- estados healthy, degraded, offline e unknown;
+- primeira falha → unknown;
+- segunda falha consecutiva → degraded;
+- terceira ou mais → offline;
 - horários convertidos para UTC;
 - programas expirados excluídos;
-- nenhum segredo no frontend;
-- URLs externas tratadas como dados.
+- uma fonte indisponível não derruba o restante do EPG.
 
-## Fontes
+## Publicação
 
-O registry começa com duas fontes públicas brasileiras configuráveis: um guia por país do ecossistema iptv-org e um guia brasileiro do projeto IPTV-com. A arquitetura permite trocar, remover ou acrescentar providers sem modificar o parser.
+O workflow .github/workflows/epg-engine.yml:
 
-A implementação usa XMLTV e conceitos públicos de associação por ID/nome; não copia código do SaimoPlayer.
+1. roda testes;
+2. valida o registry;
+3. executa o EPG Engine;
+4. publica schedule.index.json e epg-status.json;
+5. cria commit somente quando esses arquivos mudam.
+
+Ele também é disparado após uma execução bem-sucedida do workflow diário do Data Engine. Isso garante que o EPG use os canais normalizados/resolvidos mais recentes.
+
+## Compatibilidade
+
+A Fase 7 é aditiva. Nenhuma rota atual de dados do WEB, Mobile ou TV foi substituída.
+
+A saída foi desenhada para ser consumida posteriormente pelo contrato comum do CineHUB Data Engine e publicada em infraestrutura de dados/Cloudflare sem exigir alteração de APK para cada atualização de programação.
+
+## SaimoPlayer
+
+Foram consultadas ideias públicas do SaimoPlayer relacionadas a:
+
+- cache de EPG já processado;
+- janela curta de programação;
+- múltiplas fontes;
+- associação robusta de canais;
+- processamento fora da UI.
+
+A implementação do CineHUB é própria e não copia código do projeto.
