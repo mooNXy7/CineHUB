@@ -2,7 +2,7 @@ name: CineHUB EPG Engine
 
 on:
   schedule:
-    - cron: "20 2 * * *"
+    - cron: "20 5 * * *"
   workflow_dispatch:
   push:
     paths:
