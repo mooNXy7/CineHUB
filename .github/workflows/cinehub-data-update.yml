@@ -39,12 +39,15 @@ jobs:
           python3 -m py_compile CineHUB_Data/tools/health_check.py
           python3 -m py_compile CineHUB_Data/tools/normalize_channels.py
           python3 -m py_compile CineHUB_Data/tools/resolve_sources.py
+          python3 -m py_compile CineHUB_Data/tools/build_vod_catalog.py
       - name: Run Data Engine health check
         run: python3 CineHUB_Data/tools/health_check.py
       - name: Normalize channels
         run: python3 CineHUB_Data/tools/normalize_channels.py
       - name: Resolve multi-source fallback
         run: python3 CineHUB_Data/tools/resolve_sources.py
+      - name: Build VOD catalog indexes
+        run: python3 CineHUB_Data/tools/build_vod_catalog.py
       - name: Show result
         run: |
           python3 - <<'PY'
@@ -61,6 +64,13 @@ jobs:
             print("Normalization source failures:", n.get("stats", {}).get("failedSources"))
           except Exception as e:
             print("Normalized channels: unavailable", e)
+          try:
+            v=json.load(open("CineHUB_Data/catalog/metadata.json", encoding="utf-8"))
+            print("VOD items:", v.get("stats", {}).get("items"))
+            print("VOD movies:", v.get("stats", {}).get("movies"))
+            print("VOD series:", v.get("stats", {}).get("series"))
+          except Exception as e:
+            print("VOD catalog: unavailable", e)
           try:
             r=json.load(open("CineHUB_Data/resolved/channels.json", encoding="utf-8"))
             print("Resolved channels:", r.get("stats", {}).get("entitiesPublished"))
