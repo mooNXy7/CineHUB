@@ -24,7 +24,7 @@ ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = ROOT / "CineHUB_Data/sources/registry.json"
 CHANNELS_PATH = ROOT / "CineHUB_Data/resolved/channels.json"
 OUTPUT_DIR = ROOT / "CineHUB_Data/epg"
-CACHE_DIR = OUTPUT_DIR / "cache"
+CACHE_DIR = ROOT / "CineHUB_Data/.cache/epg"
 OUTPUT_PATH = OUTPUT_DIR / "schedule.index.json"
 STATUS_PATH = ROOT / "CineHUB_Data/status/epg-status.json"
 
