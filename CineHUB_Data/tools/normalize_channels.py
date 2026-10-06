@@ -116,18 +116,41 @@ def source_records(source: dict) -> list[dict]:
 
 def normalize() -> int:
     registry = json.loads(REGISTRY_PATH.read_text(encoding="utf-8"))
+    previous = {}
+    if OUTPUT_PATH.exists():
+        try:
+            previous = json.loads(OUTPUT_PATH.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            previous = {}
     entities: dict[str, dict] = {}
-    stats = {"sourcesRead": 0, "recordsRead": 0, "entities": 0, "duplicatesMerged": 0}
+    stats = {"sourcesRead": 0, "recordsRead": 0, "entities": 0, "duplicatesMerged": 0, "failedSources": 0}
 
     all_sources = [*registry.get("sources", []), *registry.get("localSources", [])]
-    for source in all_sources:
-        if not source.get("enabled"):
-            continue
+    channel_sources = [s for s in all_sources if s.get("enabled") and s.get("scope") == "channels"]
+    source_ids = {s.get("id") for s in channel_sources}
+
+    # Start from the previous normalized index, but remove entries belonging to
+    # sources we are going to refresh. Failed sources are restored below.
+    for old in previous.get("channels", []):
+        kept = [x for x in old.get("sources", []) if x.get("sourceId") not in source_ids]
+        if kept:
+            old = dict(old)
+            old["sources"] = kept
+            entities[old["id"]] = old
+
+    successful_source_ids = set()
+    failed_source_ids = set()
+    for source in channel_sources:
         try:
             records = source_records(source)
         except Exception as exc:
+            failed_source_ids.add(source.get("id"))
+            stats["failedSources"] += 1
             print(f"WARNING: {source.get('id')}: {exc}")
             continue
+        successful_source_ids.add(source.get("id"))
+        stats["sourcesRead"] += 1
+        stats["recordsRead"] += len(records)
         stats["sourcesRead"] += 1
         stats["recordsRead"] += len(records)
 
@@ -168,8 +191,28 @@ def normalize() -> int:
             else:
                 stats["duplicatesMerged"] += 1
 
+    # Restore the last known records from failed sources. This prevents a
+    # temporary outage from deleting healthy historical entities from the index.
+    if failed_source_ids:
+        for old in previous.get("channels", []):
+            for old_source in old.get("sources", []):
+                if old_source.get("sourceId") not in failed_source_ids:
+                    continue
+                entity_id = old.get("id")
+                if not entity_id:
+                    continue
+                if entity_id not in entities:
+                    entities[entity_id] = {**old, "sources": []}
+                if not any(
+                    x.get("sourceId") == old_source.get("sourceId") and x.get("url") == old_source.get("url")
+                    for x in entities[entity_id]["sources"]
+                ):
+                    entities[entity_id]["sources"].append(old_source)
+
+    # Drop entities that no longer have any source after a successful refresh.
+    entities = {k: v for k, v in entities.items() if v.get("sources")}
     for entity in entities.values():
-        entity["aliases"].sort()
+        entity["aliases"] = sorted(set(entity.get("aliases", [])))
         entity["sources"].sort(key=lambda x: (x.get("priority") is None, x.get("priority") or 9999, x.get("sourceId") or ""))
     output = {
         "schemaVersion": "1.0.0",
