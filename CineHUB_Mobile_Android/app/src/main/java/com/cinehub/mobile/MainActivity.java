@@ -250,18 +250,18 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
-        root.setPadding(34, 30, 34, 26);
+        root.setPadding(28, 26, 28, 24);
         root.setBackground(roundedBackground(
                 new int[]{Color.rgb(18, 18, 21), Color.rgb(5, 6, 9)},
                 34f
         ));
 
         TextView title = dialogText("Nova atualização disponível!", 21, white);
-        title.setTypeface(Typeface.DEFAULT_BOLD);
+        title.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
         root.addView(title, new LinearLayout.LayoutParams(-1, -2));
 
         TextView versionView = dialogText("VERSÃO " + version, 13, red);
-        versionView.setTypeface(Typeface.DEFAULT_BOLD);
+        versionView.setTypeface(Typeface.create("sans-serif-medium", Typeface.BOLD));
         LinearLayout.LayoutParams vp = new LinearLayout.LayoutParams(-1, -2);
         vp.topMargin = 10;
         root.addView(versionView, vp);
@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
 
         TextView notes = dialogText(releaseNotes, 14, muted);
         notes.setGravity(Gravity.TOP);
-        notes.setLineSpacing(2f, 1.08f);
+        notes.setLineSpacing(3f, 1.12f);
         LinearLayout.LayoutParams np = new LinearLayout.LayoutParams(-1, -2);
         np.topMargin = 8;
         root.addView(notes, np);
@@ -287,12 +287,12 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout buttons = new LinearLayout(this);
         buttons.setOrientation(LinearLayout.HORIZONTAL);
         buttons.setGravity(Gravity.CENTER_VERTICAL);
-        LinearLayout.LayoutParams bp = new LinearLayout.LayoutParams(-1, 54);
+        LinearLayout.LayoutParams bp = new LinearLayout.LayoutParams(-1, 58);
         bp.topMargin = 26;
         root.addView(buttons, bp);
 
         TextView later = dialogText("Mais tarde", 14, white);
-        later.setGravity(Gravity.CENTER);
+        later.setGravity(Gravity.CENTER);\n        later.setAllCaps(false);
         later.setTypeface(Typeface.DEFAULT_BOLD);
         later.setBackground(roundedBackground(
                 new int[]{Color.rgb(28, 28, 32), Color.rgb(12, 12, 15)},
@@ -300,7 +300,7 @@ public class MainActivity extends AppCompatActivity {
         ));
 
         TextView install = dialogText("Instalar", 14, Color.WHITE);
-        install.setGravity(Gravity.CENTER);
+        install.setGravity(Gravity.CENTER);\n        install.setAllCaps(false);
         install.setTypeface(Typeface.DEFAULT_BOLD);
         install.setBackground(roundedBackground(
                 new int[]{Color.rgb(255, 52, 64), Color.rgb(185, 0, 12), Color.rgb(110, 0, 7)},
@@ -390,14 +390,14 @@ public class MainActivity extends AppCompatActivity {
 
         LinearLayout layout = new LinearLayout(this);
         layout.setOrientation(LinearLayout.VERTICAL);
-        layout.setPadding(34, 28, 34, 28);
+        layout.setPadding(28, 26, 28, 24);
         layout.setBackground(roundedBackground(
                 new int[]{Color.rgb(18, 18, 21), Color.rgb(5, 6, 9)},
                 30f
         ));
 
         TextView title = dialogText("Atualizando CineHUB", 20, white);
-        title.setTypeface(Typeface.DEFAULT_BOLD);
+        title.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
         layout.addView(title, new LinearLayout.LayoutParams(-1, -2));
 
         downloadProgressText = dialogText("Preparando atualização...", 14, muted);
@@ -424,7 +424,7 @@ public class MainActivity extends AppCompatActivity {
         progressParams.topMargin = 24;
         layout.addView(downloadProgress, progressParams);
 
-        TextView hint = dialogText("Não feche o CineHUB durante a atualização.", 12, muted);
+        TextView hint = dialogText("Mantenha o CineHUB aberto enquanto a atualização é baixada.", 12, muted);
         LinearLayout.LayoutParams hintParams = new LinearLayout.LayoutParams(-1, -2);
         hintParams.topMargin = 14;
         layout.addView(hint, hintParams);
