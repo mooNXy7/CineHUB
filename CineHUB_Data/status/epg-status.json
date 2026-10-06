@@ -1,27 +1,16 @@
 {
   "schemaVersion": "1.1.0",
-  "generatedAt": "2026-10-06T04:49:49.639499Z",
-  "status": "degraded",
+  "generatedAt": "2026-10-06T04:50:17.266896Z",
+  "status": "healthy",
   "sources": [
     {
-      "id": "iptv-com-brazil",
-      "priority": 1,
-      "status": "unknown",
-      "lastChecked": "2026-10-06T04:49:49.639499Z",
-      "latencyMs": 63.41,
-      "httpStatus": null,
-      "consecutiveFailures": 1,
-      "cacheHit": false,
-      "error": "HTTP Error 404: Not Found"
-    },
-    {
       "id": "brazil-tv-epg",
-      "priority": 2,
+      "priority": 1,
       "status": "healthy",
-      "lastChecked": "2026-10-06T04:49:49.639499Z",
-      "latencyMs": 535.17,
+      "lastChecked": "2026-10-06T04:50:17.266896Z",
+      "latencyMs": 1622.54,
       "httpStatus": 200,
-      "bytes": 5924590,
+      "bytes": 13783793,
       "consecutiveFailures": 0,
       "cacheHit": false,
       "stats": {
@@ -32,14 +21,14 @@
     }
   ],
   "stats": {
-    "sourcesConfigured": 2,
+    "sourcesConfigured": 1,
     "sourcesHealthy": 1,
-    "sourcesFailed": 1,
+    "sourcesFailed": 0,
     "cacheHits": 0,
     "networkFetches": 1,
-    "channelsKnown": 83,
+    "channelsKnown": 160,
     "channelsWithPrograms": 0,
-    "channelsWithoutPrograms": 83,
+    "channelsWithoutPrograms": 160,
     "programs": 0
   },
   "cache": {
