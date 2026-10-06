@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "1.0.0",
+  "registryVersion": 1,
+  "name": "CineHUB Sources Registry",
+  "description": "Registro central das fontes utilizadas pelo CineHUB. Nesta fase ele referencia as fontes existentes sem alterar o pipeline atual.",
+  "refreshPolicy": {
+    "defaultDays": 3,
+    "healthChecksEnabled": false,
+    "automaticPublishingEnabled": false
+  },
+  "sources": [
+    {
+      "id": "ramys-br-01",
+      "name": "IPTV Brasil · BR 01",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR01.m3u8",
+      "enabled": true,
+      "priority": 1
+    },
+    {
+      "id": "ramys-br-02",
+      "name": "IPTV Brasil · BR 02",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR02.m3u8",
+      "enabled": true,
+      "priority": 2
+    },
+    {
+      "id": "ramys-br-03",
+      "name": "IPTV Brasil · BR 03",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR03.m3u8",
+      "enabled": true,
+      "priority": 3
+    },
+    {
+      "id": "ramys-br-04",
+      "name": "IPTV Brasil · BR 04",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR04.m3u8",
+      "enabled": true,
+      "priority": 4
+    },
+    {
+      "id": "ramys-br-05",
+      "name": "IPTV Brasil · BR 05",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR05.m3u8",
+      "enabled": true,
+      "priority": 5
+    },
+    {
+      "id": "ramys-filmes-series",
+      "name": "IPTV Brasil · Filmes/Séries",
+      "kind": "m3u",
+      "scope": "catalog",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/Filmes-Series.m3u8",
+      "enabled": true,
+      "priority": 10
+    },
+    {
+      "id": "ramys-europa",
+      "name": "IPTV Brasil · Europa",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisEuropa.m3u8",
+      "enabled": true,
+      "priority": 11
+    },
+    {
+      "id": "ramys-italia",
+      "name": "IPTV Brasil · Itália",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisItalia.m3u8",
+      "enabled": true,
+      "priority": 12
+    }
+  ],
+  "localSources": [
+    {
+      "id": "cinehub-list-1",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "local",
+      "path": "CineHUB_WEB/dados/listas/1.m3u",
+      "enabled": true
+    },
+    {
+      "id": "cinehub-list-2",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "local",
+      "path": "CineHUB_WEB/dados/listas/2.m3u",
+      "enabled": true
+    },
+    {
+      "id": "cinehub-list-3",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "local",
+      "path": "CineHUB_WEB/dados/listas/3.m3u",
+      "enabled": true
+    },
+    {
+      "id": "cinehub-list-4",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "local",
+      "path": "CineHUB_WEB/dados/listas/4.m3u",
+      "enabled": true
+    },
+    {
+      "id": "cinehub-list-610",
+      "kind": "m3u8",
+      "scope": "channels",
+      "transport": "local",
+      "path": "CineHUB_WEB/dados/listas/610.M3U8",
+      "enabled": true
+    },
+    {
+      "id": "cinehub-europa",
+      "kind": "m3u8",
+      "scope": "channels",
+      "transport": "local",
+      "path": "CineHUB_WEB/dados/listas/CanaisEuropa.m3u8",
+      "enabled": true
+    },
+    {
+      "id": "cinehub-italia",
+      "kind": "m3u8",
+      "scope": "channels",
+      "transport": "local",
+      "path": "CineHUB_WEB/dados/listas/CanaisItalia.m3u8",
+      "enabled": true
+    },
+    {
+      "id": "cinehub-italia-alt",
+      "kind": "m3u",
+      "scope": "channels",
+      "transport": "local",
+      "path": "CineHUB_WEB/dados/listas/CanaisItália.m3u",
+      "enabled": true
+    }
+  ],
+  "externalServices": [
+    {
+      "id": "iptv-org-logos",
+      "kind": "logos",
+      "url": "https://iptv-org.github.io/api/logos.json",
+      "enabled": true
+    },
+    {
+      "id": "tv-logos-brazil",
+      "kind": "logos",
+      "url": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/brazil/",
+      "enabled": true
+    }
+  ]
+}
