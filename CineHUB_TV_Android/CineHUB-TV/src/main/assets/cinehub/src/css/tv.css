@@ -1,12 +1,16 @@
-/* CineHUB TV — TV/TV Box presentation layer */
-/* TV runtime 1.0.5 */
-.tv-screen .screen-inner{max-width:1500px}
-.tv-tabs{margin-bottom:14px}
-.tv-tab{cursor:pointer}
-.popular-channels{margin-bottom:16px}
-.tv-panel{min-width:0}
-.tv-source-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
-.channel-grid{contain:layout paint}
-.guide-grid{contain:layout paint}
-@media (min-width:1100px){.channel-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.compact-popular{grid-template-columns:repeat(6,minmax(0,1fr))}.guide-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (max-width:900px){.tv-live-bar{align-items:flex-start;flex-direction:column}.tv-source-actions{width:100%;justify-content:flex-start}.tv-source-actions .secondary{flex:1}}
+/* CineHUB TV — Android TV / TV Box presentation layer 1.0.6 */
+html,body{width:100%;min-width:100%;min-height:100%;overflow-x:hidden}body{overscroll-behavior:none}
+button:focus,input:focus,select:focus,textarea:focus,a:focus,[tabindex]:focus{outline:none}
+.cinehub-tv-focus{outline:3px solid #E50914!important;outline-offset:4px!important;box-shadow:0 0 0 6px rgba(229,9,20,.18),0 10px 30px rgba(0,0,0,.28)!important;transform:scale(1.025);z-index:40!important}
+.card.cinehub-tv-focus,.channel.cinehub-tv-focus,.explore-card.cinehub-tv-focus{transform:scale(1.035)!important}
+.hero-actions .cinehub-tv-focus,.dock-btn.cinehub-tv-focus,.tv-tab.cinehub-tv-focus{transform:scale(1.04)!important}
+html.cinehub-performance .section,html.cinehub-performance .screen-inner{content-visibility:visible!important;contain:none!important}
+.tv-screen .screen-inner{max-width:1500px;padding:94px 34px 100px}.tv-tabs{display:flex;gap:12px;margin-bottom:18px}.tv-tab{min-height:54px;padding:0 24px;border-radius:16px}.tv-tab.active{box-shadow:0 0 0 2px rgba(229,9,20,.38)}
+.popular-channels{margin-bottom:18px}.tv-panel{min-width:0}.tv-source-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}.tv-source-actions button,.catalog-toolbar button,.guide-toolbar button{min-height:50px}
+.channel-grid{contain:layout paint}.guide-grid{contain:layout paint}.channel{min-height:205px}.channel.cinehub-tv-focus{background:rgba(229,9,20,.10)}
+.sheet-panel{width:min(900px,calc(100% - 60px));max-height:88vh;padding:18px 28px 36px}.sheet-head h2{font-size:34px}.setting-row,.lang-option{min-height:58px;font-size:16px}.setting-row{padding:16px 8px}.lang-option{padding:16px 18px}
+.dock{width:min(560px,calc(100% - 60px));height:76px;bottom:24px}.dock-btn strong{font-size:25px}.dock-btn span{font-size:14px}
+.screen-head .icon-btn,.screen .icon-btn,.detail>.icon-btn,.player>.icon-btn{min-width:52px;min-height:52px}.search{min-height:52px;font-size:16px}.primary,.secondary,.text-btn{min-height:50px;font-size:15px}.hero-actions{gap:14px}.hero-actions .primary,.hero-actions .secondary{padding:0 24px}.player-frame{width:min(1400px,100%);height:min(78vh,800px)}
+@media(min-width:1100px){.channel-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.compact-popular{grid-template-columns:repeat(6,minmax(0,1fr))}.guide-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.grid{grid-template-columns:repeat(6,minmax(0,1fr))}.row{grid-auto-columns:minmax(180px,210px);gap:16px}.card{min-height:290px}}
+@media(max-width:1100px){.tv-screen .screen-inner{padding-left:22px;padding-right:22px}.channel-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:900px){.tv-live-bar{align-items:flex-start;flex-direction:column}.tv-source-actions{width:100%;justify-content:flex-start}.tv-source-actions .secondary{flex:1}}
