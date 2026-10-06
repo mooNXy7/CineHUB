@@ -119,3 +119,5 @@ def update() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(update())
+
+# Trigger validation after Phase 8 publication hardening.
