@@ -1,56 +1,35 @@
 # CineHUB Data Engine — Data Layer
 
-Esta pasta é a camada central de dados do CineHUB.
+A Data Layer centraliza contratos e referencias de dados sem substituir os caminhos usados pelas aplicações.
 
-## Objetivo
+## Fase 2 — Atualização automática
 
-Separar progressivamente:
+O pipeline diário:
 
-**APLICAÇÃO ≠ DADOS ≠ FONTES ≠ PROCESSAMENTO**
+1. lê CineHUB_Data/sources/registry.json;
+2. busca fontes remotas habilitadas;
+3. aplica timeout e retries controlados;
+4. calcula SHA-256 do conteúdo;
+5. registra fingerprint e resultado da coleta;
+6. atualiza manifest/status somente quando houver mudança relevante;
+7. cria commit apenas quando CineHUB_Data realmente mudou.
 
-A Data Layer não substitui os dados existentes do CineHUB nesta fase. Ela cria uma estrutura estável para que as próximas etapas possam migrar o processamento sem quebrar WEB, Mobile ou TV.
+O workflow também pode ser executado manualmente.
 
-## Estrutura
+## Compatibilidade
 
-```text
-CineHUB_Data/
-├── sources/       # registro das fontes e configurações
-├── catalog/       # contratos e índices do catálogo
-├── epg/           # contratos e dados do EPG
-├── manifests/     # manifestos de distribuição
-├── status/        # estado e observabilidade dos dados
-├── metadata/      # contratos de metadados
-└── providers/     # contratos dos providers
-```
+Nesta primeira implementação, o pipeline não substitui CineHUB_WEB/dados, não reescreve assets do Mobile e não modifica os assets da TV.
 
-## Regra desta fase
+Isso é intencional. Health check real, normalização, multi-source/fallback e publicação dos dados processados entram nas fases seguintes.
 
-Os dados atuais continuam nos locais que as aplicações já utilizam.
+## SaimoPlayer
 
-Nenhum arquivo de:
+Foram aproveitadas ideias conceituais observadas no SaimoPlayer, como atualização automatizada, validação de fontes, geração separada de dados e tolerância a múltiplas fontes. Nenhum script ou estrutura foi copiado literalmente.
 
-- CineHUB_WEB
-- CineHUB_Mobile_Android
-- CineHUB_TV_Android
+## Sem mudanças inúteis
 
-é movido ou substituído pela Data Layer nesta etapa.
+Se as fontes permanecerem iguais, o workflow imprime:
 
-A Data Layer passa a funcionar como **fonte de organização e contrato**, preparando as próximas fases.
+NO CHANGES
 
-## Fonte atual
-
-O registro inicial foi derivado da configuração existente em:
-
-`CineHUB_WEB/dados/listas.json`
-
-e mantém referências para os dados já existentes, em vez de duplicá-los.
-
-## Próximas etapas
-
-1. atualização automática;
-2. health check;
-3. normalização;
-4. multi-source;
-5. catálogo VOD;
-6. EPG Engine;
-7. publicação e observabilidade.
+e não cria commit.
