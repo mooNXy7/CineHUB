@@ -127,6 +127,22 @@ jobs:
             exit 0
           fi
           git commit -m "chore(data): refresh published datasets"
+          # Discard generated build-only files that are intentionally not stored
+          # in GitHub (large normalized/resolved graphs and episode indexes).
+          git restore --worktree -- CineHUB_Data/normalized CineHUB_Data/resolved \
+            CineHUB_Data/catalog/series.index.json CineHUB_Data/catalog/episodes.index.json 2>/dev/null || true
+          git clean -fd -- CineHUB_Data/tools/__pycache__ 2>/dev/null || true
+          mkdir -p CineHUB_WEB/data-engine
+          cat > CineHUB_WEB/data-engine/_headers <<'EOF'
+/data-engine/manifest.json
+  Cache-Control: no-cache, max-age=0, must-revalidate
+/data-engine/status-public.json
+  Cache-Control: no-cache, max-age=0, must-revalidate
+/data-engine/*
+  Cache-Control: public, max-age=60, stale-while-revalidate=300
+EOF
+          git add CineHUB_WEB/data-engine/_headers
+          git commit --amend --no-edit
           for attempt in 1 2 3; do
             git fetch origin main
             if git rebase origin/main && git push origin HEAD:main; then
