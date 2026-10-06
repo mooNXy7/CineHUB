@@ -36,8 +36,12 @@ jobs:
           python3 -m json.tool CineHUB_Data/manifests/data-manifest.json >/dev/null
           python3 -m json.tool CineHUB_Data/status/data-status.json >/dev/null
           python3 -m py_compile CineHUB_Data/tools/update_data.py
+          python3 -m py_compile CineHUB_Data/tools/health_check.py
+          python3 -m py_compile CineHUB_Data/tools/normalize_channels.py
       - name: Run Data Engine health check
         run: python3 CineHUB_Data/tools/health_check.py
+      - name: Normalize channels
+        run: python3 CineHUB_Data/tools/normalize_channels.py
       - name: Show result
         run: |
           python3 - <<'PY'
@@ -47,6 +51,13 @@ jobs:
           print("Sources checked:", d.get("sources", {}).get("checked"))
           print("Sources changed:", d.get("sources", {}).get("changed"))
           print("Source errors:", d.get("sources", {}).get("errors"))
+          try:
+            n=json.load(open("CineHUB_Data/normalized/channels.json", encoding="utf-8"))
+            print("Normalized channels:", n.get("stats", {}).get("entities"))
+            print("Merged duplicates:", n.get("stats", {}).get("duplicatesMerged"))
+            print("Normalization source failures:", n.get("stats", {}).get("failedSources"))
+          except Exception as e:
+            print("Normalized channels: unavailable", e)
           PY
       - name: Commit only when data changed
         shell: bash
