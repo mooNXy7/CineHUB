@@ -26,6 +26,14 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Restore EPG processed cache
+        uses: actions/cache@v4
+        with:
+          path: CineHUB_Data/.cache/epg
+          key: cinehub-epg-${{ runner.os }}-${{ hashFiles('CineHUB_Data/sources/registry.json') }}
+          restore-keys: |
+            cinehub-epg-${{ runner.os }}-
+
       - name: Validate EPG engine
         run: |
           python3 -m py_compile CineHUB_Data/tools/build_epg.py
