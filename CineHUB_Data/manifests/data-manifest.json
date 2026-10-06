@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0.0",
+  "manifestVersion": 1,
+  "name": "CineHUB Data Manifest",
+  "generatedBy": "CineHUB Data Layer bootstrap",
+  "generatedAt": null,
+  "publication": {
+    "mode": "repository",
+    "automatic": false,
+    "healthChecks": false
+  },
+  "sourcesRegistry": "CineHUB_Data/sources/registry.json",
+  "datasets": {
+    "channels": {
+      "canonical": "CineHUB_WEB/dados/canais.js",
+      "streamSources": "CineHUB_WEB/dados/canais-m3u8.js",
+      "externalRegistry": "CineHUB_WEB/dados/listas.json"
+    },
+    "catalog": {
+      "manifest": "CineHUB_WEB/dados/conteudo/manifest.js",
+      "movieIndex": "CineHUB_WEB/dados/conteudo/indices/filmes.json",
+      "seriesIndex": "CineHUB_WEB/dados/conteudo/indices/series.json",
+      "chunks": "CineHUB_WEB/dados/conteudo/catalogo/"
+    },
+    "epg": {
+      "runtime": "CineHUB_WEB/src/js/epg.js",
+      "cache": "client-side"
+    },
+    "logos": {
+      "registry": "CineHUB_Data/sources/registry.json"
+    }
+  },
+  "consumers": {
+    "web": {
+      "root": "CineHUB_WEB/"
+    },
+    "mobile": {
+      "root": "CineHUB_Mobile_Android/",
+      "currentDataStrategy": "WEB deployment"
+    },
+    "tv": {
+      "root": "CineHUB_TV_Android/",
+      "currentDataStrategy": "WEB data synchronized during Android release"
+    }
+  },
+  "compatibility": {
+    "currentAppsContinueUsingExistingPaths": true,
+    "breakingChanges": false
+  }
+}
