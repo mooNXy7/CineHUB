@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Build the small, public CineHUB Data Engine publication package.
-
-The package is intentionally separate from the existing WEB/Mobile/TV data paths.
-It publishes compatibility-friendly JSON datasets under CineHUB_WEB/data-engine/
-so Cloudflare Pages can distribute them without requiring an APK update.
-"""
+"""Build the public CineHUB Data Engine publication package."""
 
 from __future__ import annotations
 
@@ -67,11 +62,20 @@ def build() -> dict:
     if missing:
         raise SystemExit("Missing required Data Engine outputs: " + ", ".join(missing))
 
-    previous = None\n    previous_path = OUT / "manifest.json"\n    if previous_path.is_file():\n        try:\n            previous = read_json(previous_path)\n        except Exception:\n            previous = None\n    generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    previous = None
+    previous_path = OUT / "manifest.json"
+    if previous_path.is_file():
+        try:
+            previous = read_json(previous_path)
+        except Exception:
+            previous = None
+
+    generated_at = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
     with TemporaryDirectory(prefix="cinehub-data-publish-") as tmp:
         tmp_root = Path(tmp)
         datasets = {}
+
         for rel, src in FILES.items():
             if not src.is_file():
                 continue
@@ -88,6 +92,14 @@ def build() -> dict:
         epg_status_path = DATA / "status" / "epg-status.json"
         epg_status = read_json(epg_status_path) if epg_status_path.is_file() else None
 
+        capabilities = {
+            "channels": "resolved+normalized",
+            "catalog": "pre-indexed",
+            "series": "series+season+episode indexes",
+            "epg": bool(epg_status_path.is_file() and (DATA / "epg" / "schedule.index.json").is_file()),
+            "health": True,
+        }
+
         publication = {
             "schemaVersion": "1.0.0",
             "engine": "CineHUB Data Engine",
@@ -96,25 +108,17 @@ def build() -> dict:
             "basePath": "/data-engine/",
             "atomic": True,
             "datasets": datasets,
-            "capabilities": {
-                "channels": "resolved+normalized",
-                "catalog": "pre-indexed",
-                "series": "series+season+episode indexes",
-                "epg": bool(epg_status_path.is_file() and (DATA / "epg" / "schedule.index.json").is_file()),
-                "health": True,
-            },
+            "capabilities": capabilities,
         }
-        (tmp_root / "manifest.json").write_text(
-            json.dumps(publication, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
-        )
 
-        # Consolidated status is deliberately derived from the existing engine outputs.
+        if previous and previous.get("datasets") == datasets and previous.get("capabilities") == capabilities:
+            publication["generatedAt"] = previous.get("generatedAt", generated_at)
+
         health = status.get("healthChecks", {})
         catalog = status.get("catalog", {})
         if not catalog.get("movies") or not catalog.get("series"):
             try:
-                meta = read_json(DATA / "catalog" / "metadata.json")
-                stats = meta.get("stats", {})
+                stats = read_json(DATA / "catalog" / "metadata.json").get("stats", {})
                 catalog = {
                     "movies": stats.get("movies"),
                     "series": stats.get("seriesEntities", stats.get("series")),
@@ -126,7 +130,7 @@ def build() -> dict:
         consolidated = {
             "schemaVersion": "1.0.0",
             "status": status.get("status", "unknown"),
-            "updatedAt": generated_at,
+            "updatedAt": publication["generatedAt"],
             "engine": {
                 "phase": 8,
                 "lastRunAt": status.get("engine", {}).get("lastRunAt"),
@@ -148,14 +152,30 @@ def build() -> dict:
             },
             "publication": {
                 "manifest": "/data-engine/manifest.json",
-                "cachePolicy": "short-lived manifest, cacheable immutable datasets by content hash",
+                "cachePolicy": "short-lived manifest, cacheable datasets",
             },
         }
+
+        previous_status_path = OUT / "status-public.json"
+        if previous_status_path.is_file():
+            try:
+                old = read_json(previous_status_path)
+                a = dict(consolidated)
+                b = dict(old)
+                a.pop("updatedAt", None)
+                b.pop("updatedAt", None)
+                if a == b:
+                    consolidated["updatedAt"] = old.get("updatedAt", publication["generatedAt"])
+            except Exception:
+                pass
+
+        (tmp_root / "manifest.json").write_text(
+            json.dumps(publication, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
         (tmp_root / "status-public.json").write_text(
             json.dumps(consolidated, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
         )
 
-        # Replace only the publication directory. Existing WEB files are untouched.
         backup = OUT.with_name(OUT.name + ".previous")
         if backup.exists():
             shutil.rmtree(backup)
