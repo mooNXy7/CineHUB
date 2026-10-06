@@ -429,7 +429,7 @@ def run() -> int:
         "sources": detailed,
         "stats": output["stats"],
         "cache": {
-            "directory": "CineHUB_Data/epg/cache",
+            "directory": "CineHUB_Data/.cache/epg",
             "ttlHours": CACHE_TTL_HOURS,
             "conditionalRequestsEnabled": True,
         },
