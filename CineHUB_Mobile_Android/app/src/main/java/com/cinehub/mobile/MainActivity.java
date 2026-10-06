@@ -414,7 +414,7 @@ public class MainActivity extends AppCompatActivity {
         downloadProgress.setProgress(0);
         downloadProgress.setProgressDrawable(
                 getResources().getDrawable(
-                        android.R.drawable.progress_horizontal,
+                        R.drawable.progress_ota,
                         getTheme()
                 )
         );
@@ -727,8 +727,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
 
         if (pendingApkUri != null
-                && Build.VERSION.SDK_INT < Build.VERSION_CODES.O
-                || (pendingApkUri != null && getPackageManager().canRequestPackageInstalls())) {
+                && (Build.VERSION.SDK_INT < Build.VERSION_CODES.O
+                || getPackageManager().canRequestPackageInstalls())) {
             Uri uri = pendingApkUri;
             pendingApkUri = null;
             installApk(uri);
