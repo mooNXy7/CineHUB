@@ -29,8 +29,12 @@ jobs:
       - name: Validate EPG engine
         run: |
           python3 -m py_compile CineHUB_Data/tools/build_epg.py
+          python3 -m py_compile CineHUB_Data/tools/test_build_epg.py
           python3 -m json.tool CineHUB_Data/sources/registry.json >/dev/null
           python3 -m json.tool CineHUB_Data/resolved/channels.json >/dev/null
+      - name: Run EPG unit tests
+        working-directory: CineHUB_Data/tools
+        run: python3 -m unittest test_build_epg.py -v
 
       - name: Build EPG
         run: python3 CineHUB_Data/tools/build_epg.py
