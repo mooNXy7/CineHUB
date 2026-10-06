@@ -43,7 +43,11 @@ jobs:
           python3 -m py_compile CineHUB_Data/tools/build_epg.py
           python3 -m py_compile CineHUB_Data/tools/test_build_epg.py
           python3 -m json.tool CineHUB_Data/sources/registry.json >/dev/null
-          python3 -m json.tool CineHUB_Data/resolved/channels.json >/dev/null
+          if [ -f CineHUB_Data/resolved/channels.json ]; then
+            python3 -m json.tool CineHUB_Data/resolved/channels.json >/dev/null
+          else
+            echo "Canonical channel index not published yet; EPG will use stable source IDs."
+          fi
       - name: Run EPG unit tests
         working-directory: CineHUB_Data/tools
         run: python3 -m unittest test_build_epg.py -v
@@ -70,14 +74,18 @@ jobs:
               print("EPG status unavailable:", e)
           PY
 
-      - name: Build public Data Engine package with EPG
-        run: python3 CineHUB_Data/tools/publish_data.py
+      - name: Build public EPG package
+        run: |
+          set -euo pipefail
+          mkdir -p CineHUB_WEB/data-engine/epg
+          cp CineHUB_Data/epg/schedule.index.json CineHUB_WEB/data-engine/epg/schedule.index.json
+          cp CineHUB_Data/status/epg-status.json CineHUB_WEB/data-engine/epg/status.json
 
       - name: Publish generated EPG data
         run: |
           git config user.name "CineHUB Data Engine"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add CineHUB_Data/epg/schedule.index.json CineHUB_Data/status/epg-status.json CineHUB_WEB/data-engine
+          git add CineHUB_Data/epg/schedule.index.json CineHUB_Data/status/epg-status.json CineHUB_WEB/data-engine/epg/epg
           if git diff --cached --quiet; then
             echo "NO CHANGES"
             exit 0
