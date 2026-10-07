@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(b);requestWindowFeature(Window.FEATURE_NO_TITLE);setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         getWindow().setStatusBarColor(Color.BLACK);getWindow().setNavigationBarColor(Color.BLACK);getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         setContentView(R.layout.activity_main);hideSystemUi();webView=findViewById(R.id.webview);
-        webView.setLayerType(View.LAYER_TYPE_SOFTWARE,null);configureWebView();
+        webView.setLayerType(View.LAYER_TYPE_HARDWARE,null);configureWebView();
         assetLoader=new WebViewAssetLoader.Builder().addPathHandler("/assets/",new WebViewAssetLoader.AssetsPathHandler(this)).build();
         webView.loadUrl("https://appassets.androidplatform.net/assets/cinehub/index.html?tv=1");registerDownloadReceiver();checkForUpdate();
     }
@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override public WebResourceResponse shouldInterceptRequest(WebView v,WebResourceRequest r){return assetLoader!=null?assetLoader.shouldInterceptRequest(r.getUrl()):super.shouldInterceptRequest(v,r);}
             @Override public WebResourceResponse shouldInterceptRequest(WebView v,String u){return assetLoader!=null?assetLoader.shouldInterceptRequest(Uri.parse(u)):super.shouldInterceptRequest(v,u);}
             @Override public boolean shouldOverrideUrlLoading(WebView v,WebResourceRequest r){Uri u=r.getUrl();String scheme=u.getScheme();if("http".equalsIgnoreCase(scheme)||"https".equalsIgnoreCase(scheme)){String h=u.getHost();if(h==null||"appassets.androidplatform.net".equalsIgnoreCase(h))return false;try{startActivity(new Intent(Intent.ACTION_VIEW,u));}catch(ActivityNotFoundException ignored){}return true;}return false;}
-            @Override public boolean onRenderProcessGone(WebView v,RenderProcessGoneDetail d){try{ViewGroup root=findViewById(R.id.root);root.removeView(v);WebView n=new WebView(MainActivity.this);n.setId(R.id.webview);n.setLayoutParams(new ViewGroup.LayoutParams(-1,-1));n.setBackgroundColor(Color.BLACK);n.setLayerType(View.LAYER_TYPE_SOFTWARE,null);root.addView(n);webView=n;configureWebView();n.loadUrl("https://appassets.androidplatform.net/assets/cinehub/index.html?tv=1");}catch(Exception e){finish();}return true;}
+            @Override public boolean onRenderProcessGone(WebView v,RenderProcessGoneDetail d){try{ViewGroup root=findViewById(R.id.root);root.removeView(v);WebView n=new WebView(MainActivity.this);n.setId(R.id.webview);n.setLayoutParams(new ViewGroup.LayoutParams(-1,-1));n.setBackgroundColor(Color.BLACK);n.setLayerType(View.LAYER_TYPE_HARDWARE,null);root.addView(n);webView=n;configureWebView();n.loadUrl("https://appassets.androidplatform.net/assets/cinehub/index.html?tv=1");}catch(Exception e){finish();}return true;}
         });
         webView.setWebChromeClient(new WebChromeClient(){@Override public void onShowCustomView(View v,CustomViewCallback c){enterFullscreen(v,c);}@Override public void onHideCustomView(){exitFullscreen();}});
         webView.setDownloadListener((u,ua,cd,mime,len)->enqueueDownload(u,ua,mime));webView.setOnLongClickListener(v->true);
