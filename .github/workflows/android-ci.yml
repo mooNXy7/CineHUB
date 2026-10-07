@@ -2,7 +2,11 @@ name: CineHUB-TV Android CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "tv-*"]
+    paths:
+      - "CineHUB_TV_Android/**"
+      - ".github/workflows/**"
+  pull_request:
     paths:
       - "CineHUB_TV_Android/**"
       - ".github/workflows/**"
