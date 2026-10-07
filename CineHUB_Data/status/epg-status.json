@@ -1,21 +1,21 @@
 {
   "schemaVersion": "1.1.0",
-  "generatedAt": "2026-10-06T12:06:11.433905Z",
+  "generatedAt": "2026-10-07T11:51:35.991059Z",
   "status": "healthy",
   "sources": [
     {
       "id": "brazil-tv-epg",
       "priority": 1,
       "status": "healthy",
-      "lastChecked": "2026-10-06T12:06:11.433905Z",
-      "latencyMs": 2370.84,
+      "lastChecked": "2026-10-07T11:51:35.991059Z",
+      "latencyMs": 2395.76,
       "httpStatus": 200,
-      "bytes": 19628242,
+      "bytes": 16391644,
       "consecutiveFailures": 0,
       "cacheHit": false,
       "stats": {
         "channelsMatched": 0,
-        "programsMatched": 27052
+        "programsMatched": 23842
       },
       "error": null
     }
@@ -26,10 +26,10 @@
     "sourcesFailed": 0,
     "cacheHits": 0,
     "networkFetches": 1,
-    "channelsKnown": 455,
-    "channelsWithPrograms": 451,
-    "channelsWithoutPrograms": 4,
-    "programs": 26990
+    "channelsKnown": 487,
+    "channelsWithPrograms": 424,
+    "channelsWithoutPrograms": 63,
+    "programs": 23796
   },
   "cache": {
     "directory": "CineHUB_Data/.cache/epg",
