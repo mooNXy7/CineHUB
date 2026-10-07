@@ -9,9 +9,10 @@ android {
         applicationId = "com.cinehub.tv"
         minSdk = 23
         targetSdk = 35
-        versionCode = 109
-        versionName = "1.0.9"
+        versionCode = 120
+        versionName = "1.2.0"
     }
+
     signingConfigs {
         getByName("debug") {}
         create("release") {
@@ -19,22 +20,24 @@ android {
             val kp = System.getenv("CINEHUB_TV_KEYSTORE_PASSWORD")
             val ka = System.getenv("CINEHUB_TV_KEY_ALIAS")
             val ap = System.getenv("CINEHUB_TV_KEY_PASSWORD")
-            if (!ks.isNullOrBlank() && !kp.isNullOrBlank() && !ka.isNullOrBlank() && !ap.isNullOrBlank()) {
-                storeFile = file(ks)
-                storePassword = kp
-                keyAlias = ka
-                keyPassword = ap
+            check(!ks.isNullOrBlank() && !kp.isNullOrBlank() && !ka.isNullOrBlank() && !ap.isNullOrBlank()) {
+                "Production signing is required: configure CINEHUB_TV_KEYSTORE_PATH, CINEHUB_TV_KEYSTORE_PASSWORD, CINEHUB_TV_KEY_ALIAS and CINEHUB_TV_KEY_PASSWORD."
             }
+            storeFile = file(ks)
+            storePassword = kp
+            keyAlias = ka
+            keyPassword = ap
         }
     }
+
     buildTypes {
         release {
             isMinifyEnabled = false
-            val stableKey = System.getenv("CINEHUB_TV_KEYSTORE_PATH")
-            signingConfig = if (!stableKey.isNullOrBlank()) signingConfigs.getByName("release") else signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+
     buildFeatures { buildConfig = true }
 }
 
