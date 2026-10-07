@@ -18,11 +18,12 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    environment: CINEHUB_TV
     env:
       GRADLE_OPTS: -Dorg.gradle.jvmargs=-Xmx4g -Dfile.encoding=UTF-8
-      CINEHUB_TV_KEYSTORE_PASSWORD: ${{ secrets.CINEHUB_TV_KEYSTORE_PASSWORD }}
-      CINEHUB_TV_KEY_ALIAS: ${{ secrets.CINEHUB_TV_KEY_ALIAS }}
-      CINEHUB_TV_KEY_PASSWORD: ${{ secrets.CINEHUB_TV_KEY_PASSWORD }}
+      CINEHUB_TV_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      CINEHUB_TV_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      CINEHUB_TV_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
 
@@ -37,10 +38,10 @@ jobs:
 
       - name: Restore production signing keystore
         env:
-          KEYSTORE_B64: ${{ secrets.CINEHUB_TV_KEYSTORE_B64 }}
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
         run: |
           set -euo pipefail
-          test -n "$KEYSTORE_B64" || { echo "Missing CINEHUB_TV_KEYSTORE_B64 GitHub Secret."; exit 1; }
+          test -n "$KEYSTORE_B64" || { echo "Missing KEYSTORE_B64 in the CINEHUB_TV environment."; exit 1; }
           mkdir -p "$RUNNER_TEMP/cinehub-signing"
           printf '%s' "$KEYSTORE_B64" | base64 --decode > "$RUNNER_TEMP/cinehub-signing/cinehub-tv-release.jks"
           test -s "$RUNNER_TEMP/cinehub-signing/cinehub-tv-release.jks"
@@ -49,9 +50,9 @@ jobs:
       - name: Validate signing configuration
         run: |
           set -euo pipefail
-          test -n "${CINEHUB_TV_KEYSTORE_PASSWORD:-}" || { echo "Missing CINEHUB_TV_KEYSTORE_PASSWORD GitHub Secret."; exit 1; }
-          test -n "${CINEHUB_TV_KEY_ALIAS:-}" || { echo "Missing CINEHUB_TV_KEY_ALIAS GitHub Secret."; exit 1; }
-          test -n "${CINEHUB_TV_KEY_PASSWORD:-}" || { echo "Missing CINEHUB_TV_KEY_PASSWORD GitHub Secret."; exit 1; }
+          test -n "${CINEHUB_TV_KEYSTORE_PASSWORD:-}" || { echo "Missing KEYSTORE_PASSWORD in the CINEHUB_TV environment."; exit 1; }
+          test -n "${CINEHUB_TV_KEY_ALIAS:-}" || { echo "Missing KEY_ALIAS in the CINEHUB_TV environment."; exit 1; }
+          test -n "${CINEHUB_TV_KEY_PASSWORD:-}" || { echo "Missing KEY_PASSWORD in the CINEHUB_TV environment."; exit 1; }
           keytool -list -keystore "$CINEHUB_TV_KEYSTORE_PATH" -storepass "$CINEHUB_TV_KEYSTORE_PASSWORD" -alias "$CINEHUB_TV_KEY_ALIAS" >/dev/null
 
       - name: Build production release APK
