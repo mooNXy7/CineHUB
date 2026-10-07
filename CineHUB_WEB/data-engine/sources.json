@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "registryVersion": 2,
+  "registryVersion": 3,
   "name": "CineHUB Sources Registry",
   "description": "Registro central das fontes utilizadas pelo CineHUB. Nesta fase ele referencia as fontes existentes sem alterar o pipeline atual.",
   "refreshPolicy": {
@@ -14,7 +14,7 @@
       "thirdOrMore": "offline"
     },
     "publicationMode": "compact-git-compatible",
-    "lastRunAt": "2026-10-06T05:17:46Z"
+    "lastRunAt": "2026-10-07T11:07:16Z"
   },
   "sources": [
     {
@@ -27,16 +27,16 @@
       "enabled": true,
       "priority": 1,
       "health": {
-        "status": "unknown",
-        "lastChecked": "2026-10-06T05:17:46Z",
+        "status": "degraded",
+        "lastChecked": "2026-10-07T11:07:16Z",
         "latency": null,
         "httpStatus": null,
         "error": "response exceeds 26214400 bytes",
-        "consecutiveFailures": 1
+        "consecutiveFailures": 2
       },
-      "lastFetchedAt": "2026-10-06T05:17:46Z",
+      "lastFetchedAt": "2026-10-07T11:07:16Z",
       "lastFetchError": "response exceeds 26214400 bytes",
-      "consecutiveFailures": 1
+      "consecutiveFailures": 2
     },
     {
       "id": "ramys-br-02",
@@ -48,16 +48,16 @@
       "enabled": true,
       "priority": 2,
       "health": {
-        "status": "unknown",
-        "lastChecked": "2026-10-06T05:17:46Z",
+        "status": "degraded",
+        "lastChecked": "2026-10-07T11:07:16Z",
         "latency": null,
         "httpStatus": null,
         "error": "response exceeds 26214400 bytes",
-        "consecutiveFailures": 1
+        "consecutiveFailures": 2
       },
-      "lastFetchedAt": "2026-10-06T05:17:46Z",
+      "lastFetchedAt": "2026-10-07T11:07:16Z",
       "lastFetchError": "response exceeds 26214400 bytes",
-      "consecutiveFailures": 1
+      "consecutiveFailures": 2
     },
     {
       "id": "ramys-br-03",
@@ -69,16 +69,16 @@
       "enabled": true,
       "priority": 3,
       "health": {
-        "status": "unknown",
-        "lastChecked": "2026-10-06T05:17:46Z",
+        "status": "degraded",
+        "lastChecked": "2026-10-07T11:07:16Z",
         "latency": null,
         "httpStatus": null,
         "error": "response exceeds 26214400 bytes",
-        "consecutiveFailures": 1
+        "consecutiveFailures": 2
       },
-      "lastFetchedAt": "2026-10-06T05:17:46Z",
+      "lastFetchedAt": "2026-10-07T11:07:16Z",
       "lastFetchError": "response exceeds 26214400 bytes",
-      "consecutiveFailures": 1
+      "consecutiveFailures": 2
     },
     {
       "id": "ramys-br-04",
@@ -90,16 +90,16 @@
       "enabled": true,
       "priority": 4,
       "health": {
-        "status": "unknown",
-        "lastChecked": "2026-10-06T05:17:46Z",
+        "status": "degraded",
+        "lastChecked": "2026-10-07T11:07:16Z",
         "latency": null,
         "httpStatus": null,
         "error": "response exceeds 26214400 bytes",
-        "consecutiveFailures": 1
+        "consecutiveFailures": 2
       },
-      "lastFetchedAt": "2026-10-06T05:17:46Z",
+      "lastFetchedAt": "2026-10-07T11:07:16Z",
       "lastFetchError": "response exceeds 26214400 bytes",
-      "consecutiveFailures": 1
+      "consecutiveFailures": 2
     },
     {
       "id": "ramys-br-05",
@@ -112,13 +112,13 @@
       "priority": 5,
       "health": {
         "status": "healthy",
-        "lastChecked": "2026-10-06T05:17:46Z",
-        "latency": 97.18,
+        "lastChecked": "2026-10-07T11:07:16Z",
+        "latency": 153.21,
         "httpStatus": 200,
         "error": null,
         "consecutiveFailures": 0
       },
-      "lastFetchedAt": "2026-10-06T05:17:46Z",
+      "lastFetchedAt": "2026-10-07T11:07:16Z",
       "lastHttpStatus": 200,
       "contentBytes": 10913,
       "contentSha256": "81f9b70babfe327685da09ade1d8df2386e84fbd1e224fe16a24bf265d088fc8",
@@ -137,16 +137,16 @@
       "enabled": true,
       "priority": 10,
       "health": {
-        "status": "unknown",
-        "lastChecked": "2026-10-06T05:17:46Z",
+        "status": "degraded",
+        "lastChecked": "2026-10-07T11:07:16Z",
         "latency": null,
         "httpStatus": null,
         "error": "response exceeds 26214400 bytes",
-        "consecutiveFailures": 1
+        "consecutiveFailures": 2
       },
-      "lastFetchedAt": "2026-10-06T05:17:46Z",
+      "lastFetchedAt": "2026-10-07T11:07:16Z",
       "lastFetchError": "response exceeds 26214400 bytes",
-      "consecutiveFailures": 1
+      "consecutiveFailures": 2
     },
     {
       "id": "ramys-europa",
@@ -158,16 +158,16 @@
       "enabled": true,
       "priority": 11,
       "health": {
-        "status": "unknown",
-        "lastChecked": "2026-10-06T05:17:46Z",
+        "status": "degraded",
+        "lastChecked": "2026-10-07T11:07:16Z",
         "latency": null,
         "httpStatus": null,
         "error": "HTTP Error 404: Not Found",
-        "consecutiveFailures": 1
+        "consecutiveFailures": 2
       },
-      "lastFetchedAt": "2026-10-06T05:17:46Z",
+      "lastFetchedAt": "2026-10-07T11:07:16Z",
       "lastFetchError": "HTTP Error 404: Not Found",
-      "consecutiveFailures": 1
+      "consecutiveFailures": 2
     },
     {
       "id": "ramys-italia",
@@ -179,16 +179,16 @@
       "enabled": true,
       "priority": 12,
       "health": {
-        "status": "unknown",
-        "lastChecked": "2026-10-06T05:17:46Z",
+        "status": "degraded",
+        "lastChecked": "2026-10-07T11:07:16Z",
         "latency": null,
         "httpStatus": null,
         "error": "HTTP Error 404: Not Found",
-        "consecutiveFailures": 1
+        "consecutiveFailures": 2
       },
-      "lastFetchedAt": "2026-10-06T05:17:46Z",
+      "lastFetchedAt": "2026-10-07T11:07:16Z",
       "lastFetchError": "HTTP Error 404: Not Found",
-      "consecutiveFailures": 1
+      "consecutiveFailures": 2
     }
   ],
   "localSources": [

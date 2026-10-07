@@ -1,104 +1,104 @@
 {
   "schemaVersion": "1.0.0",
-  "status": "updated",
-  "updatedAt": "2026-10-06T05:17:46Z",
+  "status": "health_changed",
+  "updatedAt": "2026-10-07T11:07:16Z",
   "engine": {
     "phase": 3,
     "mode": "source-health-check",
-    "lastRunAt": "2026-10-06T05:17:46Z",
+    "lastRunAt": "2026-10-07T11:07:16Z",
     "changed": true
   },
   "sources": {
     "checked": 8,
-    "changed": 1,
-    "unchanged": 0,
+    "changed": 0,
+    "unchanged": 1,
     "errors": 7
   },
   "lastRun": [
     {
       "id": "ramys-br-01",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR01.m3u8",
-      "checkedAt": "2026-10-06T05:17:46Z",
+      "checkedAt": "2026-10-07T11:07:16Z",
       "changed": false,
       "status": "error",
       "error": "response exceeds 26214400 bytes",
-      "healthStatus": "unknown"
+      "healthStatus": "degraded"
     },
     {
       "id": "ramys-br-02",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR02.m3u8",
-      "checkedAt": "2026-10-06T05:17:46Z",
+      "checkedAt": "2026-10-07T11:07:16Z",
       "changed": false,
       "status": "error",
       "error": "response exceeds 26214400 bytes",
-      "healthStatus": "unknown"
+      "healthStatus": "degraded"
     },
     {
       "id": "ramys-br-03",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR03.m3u8",
-      "checkedAt": "2026-10-06T05:17:46Z",
+      "checkedAt": "2026-10-07T11:07:16Z",
       "changed": false,
       "status": "error",
       "error": "response exceeds 26214400 bytes",
-      "healthStatus": "unknown"
+      "healthStatus": "degraded"
     },
     {
       "id": "ramys-br-04",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR04.m3u8",
-      "checkedAt": "2026-10-06T05:17:46Z",
+      "checkedAt": "2026-10-07T11:07:16Z",
       "changed": false,
       "status": "error",
       "error": "response exceeds 26214400 bytes",
-      "healthStatus": "unknown"
+      "healthStatus": "degraded"
     },
     {
       "id": "ramys-br-05",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR05.m3u8",
-      "checkedAt": "2026-10-06T05:17:46Z",
-      "changed": true,
-      "status": "changed",
+      "checkedAt": "2026-10-07T11:07:16Z",
+      "changed": false,
+      "status": "unchanged",
       "healthStatus": "healthy",
       "httpStatus": 200,
       "bytes": 10913,
-      "latency": 97.18,
+      "latency": 153.21,
       "contentType": "text/plain; charset=utf-8",
       "sha256": "81f9b70babfe327685da09ade1d8df2386e84fbd1e224fe16a24bf265d088fc8"
     },
     {
       "id": "ramys-filmes-series",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/Filmes-Series.m3u8",
-      "checkedAt": "2026-10-06T05:17:46Z",
+      "checkedAt": "2026-10-07T11:07:16Z",
       "changed": false,
       "status": "error",
       "error": "response exceeds 26214400 bytes",
-      "healthStatus": "unknown"
+      "healthStatus": "degraded"
     },
     {
       "id": "ramys-europa",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisEuropa.m3u8",
-      "checkedAt": "2026-10-06T05:17:46Z",
+      "checkedAt": "2026-10-07T11:07:16Z",
       "changed": false,
       "status": "error",
       "error": "HTTP Error 404: Not Found",
-      "healthStatus": "unknown"
+      "healthStatus": "degraded"
     },
     {
       "id": "ramys-italia",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisItalia.m3u8",
-      "checkedAt": "2026-10-06T05:17:46Z",
+      "checkedAt": "2026-10-07T11:07:16Z",
       "changed": false,
       "status": "error",
       "error": "HTTP Error 404: Not Found",
-      "healthStatus": "unknown"
+      "healthStatus": "degraded"
     }
   ],
   "healthChecks": {
     "enabled": true,
     "total": 8,
     "healthy": 1,
-    "degraded": 0,
+    "degraded": 7,
     "offline": 0,
-    "unknown": 7
+    "unknown": 0
   },
   "catalog": {
     "movies": null,

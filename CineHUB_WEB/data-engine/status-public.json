@@ -1,18 +1,18 @@
 {
   "schemaVersion": "1.0.0",
-  "status": "updated",
-  "updatedAt": "2026-10-06T05:19:59Z",
+  "status": "health_changed",
+  "updatedAt": "2026-10-07T11:10:29Z",
   "engine": {
     "phase": 8,
-    "lastRunAt": "2026-10-06T05:17:46Z",
+    "lastRunAt": "2026-10-07T11:07:16Z",
     "publication": "cloudflare-pages-compatible"
   },
   "sources": {
     "total": 8,
     "healthy": 1,
-    "degraded": 0,
+    "degraded": 7,
     "offline": 0,
-    "unknown": 7
+    "unknown": 0
   },
   "catalog": {
     "movies": 64015,
@@ -21,9 +21,9 @@
   },
   "epg": {
     "status": "healthy",
-    "lastRefresh": "2026-10-06T04:56:50.650265Z",
+    "lastRefresh": "2026-10-06T12:06:11.433905Z",
     "channelsWithPrograms": 451,
-    "programs": 27186
+    "programs": 26990
   },
   "publication": {
     "manifest": "/data-engine/manifest.json",
