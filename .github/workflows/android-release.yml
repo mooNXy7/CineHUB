@@ -7,7 +7,7 @@ permissions:
   contents: write
 jobs:
   release:
-    if: "github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, 'fix(tv)') || contains(github.event.head_commit.message, 'feat(tv)')"
+    if: "github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -80,6 +80,26 @@ jobs:
           d.update({"version":"1.2.0","versionCode":120,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.2.0","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.2.0/CineHUB-TV-v1.2.0.apk","sha256":"$SHA","channel":"stable"})
           open(p,"w",encoding="utf-8").write(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
           PY
+      - name: Persist OTA manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          SHA="$(sha256sum release/CineHUB-TV-v1.2.0.apk | awk '{print $1}')"
+          python3 - <<PY
+          import json
+          p="CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json"
+          d=json.load(open(p,encoding="utf-8"))
+          d.update({"version":"1.2.0","versionCode":120,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.2.0","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.2.0/CineHUB-TV-v1.2.0.apk","sha256":"$SHA","channel":"stable"})
+          open(p,"w",encoding="utf-8").write(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
+          PY
+          if ! git diff --quiet -- CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json
+            git commit -m "fix(tv): persist OTA checksum for v1.2.0"
+            git push origin HEAD:main
+          fi
+
       - name: Publish CineHUB TV v1.2.0
         uses: softprops/action-gh-release@v2
         with:
