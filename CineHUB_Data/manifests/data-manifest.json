@@ -1,9 +1,9 @@
 {
   "schemaVersion": "1.0.0",
-  "manifestVersion": 3,
+  "manifestVersion": 4,
   "name": "CineHUB Data Manifest",
   "generatedBy": "CineHUB Data Engine Phase 2",
-  "generatedAt": "2026-10-07T11:07:16Z",
+  "generatedAt": "2026-10-08T11:24:52Z",
   "publication": {
     "mode": "cloudflare-pages",
     "automatic": true,
