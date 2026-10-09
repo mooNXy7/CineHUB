@@ -1,12 +1,12 @@
 {
   "schemaVersion": "1.0.0",
-  "status": "health_changed",
-  "updatedAt": "2026-10-08T11:24:52Z",
+  "status": "no_changes",
+  "updatedAt": "2026-10-09T11:21:46Z",
   "engine": {
     "phase": 3,
     "mode": "source-health-check",
-    "lastRunAt": "2026-10-08T11:24:52Z",
-    "changed": true
+    "lastRunAt": "2026-10-09T11:21:46Z",
+    "changed": false
   },
   "sources": {
     "checked": 8,
@@ -18,7 +18,7 @@
     {
       "id": "ramys-br-01",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR01.m3u8",
-      "checkedAt": "2026-10-08T11:24:52Z",
+      "checkedAt": "2026-10-09T11:21:46Z",
       "changed": false,
       "status": "error",
       "error": "response exceeds 26214400 bytes",
@@ -27,7 +27,7 @@
     {
       "id": "ramys-br-02",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR02.m3u8",
-      "checkedAt": "2026-10-08T11:24:52Z",
+      "checkedAt": "2026-10-09T11:21:46Z",
       "changed": false,
       "status": "error",
       "error": "response exceeds 26214400 bytes",
@@ -36,7 +36,7 @@
     {
       "id": "ramys-br-03",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR03.m3u8",
-      "checkedAt": "2026-10-08T11:24:52Z",
+      "checkedAt": "2026-10-09T11:21:46Z",
       "changed": false,
       "status": "error",
       "error": "response exceeds 26214400 bytes",
@@ -45,7 +45,7 @@
     {
       "id": "ramys-br-04",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR04.m3u8",
-      "checkedAt": "2026-10-08T11:24:52Z",
+      "checkedAt": "2026-10-09T11:21:46Z",
       "changed": false,
       "status": "error",
       "error": "response exceeds 26214400 bytes",
@@ -54,20 +54,20 @@
     {
       "id": "ramys-br-05",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisBR05.m3u8",
-      "checkedAt": "2026-10-08T11:24:52Z",
+      "checkedAt": "2026-10-09T11:21:46Z",
       "changed": false,
       "status": "unchanged",
       "healthStatus": "healthy",
       "httpStatus": 200,
       "bytes": 10913,
-      "latency": 92.89,
+      "latency": 69.94,
       "contentType": "text/plain; charset=utf-8",
       "sha256": "81f9b70babfe327685da09ade1d8df2386e84fbd1e224fe16a24bf265d088fc8"
     },
     {
       "id": "ramys-filmes-series",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/Filmes-Series.m3u8",
-      "checkedAt": "2026-10-08T11:24:52Z",
+      "checkedAt": "2026-10-09T11:21:46Z",
       "changed": false,
       "status": "error",
       "error": "response exceeds 26214400 bytes",
@@ -76,7 +76,7 @@
     {
       "id": "ramys-europa",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisEuropa.m3u8",
-      "checkedAt": "2026-10-08T11:24:52Z",
+      "checkedAt": "2026-10-09T11:21:46Z",
       "changed": false,
       "status": "error",
       "error": "HTTP Error 404: Not Found",
@@ -85,7 +85,7 @@
     {
       "id": "ramys-italia",
       "url": "https://raw.githubusercontent.com/Ramys/Iptv-Brasil-2026/master/CanaisItalia.m3u8",
-      "checkedAt": "2026-10-08T11:24:52Z",
+      "checkedAt": "2026-10-09T11:21:46Z",
       "changed": false,
       "status": "error",
       "error": "HTTP Error 404: Not Found",
