@@ -1,4 +1,4 @@
-const CACHE='cinehub-tv-1.2.0-runtime';
+const CACHE='cinehub-tv-1.2.3-runtime';
 const CORE=['./','./index.html','./manifest.json','./src/css/base/reset.css','./src/css/tv/reconstruction.css','./src/js/performance.js','./src/js/data-engine.js','./src/js/largecatalog.js','./src/js/webdata.js','./src/js/integracoes.js','./src/js/epg.js','./src/js/providers/megaembed.js','./src/js/engine/state.js','./src/js/engine/catalog-service.js','./src/js/engine/live-service.js','./src/js/engine/player-service.js','./src/js/adapters/content-adapter.js','./src/js/adapters/live-adapter.js','./src/js/tv/navigation.js','./src/js/tv/app.js','./dados/conteudo/manifest.js','./dados/canais.js','./dados/canais-m3u8.js','./update.json'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(CACHE).then(async c=>{for(const u of CORE){try{await c.add(u)}catch(err){}}}).then(()=>self.skipWaiting()))});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()))});
