@@ -12,6 +12,9 @@ on:
   pull_request_target:
     types: [opened, synchronize]
     branches: [main]
+    paths:
+      - 'CineHUB_OFC-PT1.zip'
+      - 'CineHUB_OFC-PT2.zip'
 
 permissions:
   contents: write
