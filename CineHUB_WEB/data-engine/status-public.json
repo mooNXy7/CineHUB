@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0.0",
   "status": "no_changes",
-  "updatedAt": "2026-10-09T11:24:50Z",
+  "updatedAt": "2026-10-10T10:41:54Z",
   "engine": {
     "phase": 8,
-    "lastRunAt": "2026-10-09T11:21:46Z",
+    "lastRunAt": "2026-10-10T10:39:01Z",
     "publication": "cloudflare-pages-compatible"
   },
   "sources": {
@@ -21,9 +21,9 @@
   },
   "epg": {
     "status": "healthy",
-    "lastRefresh": "2026-10-08T12:06:48.351177Z",
-    "channelsWithPrograms": 485,
-    "programs": 26808
+    "lastRefresh": "2026-10-09T11:58:31.587743Z",
+    "channelsWithPrograms": 488,
+    "programs": 26882
   },
   "publication": {
     "manifest": "/data-engine/manifest.json",
