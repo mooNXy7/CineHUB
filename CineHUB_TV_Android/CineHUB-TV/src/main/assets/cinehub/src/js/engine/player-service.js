@@ -30,6 +30,7 @@
     const direct=playbackCandidates([...(Array.isArray(item?.sources)?item.sources:[]),item?.stream,item?.video]);
     window.CineHUBEngineState?.bumpWatched?.(item);if(type==='series')window.CineHUBEngineState?.saveLastEpisode?.({titulo:item.titulo,season:opts.season||1,episode:opts.episode||1});
     if(direct.length){state.sources=direct;return playDirect(target,item,direct,0,opts.onEvent)}
+    if(type==='live')throw new Error('Este canal não possui uma URL de transmissão válida. Atualize as fontes ou escolha outro canal.');
     const candidates=window.CineHUBMegaEmbed?.candidates?.(type,item,opts.season||1,opts.episode||1)||[];if(!candidates.length)throw new Error('Nenhuma fonte disponível');
     destroy();target.video.pause();target.video.removeAttribute('src');target.video.load();target.video.style.display='none';if(target.iframe){target.iframe.style.display='block';target.loading?.(true,type==='series'?'Preparando T'+String(opts.season||1).padStart(2,'0')+'E'+String(opts.episode||1).padStart(2,'0')+'…':'Preparando reprodução…')}
     const token=++state.token;for(let i=0;i<candidates.length;i++){
