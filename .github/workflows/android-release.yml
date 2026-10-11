@@ -1,4 +1,4 @@
-name: CineHUB TV 1.2.4 Release
+name: CineHUB TV 1.2.5 Release
 on:
   push:
     branches: ["main"]
@@ -70,44 +70,44 @@ jobs:
         run: |
           set -euo pipefail
           APK="$(find CineHUB_TV_Android/CineHUB-TV/build/outputs/apk/release -maxdepth 1 -type f -name '*.apk' | head -n 1)"
-          mkdir -p release; cp "$APK" release/CineHUB-TV-v1.2.4.apk; cp "$APK" release/CineHUB-TV.apk
-          sha256sum release/CineHUB-TV-v1.2.4.apk release/CineHUB-TV.apk > release/SHA256SUMS.txt
-          SHA="$(sha256sum release/CineHUB-TV-v1.2.4.apk | awk '{print $1}')"
+          mkdir -p release; cp "$APK" release/CineHUB-TV-v1.2.5.apk; cp "$APK" release/CineHUB-TV.apk
+          sha256sum release/CineHUB-TV-v1.2.5.apk release/CineHUB-TV.apk > release/SHA256SUMS.txt
+          SHA="$(sha256sum release/CineHUB-TV-v1.2.5.apk | awk '{print $1}')"
           python3 - <<PY
           import json
           p="CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json"
           d=json.load(open(p,encoding="utf-8"))
-          d.update({"version":"1.2.4","versionCode":124,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.2.4","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.2.4/CineHUB-TV-v1.2.4.apk","sha256":"$SHA","channel":"stable"})
+          d.update({"version":"1.2.5","versionCode":125,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.2.5","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.2.5/CineHUB-TV-v1.2.5.apk","sha256":"$SHA","channel":"stable"})
           open(p,"w",encoding="utf-8").write(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
           PY
       - name: Persist OTA manifest
         shell: bash
         run: |
           set -euo pipefail
-          SHA="$(sha256sum release/CineHUB-TV-v1.2.4.apk | awk '{print $1}')"
+          SHA="$(sha256sum release/CineHUB-TV-v1.2.5.apk | awk '{print $1}')"
           python3 - <<PY
           import json
           p="CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json"
           d=json.load(open(p,encoding="utf-8"))
-          d.update({"version":"1.2.4","versionCode":124,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.2.4","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.2.4/CineHUB-TV-v1.2.4.apk","sha256":"$SHA","channel":"stable"})
+          d.update({"version":"1.2.5","versionCode":125,"releaseUrl":"https://github.com/mooNXy7/CineHUB/releases/tag/v1.2.5","apkUrl":"https://github.com/mooNXy7/CineHUB/releases/download/v1.2.5/CineHUB-TV-v1.2.5.apk","sha256":"$SHA","channel":"stable"})
           open(p,"w",encoding="utf-8").write(json.dumps(d,indent=2,ensure_ascii=False)+"\n")
           PY
           if ! git diff --quiet -- CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add CineHUB_TV_Android/CineHUB-TV/src/main/assets/cinehub/update.json
-            git commit -m "fix(tv): persist OTA checksum for v1.2.4"
+            git commit -m "fix(tv): persist OTA checksum for v1.2.5"
             git push origin HEAD:main
           fi
 
-      - name: Publish CineHUB TV v1.2.4
+      - name: Publish CineHUB TV v1.2.5
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.2.4
+          tag_name: v1.2.5
           target_commitish: main
-          name: CineHUB TV v1.2.4 — Dedicated TV experience
+          name: CineHUB TV v1.2.5 — Dedicated TV experience
           files: |
-            release/CineHUB-TV-v1.2.4.apk
+            release/CineHUB-TV-v1.2.5.apk
             release/CineHUB-TV.apk
             release/SHA256SUMS.txt
           generate_release_notes: true
