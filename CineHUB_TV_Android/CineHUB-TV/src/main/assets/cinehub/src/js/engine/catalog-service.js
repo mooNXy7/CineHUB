@@ -34,11 +34,11 @@
     if(type==='series'){
       const need=offset+limit,seen=new Map();let guard=0;
       const add=arr=>{for(const raw of (arr||[])){const title=normalizeSeriesTitle(raw?.titulo||raw?.nome);if(!title)continue;const key=title.toLocaleLowerCase('pt-BR');let x=seen.get(key);if(!x){x={...raw,titulo:title,__type:'series',tipo:'series',files:[]};seen.set(key,x)}if(raw?.arquivo&&!x.files.includes(raw.arquivo))x.files.push(raw.arquivo);if(raw?.stream){x.sources=[...(x.sources||[]),raw.stream]}}};
-      if(category==='__featured'){add(await large.featured('series'));return [...seen.values()].slice(offset,need).map(x=>normalize(x,'series'));}
+      if(category==='__featured'){try{add(await large.featured('series'))}catch{}if(!seen.size){const cats=(large.categories?.('series')||[]).map(x=>typeof x==='string'?x:x?.name).filter(Boolean);for(const name of cats){try{add(await large.first(name))}catch{}if(seen.size>=need)break}}return [...seen.values()].slice(offset,need).map(x=>normalize(x,'series'));}
       while(seen.size<need && guard<64){const chunk=guard===0?await large.first(category):await large.next(category);if(!chunk.length)break;add(chunk);guard++}
       return [...seen.values()].slice(offset,need).map(x=>normalize(x,'series'));
     }
-    if(category==='__featured')return (await large.featured(type)).slice(offset,offset+limit).map(x=>normalize(x,type));
+    if(category==='__featured'){let featured=[];try{featured=await large.featured(type)}catch{}if(!featured.length){const cats=(large.categories?.(type)||[]).map(x=>typeof x==='string'?x:x?.name).filter(Boolean);for(const name of cats){try{featured=await large.first(name)}catch{}if(featured.length)break}}return featured.slice(offset,offset+limit).map(x=>normalize(x,type));}
     if(offset===0)return (await large.first(category)).slice(0,limit).map(x=>normalize(x,type));
     const chunks=[];let cursor=0;
     while(cursor<offset+limit){const x=await large.next(category);if(!x.length)break;chunks.push(...x);cursor+=x.length;if(chunks.length>=offset+limit)break;}
