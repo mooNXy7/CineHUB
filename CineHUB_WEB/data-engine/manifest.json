@@ -2,14 +2,14 @@
   "schemaVersion": "1.0.0",
   "engine": "CineHUB Data Engine",
   "publicationVersion": 1,
-  "generatedAt": "2026-10-12T12:07:03Z",
+  "generatedAt": "2026-10-13T11:54:45Z",
   "basePath": "/data-engine/",
   "atomic": true,
   "datasets": {
     "status.json": {
       "path": "data-engine/status.json",
-      "bytes": 3755,
-      "sha256": "3b47b264b22cc0c562ac41683d0434a2a2a02f49ff499bf6b638cbb9fd69f16b"
+      "bytes": 3754,
+      "sha256": "a1c67e526712715a5ec3f867b8875955e2a29606a5a8d62f9343cd29bb009ac8"
     },
     "sources.json": {
       "path": "data-engine/sources.json",
@@ -53,13 +53,13 @@
     },
     "epg/schedule.index.json": {
       "path": "data-engine/epg/schedule.index.json",
-      "bytes": 9395719,
-      "sha256": "a9ec87ce2456fda903c92d978eb18f6bbcb39dc1493702e6f625733049b77652"
+      "bytes": 9938491,
+      "sha256": "f6eb8cdea820a6be19e21db46002efb43d4fc85739cd876fa09f0ff38056fce5"
     },
     "epg/status.json": {
       "path": "data-engine/epg/status.json",
       "bytes": 883,
-      "sha256": "9aa5e3bf21fd091a489dbef8d86c3a044426afe91ff5ccfe873c8151f0a4dceb"
+      "sha256": "dd145b54503c33dd447134d07950575e727c828b59863bf9174a4fea0de3cedc"
     }
   },
   "capabilities": {
