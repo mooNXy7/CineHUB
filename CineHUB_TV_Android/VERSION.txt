@@ -1,4 +1,0 @@
-CineHUB TV 1.0.0 — Primeira versão oficial
-VersionCode: 100
-Canal: stable
-Arquitetura: Android TV + WebView + GitHub Releases + Cloudflare Pages

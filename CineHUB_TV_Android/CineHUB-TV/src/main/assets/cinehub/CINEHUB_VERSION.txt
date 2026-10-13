@@ -1,3 +1,0 @@
-CineHUB TV 1.0.9 — Dedicated TV streaming interface
-TV-first 16:9 layout, D-pad navigation and stable CineHUB content engine.
-Web/Mobile presentation remains untouched.

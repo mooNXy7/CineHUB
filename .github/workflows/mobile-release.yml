@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - 'CineHUB_Mobile_Android/**'
+      - 'CineHUB_Assets/**'
       - '.github/workflows/mobile-release.yml'
 
 concurrency:
@@ -81,13 +82,13 @@ jobs:
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "code=$CODE" >> "$GITHUB_OUTPUT"
 
-      - name: Use official CineHUB Web logo
+      - name: Use official CineHUB icon
         if: env.SIGNING_READY == 'true'
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p CineHUB_Mobile_Android/app/src/main/res/drawable
-          cp CineHUB_WEB/assets/logos/icon-512.png CineHUB_Mobile_Android/app/src/main/res/drawable/ic_cinehub_official.png
+          cp CineHUB_Assets/adaptive_icon.png CineHUB_Mobile_Android/app/src/main/res/drawable/ic_cinehub_official.png
 
       - name: Build CineHUB Mobile APK
         if: env.SIGNING_READY == 'true'
