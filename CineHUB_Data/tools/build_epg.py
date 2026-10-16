@@ -22,7 +22,7 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[2]
 REGISTRY_PATH = ROOT / "CineHUB_Data/sources/registry.json"
-CHANNELS_PATH = ROOT / "CineHUB_Data/resolved/channels.json"
+CHANNELS_PATH = Path(os.environ.get("CINEHUB_EPG_CHANNELS_PATH", str(ROOT / "CineHUB_Data/resolved/channels.json")))
 OUTPUT_DIR = ROOT / "CineHUB_Data/epg"
 CACHE_DIR = ROOT / "CineHUB_Data/.cache/epg"
 OUTPUT_PATH = OUTPUT_DIR / "schedule.index.json"
@@ -128,6 +128,14 @@ def channel_map() -> tuple[dict[str, str], dict[str, dict]]:
         for value in values:
             if value:
                 by_key[canonical(value)] = cid
+        # The shared ACERVO may expose a different XMLTV ID per feed. Resolve
+        # every one to the same stable CineHUB channel ID.
+        epg_id = ch.get("epg_id")
+        if epg_id:
+            by_key[str(epg_id).casefold()] = cid
+        for epg_source in ch.get("epg_sources", []):
+            if isinstance(epg_source, dict) and epg_source.get("channel_id"):
+                by_key[str(epg_source["channel_id"]).casefold()] = cid
         for src in ch.get("sources", []):
             tvgid = src.get("tvgId")
             if tvgid:
