@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "registryVersion": 6,
+  "registryVersion": 7,
   "name": "CineHUB Sources Registry",
   "description": "Registro central de fontes de canais, catálogos e EPG do CineHUB, com prioridades, health checks e fallback.",
   "refreshPolicy": {
@@ -273,14 +273,28 @@
   ],
   "epgSources": [
     {
+      "id": "pluto-br-xmltv",
+      "name": "Pluto TV Brasil",
+      "kind": "xmltv",
+      "scope": "epg",
+      "transport": "remote",
+      "url": "https://raw.githubusercontent.com/matthuisman/i.mjh.nz/master/PlutoTV/br.xml",
+      "enabled": true,
+      "priority": 5,
+      "description": "Only for channels whose stream URL or logo carries a Pluto channel ID.",
+      "sourceRegistry": "CineHUB-ACERVO"
+    },
+    {
       "id": "brazil-tv-epg",
-      "name": "EPG-Scrapper-BR · merged",
+      "name": "EPG Brasil — catálogo combinado",
       "kind": "xmltv",
       "scope": "epg",
       "transport": "remote",
       "url": "https://raw.githubusercontent.com/marcoshimselfxd/EPG-Scrapper-BR/main/epg.xml",
       "enabled": true,
-      "priority": 1
+      "priority": 25,
+      "description": "Feed XMLTV combinado já utilizado pelo pipeline de dados do CineHUB; fallback geral.",
+      "sourceRegistry": "CineHUB-ACERVO"
     },
     {
       "id": "iptv-epg-br",
@@ -290,8 +304,9 @@
       "transport": "remote",
       "url": "https://iptv-epg.org/files/epg-br.xml",
       "enabled": true,
-      "priority": 2,
-      "description": "Feed XMLTV brasileiro; fonte de fallback e enriquecimento."
+      "priority": 30,
+      "description": "General XMLTV fallback and metadata enrichment; explicit mappings take precedence.",
+      "sourceRegistry": "CineHUB-ACERVO"
     },
     {
       "id": "open-epg-br",
@@ -301,38 +316,9 @@
       "transport": "remote",
       "url": "https://www.open-epg.com/files/brazil3.xml",
       "enabled": true,
-      "priority": 3,
-      "description": "Feed XMLTV secundário; preenche lacunas."
-    },
-    {
-      "id": "iptv-org-br-mi-tv",
-      "name": "iptv-org · Brazil / mi.tv",
-      "kind": "xmltv",
-      "scope": "epg",
-      "transport": "remote",
-      "url": "https://iptv-org.github.io/epg/guides/br/mi.tv.epg.xml",
-      "enabled": false,
-      "priority": 4,
-      "lastProbe": {
-        "httpStatus": 404,
-        "checkedAt": "2026-10-16T01:10:43Z"
-      },
-      "description": "Desativada após HTTP 404 confirmado; reativar somente após corrigir e testar a URL."
-    },
-    {
-      "id": "iptv-com-brazil",
-      "name": "IPTV-com · Brazil",
-      "kind": "xmltv",
-      "scope": "epg",
-      "transport": "remote",
-      "url": "https://raw.githubusercontent.com/iptv-com/epg/main/guides/brazil.xml",
-      "enabled": false,
-      "priority": 5,
-      "lastProbe": {
-        "httpStatus": 404,
-        "checkedAt": "2026-10-16T01:10:43Z"
-      },
-      "description": "Desativada após HTTP 404 confirmado; reativar somente após corrigir e testar a URL."
+      "priority": 40,
+      "description": "Secondary XMLTV fallback and metadata enrichment.",
+      "sourceRegistry": "CineHUB-ACERVO"
     }
   ]
 }
