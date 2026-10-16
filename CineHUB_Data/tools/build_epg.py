@@ -320,6 +320,32 @@ def merge_schedules(source_results: list[tuple[dict, dict]]) -> dict:
     return out
 
 
+def build_guide_index(channels: list[dict], now: datetime, limit: int = 8) -> dict:
+    """Create a small client-friendly guide with the next programmes per channel."""
+    output = []
+    for channel in channels:
+        programmes = []
+        for item in channel.get("programs", []):
+            end = parse_dt(item.get("end", ""))
+            if not end or end <= now:
+                continue
+            programmes.append(item)
+        programmes.sort(key=lambda x: (x.get("start", ""), x.get("end", "")))
+        if programmes:
+            output.append({
+                "id": channel.get("id"),
+                "name": channel.get("name"),
+                "programs": programmes[:limit],
+            })
+    return {
+        "schemaVersion": "1.0.0",
+        "generatedAt": now.isoformat().replace("+00:00", "Z"),
+        "windowHours": HORIZON_HOURS,
+        "programsPerChannel": limit,
+        "channels": output,
+    }
+
+
 def run() -> int:
     registry = load(REGISTRY_PATH, {})
     lookup, meta = channel_map()
@@ -464,6 +490,8 @@ def run() -> int:
         "channels": channels,
     }
     save(OUTPUT_PATH, output)
+    guide_output = build_guide_index(channels, now, limit=8)
+    save(GUIDE_OUTPUT_PATH, guide_output)
 
     detailed = source_states
 

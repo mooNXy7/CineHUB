@@ -5,7 +5,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from unittest.mock import patch
 
-from build_epg import canonical, channel_map, merge_schedules, parse_dt, parse_source
+from build_epg import build_guide_index, canonical, channel_map, merge_schedules, parse_dt, parse_source
 
 
 class EPGEngineTests(unittest.TestCase):
@@ -48,6 +48,18 @@ class EPGEngineTests(unittest.TestCase):
         )
         self.assertEqual(stats["channelsMatched"], 1)
         self.assertEqual(schedules["channel-globo"][0]["title"], "Jornal")
+
+    def test_guide_index_is_compact_and_discards_expired_programmes(self):
+        now = datetime(2026, 10, 6, 12, 0, tzinfo=timezone.utc)
+        programs = [
+            {"start": "2026-10-06T10:00:00Z", "end": "2026-10-06T11:00:00Z", "title": "Expired"},
+            *[{"start": f"2026-10-06T{13 + i:02d}:00:00Z", "end": f"2026-10-06T{14 + i:02d}:00:00Z", "title": f"Show {i}"} for i in range(10)],
+        ]
+        guide = build_guide_index([{"id": "channel-1", "name": "Channel", "programs": programs}], now, limit=8)
+        self.assertEqual(len(guide["channels"]), 1)
+        self.assertEqual(len(guide["channels"][0]["programs"]), 8)
+        self.assertEqual(guide["channels"][0]["programs"][0]["title"], "Show 0")
+        self.assertEqual(guide["programsPerChannel"], 8)
 
     def test_merge_prefers_priority_and_fills_gaps(self):
         source_a = {
