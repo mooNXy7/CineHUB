@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.1.0",
   "generatedBy": "CineHUB Data Engine Phase 7",
-  "generatedAt": "2026-10-16T01:14:07.330635Z",
+  "generatedAt": "2026-10-16T01:19:19.306691Z",
   "window": {
-    "start": "2026-10-16T01:14:07.330635Z",
-    "end": "2026-10-18T01:14:07.330635Z",
+    "start": "2026-10-16T01:19:19.306691Z",
+    "end": "2026-10-18T01:19:19.306691Z",
     "hours": 48
   },
   "policy": {
@@ -24,7 +24,7 @@
     "channelsKnown": 3019,
     "channelsWithPrograms": 799,
     "channelsWithoutPrograms": 2220,
-    "programs": 38941
+    "programs": 38910
   },
   "channels": [
     {
@@ -846,14 +846,6 @@
       "id": "ch-24h-as-tartarugas-ninja-s05",
       "name": "[24H] As Tartarugas Ninja [S05]",
       "programs": [
-        {
-          "start": "2026-10-16T00:51:00Z",
-          "end": "2026-10-16T01:18:00Z",
-          "title": "As Tartarugas Ninja",
-          "subtitle": "Cidade em guerra",
-          "description": "April enfrenta uma nova e mortal inimiga quando se forma como uma Kunoichi.",
-          "category": "Children"
-        },
         {
           "start": "2026-10-16T01:18:00Z",
           "end": "2026-10-16T01:45:00Z",
@@ -2961,14 +2953,6 @@
       "id": "ch-24h-mr-bean",
       "name": "[24H] Mr. Bean",
       "programs": [
-        {
-          "start": "2026-10-16T01:03:31Z",
-          "end": "2026-10-16T01:15:31Z",
-          "title": "Mr. Bean",
-          "subtitle": "À vontade",
-          "description": "A Irma vai jantar aqui, mas o Sr. Bean esqueceu-se disso e, por isso, não tem nada para preparar.",
-          "category": "Comedy"
-        },
         {
           "start": "2026-10-16T01:15:31Z",
           "end": "2026-10-16T01:27:31Z",
@@ -20817,14 +20801,6 @@
       "name": "Band Roraima HD",
       "programs": [
         {
-          "start": "2026-10-16T00:20:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Show da Fé",
-          "subtitle": null,
-          "description": "Acompanhe depoimentos, testemunhos e histórias surpreendentes de amor e de superação. Com uma ótica cristã, o programa leva o Evangelho de Jesus Cristo aos quatro cantos do mundo e difunde a reveladora Palavra de Deus.",
-          "category": "Religioso"
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:45:00Z",
           "title": "Perrengue do Dia",
@@ -33009,14 +32985,6 @@
       "name": "Box Kids",
       "programs": [
         {
-          "start": "2026-10-16T01:13:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Mabô e Fifi",
-          "subtitle": "Achou! - Ovelha",
-          "description": "Em uma divertida brincadeira, conheça e aprenda a imitar o som da ovelha.",
-          "category": null
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:20:00Z",
           "title": "Box Brazil Play News",
@@ -36406,14 +36374,6 @@
       "id": "br.box-kids-tv",
       "name": "Box Kids TV",
       "programs": [
-        {
-          "start": "2026-10-16T01:13:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Mabô e Fifi : Achou! - Ovelha",
-          "subtitle": null,
-          "description": "Em uma divertida brincadeira, conheça e aprenda a imitar o som da ovelha.",
-          "category": null
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:20:00Z",
@@ -42194,14 +42154,6 @@
       "id": "channel-1a3ed2ab94e0c0a3",
       "name": "BR - Disney Channel",
       "programs": [
-        {
-          "start": "2026-10-16T00:53:00Z",
-          "end": "2026-10-16T01:19:00Z",
-          "title": "Os Vizinhos Green",
-          "subtitle": null,
-          "description": "Children Acompanhe as aventuras do travesso e otimista Críquete ao lado de sua família na cidade grande.",
-          "category": null
-        },
         {
           "start": "2026-10-16T01:19:00Z",
           "end": "2026-10-16T01:45:00Z",
@@ -62183,22 +62135,6 @@
       "name": "Canal Brasil SD",
       "programs": [
         {
-          "start": "2026-10-16T00:00:00Z",
-          "end": "2026-10-16T01:16:00Z",
-          "title": "Cadernos Negros",
-          "subtitle": null,
-          "description": "A história da série literária Cadernos Negros, criada em 1978 por escritores em São Paulo dentro do Movimento Negro Unificado (MNU). A série, que lançou o número 45 em 2024, surgiu em um momento crucial, quando a população negra buscava espaço e representatividade em diversas esferas da sociedade brasileira. O Quilombhoje, grupo responsável pela iniciativa, propõe o debate sobre o apagamento do negro e sua representação distorcida na literatura brasileira.",
-          "category": "Documentary"
-        },
-        {
-          "start": "2026-10-16T00:00:00Z",
-          "end": "2026-10-16T01:16:00Z",
-          "title": "Sessão Especial Mostra De São Paulo: Cadernos Negros",
-          "subtitle": null,
-          "description": null,
-          "category": "Filme"
-        },
-        {
           "start": "2026-10-16T01:16:00Z",
           "end": "2026-10-16T01:30:00Z",
           "title": "Noturnas - Memórias do Transformismo Carioca",
@@ -68869,14 +68805,6 @@
       "name": "CARTOON HD.br",
       "programs": [
         {
-          "start": "2026-10-16T01:00:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Apenas um Show: As Fitas Perdidas",
-          "subtitle": "Bloqueio Criativo",
-          "description": "Mordecai leva um susto ao encontrar alguém de quem ele já foi babá.",
-          "category": null
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:30:00Z",
           "title": "Apenas um Show: As Fitas Perdidas",
@@ -75378,14 +75306,6 @@
       "name": "Chef TV",
       "programs": [
         {
-          "start": "2026-10-16T01:05:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Cheftv Conceito",
-          "subtitle": null,
-          "description": "Interprogramas diferenciados e chamadas que mostram a programação do canal de forma descontraída.",
-          "category": "Especial"
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:30:00Z",
           "title": "O Pão Nosso de Cada Dia",
@@ -77232,6 +77152,14 @@
           "subtitle": null,
           "description": "A cada episódio um influencer apaixonado por gastronomia assume a cozinha para mostrar seu talento, suas receitas favoritas, criatividade e habilidades na cozinha. Uma verdadeira vitrine para quem vive e compartilha o amor pela culinária.",
           "category": "Cooking"
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T01:30:00Z",
+          "title": "O Pão Nosso de Cada Dia",
+          "subtitle": null,
+          "description": "O chef Michel Darqué prepara receitas de pães, brioches, croissants e baguetes de diversos tipos, além dos mais variados recheios.",
+          "category": "Cooking"
         }
       ]
     },
@@ -78761,14 +78689,6 @@
       "id": "ch-cnn-brasil-money-4k",
       "name": "CNN Brasil Money 4K",
       "programs": [
-        {
-          "start": "2026-10-15T23:15:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "CNN Fechamento de Mercado",
-          "subtitle": null,
-          "description": null,
-          "category": "Jornalismo"
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T02:00:00Z",
@@ -81837,14 +81757,6 @@
       "name": "Combate SD",
       "programs": [
         {
-          "start": "2026-10-15T21:15:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Ippon - Ep. 3",
-          "subtitle": null,
-          "description": "Acompanha os grandes nomes deste esporte ao longo do ciclo olímpico que culmina em Los Angeles 28.",
-          "category": null
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T05:15:00Z",
           "title": "Ippon - Ep. 3",
@@ -84889,14 +84801,6 @@
       "name": "Deutsche Welle",
       "programs": [
         {
-          "start": "2026-10-16T01:00:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "DW Noticias",
-          "subtitle": null,
-          "description": null,
-          "category": "Jornalismo"
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:30:00Z",
           "title": "Economía",
@@ -85735,6 +85639,14 @@
           "subtitle": null,
           "description": null,
           "category": "Jornalismo"
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T01:30:00Z",
+          "title": "Economía",
+          "subtitle": null,
+          "description": null,
+          "category": "Documentário"
         }
       ]
     },
@@ -87016,6 +86928,14 @@
           "subtitle": null,
           "description": "S3 E14 — Enfim, o Grande Dia A jornada de Baylen Dupree, uma jovem que vive com um caso extremo de Síndrome de Tourette. Apesar dos desafios, ela e a família não têm medo de rirem e de abraçarem o caos.",
           "category": null
+        },
+        {
+          "start": "2026-10-18T01:19:00Z",
+          "end": "2026-10-18T02:08:00Z",
+          "title": "Irmãos à Obra - Sob Pressão",
+          "subtitle": null,
+          "description": "S1 E6 — O Preço da Dúvida Um casal achava que tinha encontrado a casa perfeita, mas a planta do lugar causa atritos entre eles. Eles recorrem a Jonathan e Drew para decidir se ficam ou se arriscam recomeçar em uma casa nova.",
+          "category": null
         }
       ]
     },
@@ -88188,14 +88108,6 @@
       "id": "ch-discovery-kids-sd",
       "name": "Discovery Kids SD",
       "programs": [
-        {
-          "start": "2026-10-16T00:55:00Z",
-          "end": "2026-10-16T01:18:00Z",
-          "title": "Peppa",
-          "subtitle": "Segredos; Sapatos Novos; Minha...",
-          "description": "A mamãe faz uma caixa especial para que Peppa guarde coisas secretas; mamãe compra um belo par de sapatos para Peppa; a prima de Peppa, um pouco mais velha do que ela, a visita;…",
-          "category": null
-        },
         {
           "start": "2026-10-16T00:57:00Z",
           "end": "2026-10-16T01:20:00Z",
@@ -91081,14 +90993,6 @@
       "id": "ch-discovery-turbo-sd",
       "name": "Discovery Turbo SD",
       "programs": [
-        {
-          "start": "2026-10-16T00:31:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Oficina do Barulho",
-          "subtitle": "Uma Aventura Jurássica",
-          "description": "Chris Pratt, astro do filme \"Jurassic World - O Mundo dos Dinossauros\", encomenda uma motocicleta inspirada nos répteis pré-históricos, a equipe da Fired Up Garage tem a chance…",
-          "category": null
-        },
         {
           "start": "2026-10-16T01:00:00Z",
           "end": "2026-10-16T01:48:00Z",
@@ -94627,14 +94531,6 @@
       "name": "DW (Deutsche Welle)",
       "programs": [
         {
-          "start": "2026-10-16T01:00:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "DW Noticias",
-          "subtitle": null,
-          "description": "DW Notícias vai a fundo, fornecendo as principais histórias da Europa e de todo o mundo.",
-          "category": null
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:30:00Z",
           "title": "Economía",
@@ -95473,6 +95369,14 @@
           "subtitle": null,
           "description": "DW Notícias vai a fundo, fornecendo as principais histórias da Europa e de todo o mundo.",
           "category": null
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T01:30:00Z",
+          "title": "Economía",
+          "subtitle": null,
+          "description": "Uma visão europeia do mundo da economia e dos negócios. Fatos, análises e histórias reais dos principais locais financeiros, dos principais mercados e das empresas líderes.",
+          "category": null
         }
       ]
     },
@@ -95480,14 +95384,6 @@
       "id": "channel-cfa79ff18a21daad",
       "name": "DW-TV.br",
       "programs": [
-        {
-          "start": "2026-10-16T01:00:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "DW Noticias",
-          "subtitle": null,
-          "description": "DW Notícias vai a fundo, fornecendo as principais histórias da Europa e de todo o mundo.",
-          "category": null
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:30:00Z",
@@ -101012,14 +100908,6 @@
       "id": "channel-6d480d2c5a14cbf2",
       "name": "Estado Paranormal",
       "programs": [
-        {
-          "start": "2026-10-16T00:54:00Z",
-          "end": "2026-10-16T01:19:00Z",
-          "title": "Estado Paranormal",
-          "subtitle": "Eles Só Saem À Noite",
-          "description": "Assim que a noite cai em uma pitoresca cidade da Nova Inglaterra, a família de um oficial da polícia é aterrorizada por demônios. A PRS chega bem na hora em que a família está prestes a evacuar sua casa.",
-          "category": "Paranormal"
-        },
         {
           "start": "2026-10-16T01:19:00Z",
           "end": "2026-10-16T01:44:00Z",
@@ -106971,14 +106859,6 @@
       "programs": [
         {
           "start": "2026-10-16T00:53:00Z",
-          "end": "2026-10-16T01:18:00Z",
-          "title": "Fica, Vai Ter Duff!",
-          "subtitle": "Bola de Futebol E Navio",
-          "description": "Duff Goldman cria um bolo enorme em formato de bola de futebol para um grupo de crianças no estádio do Los Angeles Galaxy. Duff e sua equipe entregam uma réplica de 1,5 m do navio Queen Mary para um festival escocês.",
-          "category": null
-        },
-        {
-          "start": "2026-10-16T00:53:00Z",
           "end": "2026-10-16T01:37:00Z",
           "title": "A Disputa dos Confeiteiros - Halloween",
           "subtitle": "Entre Ossos e Sobremesas",
@@ -109197,14 +109077,6 @@
       "id": "ch-france-24-sd",
       "name": "France 24 SD",
       "programs": [
-        {
-          "start": "2026-10-16T01:00:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Esrpl Noticias",
-          "subtitle": null,
-          "description": "Notícias de última hora e notícias do mundo da France 24 em Negócios, Esportes, Cultura. Notícias em vídeo. Notícias dos EUA, Europa, Ásia-Pacífico, África, Oriente Médio, América.",
-          "category": null
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:54:00Z",
@@ -111475,6 +111347,14 @@
           "title": "Esrpl Noticias",
           "subtitle": null,
           "description": "Notícias de última hora e notícias do mundo da France 24 em Negócios, Esportes, Cultura. Notícias em vídeo. Notícias dos EUA, Europa, Ásia-Pacífico, África, Oriente Médio, América.",
+          "category": null
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T01:53:00Z",
+          "title": "El Debate",
+          "subtitle": null,
+          "description": "Um debate ao vivo sobre o tema do dia, com quatro convidados.",
           "category": null
         }
       ]
@@ -127570,6 +127450,22 @@
           "subtitle": null,
           "description": "É a hora do teste final de Tobby e Berê. Será que eles vão conseguir mudar suas varinhas? Chega a hora do aprendiz de mago dizer adeus.",
           "category": null
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T01:44:00Z",
+          "title": "D.P.A. - Detetives do Prédio Azul",
+          "subtitle": null,
+          "description": "S14 E24 — Rumo à Itália É chegada a hora do detetive Pippo se despedir do Prédio Azul. Mas antes ele precisa cumprir sua última missão: não deixar a receita secreta da família Tomatini cair em mãos erradas.",
+          "category": null
+        },
+        {
+          "start": "2026-10-18T01:16:00Z",
+          "end": "2026-10-18T01:44:00Z",
+          "title": "D.P.A. - Detetives Do Prédio A",
+          "subtitle": null,
+          "description": "É chegada a hora do detetive Pippo se despedir do Prédio Azul. Mas antes ele precisa cumprir sua última missão: não deixar a receita secreta da família Tomatini cair em…",
+          "category": null
         }
       ]
     },
@@ -127602,14 +127498,6 @@
       "id": "ch-gloobinho-sd",
       "name": "Gloobinho SD",
       "programs": [
-        {
-          "start": "2026-10-16T01:12:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Little Angel",
-          "subtitle": null,
-          "description": "O Bebê Joãozinho captura um vagalume durante um acampamento e não quer soltá-lo.",
-          "category": null
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:20:00Z",
@@ -134582,14 +134470,6 @@
       "name": "HBO Signature SD",
       "programs": [
         {
-          "start": "2026-10-16T00:26:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Epitáfios",
-          "subtitle": null,
-          "description": "Ao voltar ao departamento de polícia, Renzo encontra um novo epitáfio. Bruno visita a funerária de seu pai enquanto a polícia o segue bem de perto. Marina revive sua traumática experiência com Bruno.",
-          "category": null
-        },
-        {
           "start": "2026-10-16T01:13:00Z",
           "end": "2026-10-16T02:03:00Z",
           "title": "Epitáfios",
@@ -140855,14 +140735,6 @@
       "name": "JoJo’s Bizarre Adventure",
       "programs": [
         {
-          "start": "2026-10-16T00:48:00Z",
-          "end": "2026-10-16T01:18:00Z",
-          "title": "JoJo's Bizarre Adventure",
-          "subtitle": "Yukako Yamagishi se apaixona – Parte 2",
-          "description": "Koichi tenta fugir, mas é impedido por Yukako e perde a esperança. Quando ela vai até um telefone público, algo inesperado acontece.",
-          "category": "Anime Series"
-        },
-        {
           "start": "2026-10-16T01:18:00Z",
           "end": "2026-10-16T01:48:00Z",
           "title": "JoJo's Bizarre Adventure",
@@ -144155,14 +144027,6 @@
       "name": "Markket FHD [H265]",
       "programs": [
         {
-          "start": "2026-10-16T00:30:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Powercast",
-          "subtitle": null,
-          "description": "Os convidados compartilham dicas e informações para empreendedores prosperarem nos negócios.",
-          "category": null
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T02:00:00Z",
           "title": "Fala, Mercado!",
@@ -144912,6 +144776,14 @@
           "title": "Cobogós",
           "subtitle": null,
           "description": "Programa com diálogos inspiradores sobre comportamento, criatividade e propósito, trazendo reflexões humanas e transformadoras.",
+          "category": null
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T02:15:00Z",
+          "title": "COP30",
+          "subtitle": null,
+          "description": "Os desafios e caminhos do Brasil diante da crise climática, conectando ciência, transição energética, sustentabilidade, justiça social e escolhas que moldam o futuro das próximas gerações.",
           "category": null
         }
       ]
@@ -147895,14 +147767,6 @@
       "id": "channel-b1c93965248c3631",
       "name": "Mistérios sem Solução",
       "programs": [
-        {
-          "start": "2026-10-16T00:20:00Z",
-          "end": "2026-10-16T01:16:00Z",
-          "title": "Mistérios sem Solução",
-          "subtitle": "Episódio: 2",
-          "description": "Este episódio inclui: Os Caça-Fantasmas, Roubas: Vivo ou Morto?, O Tesouro de Elysian Park, O Soldado Alexander e atualização: Família Carcerária.",
-          "category": "Documentary"
-        },
         {
           "start": "2026-10-16T01:16:00Z",
           "end": "2026-10-16T02:09:00Z",
@@ -166972,14 +166836,6 @@
       "name": "O Encantador de Cães",
       "programs": [
         {
-          "start": "2026-10-16T00:17:00Z",
-          "end": "2026-10-16T01:16:00Z",
-          "title": "O Encantador de Cães",
-          "subtitle": "Woody e Wally, vários cães e Kane",
-          "description": "O encantador de cães Cesar Millan aborda os problemas da vida real enfrentados por donos de cães em todos os lugares. Não é treinamento de cães, é treinamento de pessoas para cães.",
-          "category": "Arts"
-        },
-        {
           "start": "2026-10-16T01:16:00Z",
           "end": "2026-10-16T02:15:00Z",
           "title": "O Encantador de Cães",
@@ -168922,6 +168778,14 @@
           "title": "Morando Na Estrada",
           "subtitle": null,
           "description": "Fugindo de um furacão na Flórida, Marcela e Nelsinho seguem rumo ao Alabama. No caminho, eles fazem um passeio de SUP em um parque nacional e um piquenique em um lugar especial.",
+          "category": null
+        },
+        {
+          "start": "2026-10-18T01:19:00Z",
+          "end": "2026-10-18T01:47:00Z",
+          "title": "Morando Na Estrada",
+          "subtitle": null,
+          "description": "Marcela e Nelson partem para o desconhecido e pequeno litoral do Alabama. Chegando lá, encontram vento forte e fazem uma boa sessão de kite.",
           "category": null
         }
       ]
@@ -172988,14 +172852,6 @@
       "name": "Pluto TV Anime Ação",
       "programs": [
         {
-          "start": "2026-10-16T00:46:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Naruto Shippuden",
-          "subtitle": "PODER - EPISÓDIO 4",
-          "description": "Um clone possuindo o chakra da Nove Caudas emerge do corpo de Naruto.",
-          "category": "Anime Series"
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:44:00Z",
           "title": "Hunter x Hunter",
@@ -173524,14 +173380,6 @@
       "name": "Pluto TV Cine Comédia",
       "programs": [
         {
-          "start": "2026-10-15T22:52:00Z",
-          "end": "2026-10-16T01:18:00Z",
-          "title": "Três Ladrões e Um Bebê",
-          "subtitle": null,
-          "description": "Para o compulsivo jogador de Slipper (Jackie Chan), existe apenas uma coisa mais aterrorizante do que os credores - o som do choro de um bebê. Mas e se um bebê se transforma-se no salvador de suas dívidas?",
-          "category": "Comedy"
-        },
-        {
           "start": "2026-10-16T01:18:00Z",
           "end": "2026-10-16T03:10:00Z",
           "title": "Quanto Mais Idiota Melhor 2",
@@ -173991,14 +173839,6 @@
       "id": "channel-58b36603d54ad20e",
       "name": "Pluto TV Cine Romance",
       "programs": [
-        {
-          "start": "2026-10-15T23:36:00Z",
-          "end": "2026-10-16T01:18:00Z",
-          "title": "Um Natal de Descobertas",
-          "subtitle": null,
-          "description": "Um Natal de Descobertas, apresenta Candace Cameron Bure como Dra. Lauren Brunell que aceita uma vaga no Alasca após perder ambos seu namorado e uma bolsa de cirurgia de prestígio, apenas para descobrir que é um minúsculo hospital em uma pequena cidade.",
-          "category": "Movie"
-        },
         {
           "start": "2026-10-16T01:18:00Z",
           "end": "2026-10-16T03:29:00Z",
@@ -174951,14 +174791,6 @@
       "id": "channel-bf2cae10614c8fdc",
       "name": "Pluto TV Ficção Científica",
       "programs": [
-        {
-          "start": "2026-10-15T23:31:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Megaterremoto",
-          "subtitle": null,
-          "description": "Enquanto um terremoto de enorme proporção ameaça atingir a cidade de São Francisco, uma equipe de especialistas em desastres naturais trabalha para salvar o maior número de vidas possível antes que a cidade seja completamente destruída.",
-          "category": "Science fiction"
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T03:07:00Z",
@@ -176109,14 +175941,6 @@
       "id": "channel-168d762914a6d917",
       "name": "Pluto TV Kids",
       "programs": [
-        {
-          "start": "2026-10-16T01:03:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Talking Tom e Amigos",
-          "subtitle": "Um Discípulo Genial",
-          "description": "O Talking Ben encontra um aprendiz para transmitir todos os seus conhecimentos. Mas, quando ele leva seu novo aluno para a garagem, nem todos ficam impressionados.",
-          "category": "Children"
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:27:00Z",
@@ -178625,14 +178449,6 @@
       "id": "channel-c13fb66c44211817",
       "name": "Pluto TV Séries Comédia",
       "programs": [
-        {
-          "start": "2026-10-16T00:49:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "O Rei do Bairro",
-          "subtitle": "Mentiroso Profissional",
-          "description": "Carrie descobre que enquanto namoravam, Doug mentiu sobre conseguir um emprego para que eles dormissem juntos.",
-          "category": "Comedy"
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:41:00Z",
@@ -181690,14 +181506,6 @@
       "id": "channel-de7cef61aebedb3e",
       "name": "Popeye",
       "programs": [
-        {
-          "start": "2026-10-16T00:51:00Z",
-          "end": "2026-10-16T01:17:00Z",
-          "title": "Popeye",
-          "subtitle": "Episódio 43",
-          "description": "Popeye é um dos mais populares e conhecidos personagens de desenho animado de todos os tempos, e este irado mas amável marinheiro comedor de espinafre continua a deliciar a audiencia com suas cômicas aventuras.",
-          "category": "Comedy"
-        },
         {
           "start": "2026-10-16T01:17:00Z",
           "end": "2026-10-16T01:46:00Z",
@@ -191332,6 +191140,14 @@
           "title": "Batalha das Startups",
           "subtitle": null,
           "description": "S4 E7 — Temporada 4 Episódio 7 Empresas startups de todo o Brasil competem para conquistar uma aceleração de alto nível.",
+          "category": null
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T02:00:00Z",
+          "title": "Estúdio News",
+          "subtitle": null,
+          "description": "News A atração tem um formato dinâmico, informativo e descontraído, com a proposta de mostrar diferentes pontos de vista sobre os assuntos escolhidos a cada edição.",
           "category": null
         }
       ]
@@ -205725,14 +205541,6 @@
       "id": "channel-1933d0ae188775c1",
       "name": "Rede Mercosul",
       "programs": [
-        {
-          "start": "2026-10-16T01:00:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Programa Pago",
-          "subtitle": null,
-          "description": "Espaço publicitário destinado à comercialização de produtos e serviços.",
-          "category": "Consumo"
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T03:10:00Z",
@@ -235731,14 +235539,6 @@
       "name": "Sesctv",
       "programs": [
         {
-          "start": "2026-10-16T01:00:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Coleção Antirracista",
-          "subtitle": "Temporada 1 Episódio 4 - Raça, Trabalho e Direitos",
-          "description": "No século XIX, na fundação da república brasileira, a maioria dos negros libertos exerciam trabalhos subalternos. No século XXI, a maioria das vagas nas boas escolas e postos de comando ainda são dos brancos. Veja um debate sobre possíveis motivos.",
-          "category": "Séries"
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:30:00Z",
           "title": "Itinerários da Resistência",
@@ -238482,14 +238282,6 @@
       "name": "SIC Internacional SD",
       "programs": [
         {
-          "start": "2026-10-16T00:45:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Vitória",
-          "subtitle": null,
-          "description": "'Vitória' é uma história cheia de intensidade, onde paixões, segredos e conflitos se entrelaçam numa trama que vai prender os telespetadores do início ao fim.",
-          "category": null
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T02:00:00Z",
           "title": "Destino Maior",
@@ -238879,14 +238671,6 @@
       "id": "channel-2820a347ecd7364d",
       "name": "SIC International",
       "programs": [
-        {
-          "start": "2026-10-16T00:45:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Vitória",
-          "subtitle": null,
-          "description": null,
-          "category": "Variedades"
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T02:00:00Z",
@@ -239477,14 +239261,6 @@
       "id": "channel-ac1799fe44a54ca3",
       "name": "Sobrevivi",
       "programs": [
-        {
-          "start": "2026-10-16T00:16:54Z",
-          "end": "2026-10-16T01:14:54Z",
-          "title": "Sobrevivi",
-          "subtitle": "Pesadelo na montanha",
-          "description": "Um jovem caçador consegue sobreviver a um ataque violento de um urso pardo em Montana.",
-          "category": "Entertainment"
-        },
         {
           "start": "2026-10-16T01:14:54Z",
           "end": "2026-10-16T02:12:54Z",
@@ -251209,14 +250985,6 @@
       "name": "The Pet Collective",
       "programs": [
         {
-          "start": "2026-10-16T00:47:00Z",
-          "end": "2026-10-16T01:18:00Z",
-          "title": "TPC That's My Pet",
-          "subtitle": "Guard Dogs",
-          "description": "Six percent of all canine pets are pit bulls.",
-          "category": "Variety Show"
-        },
-        {
           "start": "2026-10-16T01:18:00Z",
           "end": "2026-10-16T01:49:00Z",
           "title": "TPC That's My Pet",
@@ -255208,14 +254976,6 @@
           "category": null
         },
         {
-          "start": "2026-10-16T01:11:00Z",
-          "end": "2026-10-16T01:16:00Z",
-          "title": "Sheep na Cidade Grande",
-          "subtitle": null,
-          "description": "Um robô que se parece com uma ovelha saqueia a cidade.",
-          "category": null
-        },
-        {
           "start": "2026-10-16T01:16:00Z",
           "end": "2026-10-16T01:22:00Z",
           "title": "Sheep na Cidade Grande",
@@ -257133,6 +256893,14 @@
           "title": "Sheep na Cidade Grande",
           "subtitle": null,
           "description": "S1 E5 — Temporada 1 Episódio 5 A ovelha volta para sua casa na fazenda.",
+          "category": null
+        },
+        {
+          "start": "2026-10-18T01:18:00Z",
+          "end": "2026-10-18T01:20:00Z",
+          "title": "Sheep na Cidade Grande",
+          "subtitle": null,
+          "description": "Children Sheep, um carneiro fugitivo, enfrenta os problemas de uma grande cidade.",
           "category": null
         }
       ]
@@ -259379,6 +259147,14 @@
           "subtitle": null,
           "description": "Andy Spinelli foi até o Equador para juntar dicas do que fazer em Quito.",
           "category": null
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T01:45:00Z",
+          "title": "Louco por Viagens",
+          "subtitle": null,
+          "description": "Tudo sobre Poznan, uma cidade polonesa que mistura história e modernidade com maestria. A pitoresca Praça do Mercado, onde a colorida arquitetura medieval contrasta com cafés animados e boutiques elegantes.",
+          "category": null
         }
       ]
     },
@@ -260416,6 +260192,14 @@
           "title": "3em3",
           "subtitle": null,
           "description": "Sidney e Anderson exploram mais alguns destinos em Curaçao, Equador e no próprio Brasil mostrando dicas de passeios e hospedagens!",
+          "category": null
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T01:45:00Z",
+          "title": "Louco Por Viagens",
+          "subtitle": null,
+          "description": "Em Gdansk, mergulhei na atmosfera encantadora de uma cidade portuária rica em história e arquitetura medieval, cidade onde se deu início a 2ª Guerra Mundial.",
           "category": null
         }
       ]
@@ -261479,6 +261263,14 @@
           "title": "3em3",
           "subtitle": null,
           "description": "S5 E8 — O que Fazer em Quito Andy Spinelli foi até o Equador para juntar dicas do que fazer em Quito.",
+          "category": null
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T01:45:00Z",
+          "title": "Louco por Viagens",
+          "subtitle": null,
+          "description": "S5 E5 — Temporada 5 Episódio 5 Tudo sobre Pozna?, uma cidade polonesa que mistura história e modernidade com maestria. A pitoresca Praça do Mercado, onde a colorida arquitetura medieval contrasta com cafés animados e boutiques elegantes.",
           "category": null
         }
       ]
@@ -265454,14 +265246,6 @@
       "name": "TV Allamanda",
       "programs": [
         {
-          "start": "2026-10-16T00:00:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Programa do Ratinho",
-          "subtitle": null,
-          "description": "O apresentador Carlos Massa leva ao público um programa alegre e repleto de atrações. Ele recebe convidados famosos e games, comédia, participação do público e quadros únicos, como o \"Jornal Racional\", \"Gol Show\" e \"Dez ou Mil\", entre outros.",
-          "category": "Variedades"
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T02:45:00Z",
           "title": "A Praça É Nossa",
@@ -267102,14 +266886,6 @@
       "name": "TV Amazônia",
       "programs": [
         {
-          "start": "2026-10-16T00:00:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Programa do Ratinho",
-          "subtitle": null,
-          "description": "O apresentador Carlos Massa leva ao público um programa alegre e repleto de atrações. Ele recebe convidados famosos e games, comédia, participação do público e quadros únicos, como o \"Jornal Racional\", \"Gol Show\" e \"Dez ou Mil\", entre outros.",
-          "category": "Variedades"
-        },
-        {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T02:45:00Z",
           "title": "A Praça É Nossa",
@@ -267435,14 +267211,6 @@
       "id": "channel-a1649a559e2a9e6b",
       "name": "TV Ambiental",
       "programs": [
-        {
-          "start": "2026-10-16T01:10:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Casa sem Lixo",
-          "subtitle": null,
-          "description": "Aprenda como diminuir sua produção de lixo, em prol da sustentabilidade e bem-estar.",
-          "category": "Environment"
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:25:00Z",
@@ -269322,6 +269090,14 @@
           "subtitle": null,
           "description": "Conheça destinos incríveis ao redor do globo e acompanhe viagens inesquecíveis com Mia Mamede.",
           "category": "Travel"
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T01:25:00Z",
+          "title": "Casa sem Lixo",
+          "subtitle": null,
+          "description": "Aprenda como diminuir sua produção de lixo, em prol da sustentabilidade e bem-estar.",
+          "category": "Environment"
         }
       ]
     },
@@ -279335,14 +279111,6 @@
       "id": "channel-a54e551fe015180e",
       "name": "TV Capixaba",
       "programs": [
-        {
-          "start": "2026-10-16T00:20:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Show da Fé",
-          "subtitle": null,
-          "description": "Acompanhe depoimentos, testemunhos e histórias surpreendentes de amor e de superação. Com uma ótica cristã, o programa leva o Evangelho de Jesus Cristo aos quatro cantos do mundo e difunde a reveladora Palavra de Deus.",
-          "category": "Religioso"
-        },
         {
           "start": "2026-10-16T01:15:00Z",
           "end": "2026-10-16T01:30:00Z",
@@ -316796,14 +316564,6 @@
       "name": "Urban Kids",
       "programs": [
         {
-          "start": "2026-10-16T00:55:06Z",
-          "end": "2026-10-16T01:16:51Z",
-          "title": "NARUTO - My Name Is Konohamaru!",
-          "subtitle": null,
-          "description": "Naruto é um anime baseado no mangá de mesmo nome escrito por Masashi Kishimoto. A série gira em torno das aventuras vividas por Naruto Uzumaki, um jovem órfão habitante da Aldeia da Folha que sonha em se tornar o quinto Hokage, o maior guerreiro e governa...",
-          "category": null
-        },
-        {
           "start": "2026-10-16T01:16:56Z",
           "end": "2026-10-16T01:40:42Z",
           "title": "O Espetacular Homem-Aranha - T01EP02 - Interações",
@@ -323264,6 +323024,14 @@
           "subtitle": null,
           "description": "Travel A atleta cearense Sol Tostes, campeã brasileira sub-18 de longboard, conhece paisagens incríveis em suas viagens. Uma experiência enriquecedora e de muitas descobertas, explorando novas culturas e paisagens, recheada de muito surfe e natureza.",
           "category": null
+        },
+        {
+          "start": "2026-10-18T01:15:00Z",
+          "end": "2026-10-18T01:30:00Z",
+          "title": "Woohoo Music",
+          "subtitle": null,
+          "description": "Variety Produções independentes, resultados excelentes. Adeptos do faça você mesmo com acabamento de superprodução, a cena alternativa brasileira tem um lugar cativo no Woohoo Music.",
+          "category": null
         }
       ]
     },
@@ -325112,22 +324880,6 @@
           "title": "No Data",
           "subtitle": null,
           "description": "https://iptv-epg.org/help",
-          "category": null
-        },
-        {
-          "start": "2026-10-16T01:04:00Z",
-          "end": "2026-10-16T01:15:00Z",
-          "title": "Flash, o Aventureiro",
-          "subtitle": null,
-          "description": null,
-          "category": "Séries"
-        },
-        {
-          "start": "2026-10-16T01:04:47Z",
-          "end": "2026-10-16T01:15:20Z",
-          "title": "Flash, O Aventureiro",
-          "subtitle": "Leão",
-          "description": "Uma dupla do barulho que gosta de visitar lugares diferentes. De um lado, uma mulher que entende da rotina animal e desvenda muitos segredos.",
           "category": null
         },
         {
