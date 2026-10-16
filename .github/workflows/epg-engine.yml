@@ -19,7 +19,7 @@ permissions:
 
 concurrency:
   group: cinehub-epg-engine
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build-epg:

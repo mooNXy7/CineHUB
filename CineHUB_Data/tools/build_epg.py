@@ -326,8 +326,14 @@ def build_guide_index(channels: list[dict], now: datetime, limit: int = 8) -> di
     for channel in channels:
         programmes = []
         for item in channel.get("programs", []):
-            end = parse_dt(item.get("end", ""))
-            if not end or end <= now:
+            raw_end = str(item.get("end", ""))
+            try:
+                end = datetime.fromisoformat(raw_end.replace("Z", "+00:00"))
+                if end.tzinfo is None:
+                    end = end.replace(tzinfo=timezone.utc)
+            except ValueError:
+                continue
+            if end <= now:
                 continue
             programmes.append(item)
         programmes.sort(key=lambda x: (x.get("start", ""), x.get("end", "")))
