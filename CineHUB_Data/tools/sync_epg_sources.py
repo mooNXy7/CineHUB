@@ -36,8 +36,9 @@ def sync_sources(registry, acervo):
             "sourceRegistry": "CineHUB-ACERVO",
         })
     result = sorted(preserved + mirrored, key=lambda x: (int(x.get("priority", 9999)), x.get("id", "")))
-    registry["epgSources"] = result
-    registry["registryVersion"] = int(registry.get("registryVersion", 1)) + 1
+    if result != current:
+        registry["epgSources"] = result
+        registry["registryVersion"] = int(registry.get("registryVersion", 1)) + 1
     return registry
 
 
