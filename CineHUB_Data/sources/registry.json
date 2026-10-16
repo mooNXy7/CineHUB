@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "registryVersion": 5,
+  "registryVersion": 6,
   "name": "CineHUB Sources Registry",
   "description": "Registro central de fontes de canais, catálogos e EPG do CineHUB, com prioridades, health checks e fallback.",
   "refreshPolicy": {
@@ -311,8 +311,13 @@
       "scope": "epg",
       "transport": "remote",
       "url": "https://iptv-org.github.io/epg/guides/br/mi.tv.epg.xml",
-      "enabled": true,
-      "priority": 4
+      "enabled": false,
+      "priority": 4,
+      "lastProbe": {
+        "httpStatus": 404,
+        "checkedAt": "2026-10-16T01:10:43Z"
+      },
+      "description": "Desativada após HTTP 404 confirmado; reativar somente após corrigir e testar a URL."
     },
     {
       "id": "iptv-com-brazil",
@@ -321,8 +326,13 @@
       "scope": "epg",
       "transport": "remote",
       "url": "https://raw.githubusercontent.com/iptv-com/epg/main/guides/brazil.xml",
-      "enabled": true,
-      "priority": 5
+      "enabled": false,
+      "priority": 5,
+      "lastProbe": {
+        "httpStatus": 404,
+        "checkedAt": "2026-10-16T01:10:43Z"
+      },
+      "description": "Desativada após HTTP 404 confirmado; reativar somente após corrigir e testar a URL."
     }
   ]
 }
