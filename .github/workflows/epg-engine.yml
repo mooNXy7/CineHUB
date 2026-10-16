@@ -9,6 +9,7 @@ on:
       - "CineHUB_Data/tools/test_build_epg.py"
       - "CineHUB_Data/tools/sync_epg_sources.py"
       - "CineHUB_Data/tools/test_sync_epg_sources.py"
+      - "CineHUB_Data/sources/acervo-sync.json"
       - ".github/workflows/epg-engine.yml"
   schedule:
     - cron: "17 */6 * * *"
@@ -47,7 +48,7 @@ jobs:
           test -s /tmp/cinehub-acervo/catalog/epg/sources.json
           test -s /tmp/cinehub-acervo/catalog/epg/channel-map.json
       - name: Synchronize XMLTV sources from ACERVO
-        run: python3 CineHUB_Data/tools/sync_epg_sources.py --source-file /tmp/cinehub-acervo/catalog/epg/sources.json
+        run: python3 CineHUB_Data/tools/sync_epg_sources.py --source-file /tmp/cinehub-acervo/catalog/epg/sources.json --channels-file /tmp/cinehub-acervo/catalog/channels/channels.json --sync-state CineHUB_Data/sources/acervo-sync.json
       - name: Run EPG unit tests
         working-directory: CineHUB_Data/tools
         run: python3 -m unittest discover -p "test_*.py" -v
@@ -73,10 +74,10 @@ jobs:
           PY
       - name: Commit changed EPG data
         run: |
-          if [[ -n "$(git status --porcelain -- CineHUB_Data/sources/registry.json CineHUB_Data/epg/schedule.index.json CineHUB_Data/epg/guide.index.json CineHUB_Data/status/epg-status.json)" ]]; then
+          if [[ -n "$(git status --porcelain -- CineHUB_Data/sources/registry.json CineHUB_Data/sources/acervo-sync.json CineHUB_Data/epg/schedule.index.json CineHUB_Data/epg/guide.index.json CineHUB_Data/status/epg-status.json)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add CineHUB_Data/sources/registry.json CineHUB_Data/epg/schedule.index.json CineHUB_Data/epg/guide.index.json CineHUB_Data/status/epg-status.json
+            git add CineHUB_Data/sources/registry.json CineHUB_Data/sources/acervo-sync.json CineHUB_Data/epg/schedule.index.json CineHUB_Data/epg/guide.index.json CineHUB_Data/status/epg-status.json
             git commit -m "chore(epg): refresh multi-source programme guide"
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin "HEAD:${GITHUB_REF_NAME}"

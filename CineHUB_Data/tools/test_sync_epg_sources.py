@@ -1,9 +1,15 @@
 import unittest
 
-from sync_epg_sources import sync_sources
+from sync_epg_sources import build_sync_state, sync_sources
 
 
 class SyncEPGSourcesTests(unittest.TestCase):
+    def test_sync_fingerprint_ignores_generated_timestamp(self):
+        sources = {"sources": [{"id": "feed", "format": "xmltv", "url": "https://example.org/epg.xml", "enabled": True}]}
+        channels_a = {"generated_at": "2026-10-16T01:00:00Z", "channels": [{"id": "ch-1", "name": "Channel"}]}
+        channels_b = {"generated_at": "2026-10-16T07:00:00Z", "channels": [{"id": "ch-1", "name": "Channel"}]}
+        self.assertEqual(build_sync_state(sources, channels_a), build_sync_state(sources, channels_b))
+
     def test_syncs_enabled_xmltv_sources_and_removes_known_404_entries(self):
         local = {
             "registryVersion": 4,
