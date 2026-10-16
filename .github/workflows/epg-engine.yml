@@ -1,0 +1,76 @@
+name: CineHUB EPG Engine
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "CineHUB_Data/sources/registry.json"
+      - "CineHUB_Data/tools/build_epg.py"
+      - "CineHUB_Data/tools/test_build_epg.py"
+      - ".github/workflows/epg-engine.yml"
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cinehub-epg-engine
+  cancel-in-progress: true
+
+jobs:
+  build-epg:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout CineHUB
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Restore EPG HTTP cache
+        uses: actions/cache@v4
+        with:
+          path: CineHUB_Data/.cache/epg
+          key: ${{ runner.os }}-cinehub-epg-${{ hashFiles('CineHUB_Data/sources/registry.json') }}
+          restore-keys: |
+            ${{ runner.os }}-cinehub-epg-
+      - name: Fetch shared CineHUB ACERVO channel metadata
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/mooNXy7/CineHUB-ACERVO.git /tmp/cinehub-acervo
+          git -C /tmp/cinehub-acervo sparse-checkout set --no-cone '/catalog/channels/channels.json'
+          test -s /tmp/cinehub-acervo/catalog/channels/channels.json
+      - name: Run EPG unit tests
+        working-directory: CineHUB_Data/tools
+        run: python3 -m unittest test_build_epg.py -v
+      - name: Build multi-source schedule
+        env:
+          CINEHUB_EPG_CHANNELS_PATH: /tmp/cinehub-acervo/catalog/channels/channels.json
+        run: python3 CineHUB_Data/tools/build_epg.py
+      - name: Validate EPG outputs
+        run: |
+          python3 -m json.tool CineHUB_Data/epg/schedule.index.json >/dev/null
+          python3 -m json.tool CineHUB_Data/status/epg-status.json >/dev/null
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          schedule = json.loads(Path("CineHUB_Data/epg/schedule.index.json").read_text(encoding="utf-8"))
+          status = json.loads(Path("CineHUB_Data/status/epg-status.json").read_text(encoding="utf-8"))
+          assert isinstance(schedule.get("channels"), list), "schedule channels must be a list"
+          assert status.get("stats", {}).get("programs", 0) > 0, "EPG contains no programmes"
+          print("EPG valid:", status.get("stats", {}))
+          PY
+      - name: Commit changed EPG data
+        run: |
+          if [[ -n "$(git status --porcelain -- CineHUB_Data/epg/schedule.index.json CineHUB_Data/status/epg-status.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add CineHUB_Data/epg/schedule.index.json CineHUB_Data/status/epg-status.json
+            git commit -m "chore(epg): refresh multi-source programme guide"
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          else
+            echo "EPG data unchanged."
+          fi
