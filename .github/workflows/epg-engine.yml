@@ -9,7 +9,6 @@ on:
       - "CineHUB_Data/tools/test_build_epg.py"
       - "CineHUB_Data/tools/sync_epg_sources.py"
       - "CineHUB_Data/tools/test_sync_epg_sources.py"
-      - "CineHUB_Data/sources/acervo-sync.json"
       - ".github/workflows/epg-engine.yml"
   schedule:
     - cron: "17 */6 * * *"
