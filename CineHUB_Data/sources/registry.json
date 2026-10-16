@@ -1,6 +1,6 @@
 {
   "schemaVersion": "1.0.0",
-  "registryVersion": 7,
+  "registryVersion": 8,
   "name": "CineHUB Sources Registry",
   "description": "Registro central de fontes de canais, catálogos e EPG do CineHUB, com prioridades, health checks e fallback.",
   "refreshPolicy": {
@@ -293,7 +293,7 @@
       "url": "https://raw.githubusercontent.com/marcoshimselfxd/EPG-Scrapper-BR/main/epg.xml",
       "enabled": true,
       "priority": 25,
-      "description": "Feed XMLTV combinado já utilizado pelo pipeline de dados do CineHUB; fallback geral.",
+      "description": "Feed XMLTV combinado utilizado pelo pipeline de dados do CineHUB; fallback geral. HTTP 200 confirmado no pipeline de EPG em 2026-10-16.",
       "sourceRegistry": "CineHUB-ACERVO"
     },
     {
