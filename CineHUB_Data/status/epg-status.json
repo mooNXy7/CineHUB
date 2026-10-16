@@ -1,21 +1,21 @@
 {
   "schemaVersion": "1.1.0",
-  "generatedAt": "2026-10-16T01:10:35.409023Z",
-  "status": "degraded",
+  "generatedAt": "2026-10-16T01:11:36.243078Z",
+  "status": "healthy",
   "sources": [
     {
       "id": "brazil-tv-epg",
       "priority": 1,
       "status": "healthy",
-      "lastChecked": "2026-10-16T01:10:35.409023Z",
-      "latencyMs": 2820.61,
+      "lastChecked": "2026-10-16T01:11:36.243078Z",
+      "latencyMs": 2964.06,
       "httpStatus": 200,
       "bytes": 18241375,
       "consecutiveFailures": 0,
       "cacheHit": false,
       "stats": {
         "channelsMatched": 163,
-        "programsMatched": 28663
+        "programsMatched": 28658
       },
       "error": null
     },
@@ -23,14 +23,14 @@
       "id": "iptv-epg-br",
       "priority": 2,
       "status": "healthy",
-      "lastChecked": "2026-10-16T01:10:35.409023Z",
-      "latencyMs": 1889.36,
-      "httpStatus": 200,
-      "bytes": 15664947,
+      "lastChecked": "2026-10-16T01:11:36.243078Z",
+      "latencyMs": 710.37,
+      "httpStatus": 304,
+      "bytes": null,
       "consecutiveFailures": 0,
-      "cacheHit": false,
+      "cacheHit": true,
       "stats": {
-        "channelsMatched": 121,
+        "channelsMatched": 182,
         "programsMatched": 11055
       },
       "error": null
@@ -39,51 +39,29 @@
       "id": "open-epg-br",
       "priority": 3,
       "status": "healthy",
-      "lastChecked": "2026-10-16T01:10:35.409023Z",
-      "latencyMs": 2717.44,
+      "lastChecked": "2026-10-16T01:11:36.243078Z",
+      "latencyMs": 1842.25,
       "httpStatus": 200,
       "bytes": 3834662,
       "consecutiveFailures": 0,
       "cacheHit": false,
       "stats": {
         "channelsMatched": 115,
-        "programsMatched": 329
+        "programsMatched": 328
       },
       "error": null
-    },
-    {
-      "id": "iptv-org-br-mi-tv",
-      "priority": 4,
-      "status": "unknown",
-      "lastChecked": "2026-10-16T01:10:35.409023Z",
-      "latencyMs": 111.99,
-      "httpStatus": null,
-      "consecutiveFailures": 1,
-      "cacheHit": false,
-      "error": "HTTP Error 404: Not Found"
-    },
-    {
-      "id": "iptv-com-brazil",
-      "priority": 5,
-      "status": "unknown",
-      "lastChecked": "2026-10-16T01:10:35.409023Z",
-      "latencyMs": 97.59,
-      "httpStatus": null,
-      "consecutiveFailures": 1,
-      "cacheHit": false,
-      "error": "HTTP Error 404: Not Found"
     }
   ],
   "stats": {
-    "sourcesConfigured": 5,
+    "sourcesConfigured": 3,
     "sourcesHealthy": 3,
-    "sourcesFailed": 2,
-    "cacheHits": 0,
-    "networkFetches": 3,
-    "channelsKnown": 2865,
-    "channelsWithPrograms": 623,
+    "sourcesFailed": 0,
+    "cacheHits": 1,
+    "networkFetches": 2,
+    "channelsKnown": 2804,
+    "channelsWithPrograms": 562,
     "channelsWithoutPrograms": 2242,
-    "programs": 34971
+    "programs": 32014
   },
   "cache": {
     "directory": "CineHUB_Data/.cache/epg",
