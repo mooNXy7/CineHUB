@@ -1,21 +1,21 @@
 {
   "schemaVersion": "1.1.0",
-  "generatedAt": "2026-11-18T20:29:36.279182Z",
+  "generatedAt": "2026-11-19T00:47:03.081334Z",
   "status": "healthy",
   "sources": [
     {
       "id": "pluto-br-xmltv",
       "priority": 5,
       "status": "healthy",
-      "lastChecked": "2026-11-18T20:29:36.279182Z",
-      "latencyMs": 382.12,
+      "lastChecked": "2026-11-19T00:47:03.081334Z",
+      "latencyMs": 407.4,
       "httpStatus": 200,
-      "bytes": 3976572,
+      "bytes": 3976556,
       "consecutiveFailures": 0,
       "cacheHit": false,
       "stats": {
         "channelsMatched": 22,
-        "programsMatched": 3839
+        "programsMatched": 3518
       },
       "error": null
     },
@@ -23,15 +23,15 @@
       "id": "brazil-tv-epg",
       "priority": 25,
       "status": "healthy",
-      "lastChecked": "2026-11-18T20:29:36.279182Z",
-      "latencyMs": 1820.97,
+      "lastChecked": "2026-11-19T00:47:03.081334Z",
+      "latencyMs": 2612.32,
       "httpStatus": 200,
       "bytes": 16919301,
       "consecutiveFailures": 0,
       "cacheHit": false,
       "stats": {
         "channelsMatched": 169,
-        "programsMatched": 28371
+        "programsMatched": 27929
       },
       "error": null
     },
@@ -39,15 +39,15 @@
       "id": "iptv-epg-br",
       "priority": 30,
       "status": "healthy",
-      "lastChecked": "2026-11-18T20:29:36.279182Z",
-      "latencyMs": 1749.06,
+      "lastChecked": "2026-11-19T00:47:03.081334Z",
+      "latencyMs": 1894.93,
       "httpStatus": 200,
-      "bytes": 16630098,
+      "bytes": 15829477,
       "consecutiveFailures": 0,
       "cacheHit": false,
       "stats": {
         "channelsMatched": 121,
-        "programsMatched": 11277
+        "programsMatched": 11257
       },
       "error": null
     },
@@ -55,15 +55,15 @@
       "id": "open-epg-br",
       "priority": 40,
       "status": "healthy",
-      "lastChecked": "2026-11-18T20:29:36.279182Z",
-      "latencyMs": 2631.28,
+      "lastChecked": "2026-11-19T00:47:03.081334Z",
+      "latencyMs": 1796.5,
       "httpStatus": 200,
       "bytes": 3865428,
       "consecutiveFailures": 0,
       "cacheHit": false,
       "stats": {
         "channelsMatched": 115,
-        "programsMatched": 6434
+        "programsMatched": 5555
       },
       "error": null
     }
@@ -77,7 +77,7 @@
     "channelsKnown": 3022,
     "channelsWithPrograms": 804,
     "channelsWithoutPrograms": 2218,
-    "programs": 42113
+    "programs": 41097
   },
   "cache": {
     "directory": "CineHUB_Data/.cache/epg",
