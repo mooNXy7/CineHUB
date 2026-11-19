@@ -2,11 +2,6 @@ name: CineHUB Mobile Release
 
 on:
   workflow_dispatch:
-  push:
-    paths:
-      - 'CineHUB_Mobile_Android/**'
-      - 'CineHUB_Assets/**'
-      - '.github/workflows/mobile-release.yml'
 
 concurrency:
   group: cinehub-mobile-release
