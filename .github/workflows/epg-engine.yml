@@ -1,17 +1,6 @@
 name: CineHUB EPG Engine
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "CineHUB_Data/sources/registry.json"
-      - "CineHUB_Data/tools/build_epg.py"
-      - "CineHUB_Data/tools/test_build_epg.py"
-      - "CineHUB_Data/tools/sync_epg_sources.py"
-      - "CineHUB_Data/tools/test_sync_epg_sources.py"
-      - ".github/workflows/epg-engine.yml"
-  schedule:
-    - cron: "17 */6 * * *"
   workflow_dispatch:
 
 permissions:
